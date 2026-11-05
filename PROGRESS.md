@@ -19,9 +19,10 @@
   - [x] Verify FastMCP proxy tool schemas and PostgreSQL DDL.
   - [x] Validate Mermaid architecture diagrams.
   - [x] Formulated Asynchronous Mandate Suspension Sequence in `ARCHITECTURE_SPEC.md`.
-- [ ] **Phase 3: Product RFC & Technical Spec**
-  - [ ] Author `PRODUCT_RFC.md` with formal SLOs (< 45ms proxy, < 5ms deterministic engine).
-  - [ ] Establish security threat models and async suspension state machine.
+- [x] **Phase 3: Product RFC & Technical Spec**
+  - [x] Author `PRODUCT_RFC.md` with formal SLOs (< 45ms proxy, < 5ms deterministic engine).
+  - [x] Establish security threat models and async suspension state machine.
+  - [x] Verify mathematical SLO consistency with API contracts.
 - [ ] **Phase 4: TDD Core Implementation**
   - [ ] Configure `pyproject.toml` with dependencies.
   - [ ] Write tests first (`tests/test_core/`).
