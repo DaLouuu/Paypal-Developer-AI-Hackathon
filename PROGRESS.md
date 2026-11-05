@@ -23,11 +23,12 @@
   - [x] Author `PRODUCT_RFC.md` with formal SLOs (< 45ms proxy, < 5ms deterministic engine).
   - [x] Establish security threat models and async suspension state machine.
   - [x] Verify mathematical SLO consistency with API contracts.
-- [ ] **Phase 4: TDD Core Implementation**
-  - [ ] Configure `pyproject.toml` with dependencies.
-  - [ ] Write tests first (`tests/test_core/`).
-  - [ ] Implement `subguard/engine/`, `subguard/protocols/`, `subguard/mcp_proxy/`, and `subguard/db/`.
-  - [ ] Pass 100% unit and integration tests.
+- [x] **Phase 4: TDD Core Implementation**
+  - [x] Configure `pyproject.toml` with dependencies.
+  - [x] Write tests first (`tests/test_core/test_deterministic_limits.py`, `test_ap2_mandates.py`, `test_mcp_proxy.py`).
+  - [x] Implement `subguard/engine/`, `subguard/protocols/`, `subguard/mcp_proxy/`, and `subguard/db/`.
+  - [x] Pass 100% unit and integration tests (18 passed in 1.30s, 0 warnings).
+  - [x] Zero ruff lint errors across subguard/ and tests/.
 - [ ] **Phase 5: Evaluation & Rigorous Benchmarks**
   - [ ] Run latency benchmarks (p95 < 5ms for deterministic engine, p95 < 45ms proxy overhead).
   - [ ] Run 50 concurrent suspended session stress test.
