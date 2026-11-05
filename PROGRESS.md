@@ -29,11 +29,11 @@
   - [x] Implement `subguard/engine/`, `subguard/protocols/`, `subguard/mcp_proxy/`, and `subguard/db/`.
   - [x] Pass 100% unit and integration tests (18 passed in 1.30s, 0 warnings).
   - [x] Zero ruff lint errors across subguard/ and tests/.
-- [ ] **Phase 5: Evaluation & Rigorous Benchmarks**
-  - [ ] Run latency benchmarks (p95 < 5ms for deterministic engine, p95 < 45ms proxy overhead).
-  - [ ] Run 50 concurrent suspended session stress test.
-  - [ ] Adversarial prompt injection test (100% block rate on over-limit attempts).
-  - [ ] Author `BENCHMARK_REPORT.md`.
+- [x] **Phase 5: Evaluation & Rigorous Benchmarks**
+  - [x] Run latency benchmarks (p95 < 5ms for deterministic engine: 0.016ms; p95 < 45ms proxy overhead: 2.80ms).
+  - [x] Run 50 concurrent suspended session stress test (100% success rate).
+  - [x] Adversarial prompt injection test (100% block rate across 10 vectors).
+  - [x] Authored `BENCHMARK_REPORT.md`.
 - [ ] **Phase 6: Hardening & Render Deployment**
   - [ ] Mandate caching layer.
   - [ ] Author multi-stage `Dockerfile` and `render.yaml`.
