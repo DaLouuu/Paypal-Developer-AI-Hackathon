@@ -34,10 +34,12 @@
   - [x] Run 50 concurrent suspended session stress test (50/50 successfully resumed with zero state loss).
   - [x] Adversarial prompt injection test (100% block rate on over-limit & malicious attempts).
   - [x] Author comprehensive BENCHMARK_REPORT.md.
-- [ ] **Phase 6: Hardening & Render Deployment**
-  - [ ] Mandate caching layer.
-  - [ ] Author multi-stage `Dockerfile` and `render.yaml`.
-  - [ ] Full regression testing.
+- [x] **Phase 6: Hardening & Render Deployment**
+  - [x] In-memory SQLite-backed mandate cache (subguard/core/cache.py).
+  - [x] Webhook dispatcher with exponential backoff and DLQ (subguard/core/dlq.py).
+  - [x] Production multi-stage Dockerfile and Render blueprint render.yaml.
+  - [x] Full regression test suite passing: 21 tests passed with 0 failures.
+  - [x] Verified live local server execution on http://127.0.0.1:8000.
 
 ### Track Beta (Discovery, Integrations & Frontend) - Engineer 2 (Antigravity Instance B)
 - [ ] **Phase 1: Research & Partner Discovery**
