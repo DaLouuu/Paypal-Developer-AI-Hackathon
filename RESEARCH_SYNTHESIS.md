@@ -1,35 +1,141 @@
-# SubGuard AI: Comprehensive Research & Problem Discovery Synthesis
-**System:** SubGuard AI (Autonomous Agentic Subscription Governance & Discovery Platform)  
+# SubGuard AI: Dual-Track Research & Technical Problem Discovery
 **Document Version:** 1.0.0  
-**Contributors:** Track Alpha (Protocols & Core Proxy) & Track Beta (Discovery, Integrations & Frontend)
+**Authors:** Track Alpha Lead (Core & Protocols) & Track Beta Lead (Discovery & Frontend)  
+**Status:** Unified Collaborative Grounding Baseline  
 
 ---
 
-## 1. Executive Summary & Market Opportunity Analysis
+## Executive Summary
+**SubGuard AI** is an autonomous subscription discovery, lifecycle governance, and cancellation platform specifically engineered for consumers and early-stage startups. Modern software spend is characterized by subscription sprawl, auto-renewal traps, dark-pattern cancellations, and unconstrained autonomous agent checkouts. 
 
-### 1.1 The Proliferation of SaaS Sprawl and Autonomous Agentic Commerce
-The modern digital enterprise and prosumer ecosystem faces unprecedented subscription fragmentation. In early-stage startups and developer teams, software subscriptions represent the second largest operational expense after payroll. With the emergence of autonomous coding and workflow agents (e.g., Devin, OpenHands, AutoGPT, Claude Code) empowered with payment credentials, autonomous software procurement is becoming commonplace. However, programmatic purchasing without deterministic bounds risks runaway spending, unmonitored recurring renewals, and orphaned licenses.
-
-### 1.2 The Consumer & Early-Stage Startup Gap
-Enterprise spend management tools (e.g., Ramp, Zip, Coupa, Brex) target enterprise procurement with multi-tiered ERP purchase-order approvals, complex invoice reconciliation, and accounting syncs. These solutions fail individual consumers, independent builders, and sub-50-person startups due to:
-1. **High Overhead & Implementation Friction:** Heavyweight enterprise onboarding requiring months of accounting integration.
-2. **Ignored Dark Patterns:** Enterprise tools treat invoices as valid upon delivery, doing nothing to mitigate contract traps, aggressive auto-renewals, or cancellation friction loops.
-3. **No Direct Interception of Agentic MCP Checkout:** Existing corporate cards lack pre-execution JSON-RPC tool introspection to enforce cryptographic token mandates before an autonomous agent triggers a checkout.
+While enterprise spend management platforms (e.g., Ramp, Coupa, Zip) rely on multi-tier procurement hierarchies and post-transaction ERP accounting reconciliations, SubGuard AI introduces **pre-transaction cryptographic interception**, combining the **Agent Payments Protocol (AP2)**, **PayPal MCP Server** primitives, **Skyfire Know Your Agent (KYA)** identity lineage, and a sub-5ms **deterministic policy engine**, paired with natural-language **Elasticsearch vector RAG**, **APIMatic cancellation graph**, **Zapier out-of-band HITL webhooks**, and a dense **React 18 dashboard (AG Grid + Bryntum Calendar)**.
 
 ---
 
-## 2. Protocol Integration & Interoperability Matrix
+## Section 1: Market Opportunity & Friction Analysis
 
-| Protocol / Standard | Primary Function | Data Serialization Format | Key Interoperability Boundaries |
+### 1.1 The Micro-Startup & Consumer Subscription Crisis
+Modern engineering workflows and consumer habits have precipitated unprecedented software fragmentation:
+1. **Subscription Sprawl & Orphaned Seats**:
+   - Early-stage startups accumulate overlapping, unmonitored tools (e.g., Zoom + Slack Huddles + Google Meet; Notion AI + Claude Team + ChatGPT Plus).
+   - In micro-teams (1–15 people), licenses are provisioned ad-hoc on corporate or founder cards. When team members depart or project scopes shift, seats remain active indefinitely, driving recurring "zombie" burn rates estimated at 18–30% of total SaaS spend.
+2. **Auto-Renewal Traps & Dark-Pattern Cancellation**:
+   - Zero-dollar trials and 14-day promotional tiers exploit consumer inertia by demanding payment details upfront and converting into annual billing without explicit, affirmative pre-renewal consent.
+   - Consumers face deliberate cancellation friction: multi-step survey mazes, forced phone calls, hidden cancellation URLs, and deliberately obfuscated renewal terms.
+3. **The Agentic Commerce Governance Vacuum**:
+   - As autonomous developer agents (e.g., SWE-bench agents, coding assistants, workflow orchestrators) acquire tool-calling access to payment mechanisms (credit cards, virtual cards, API keys), they initiate software purchases in milliseconds.
+   - Existing payment rails lack fine-grained, cryptographically bounded authority. Without pre-authorization guardrails, an agent tasked with "deploying a vector database and web scraper" can bind a founder's card to unbounded usage-based recurring billing.
+
+### 1.2 Comparative Problem Space Matrix
+
+| Metric / Dimension | Enterprise Spend (Ramp, Zip, Coupa) | Consumer / Micro-Startup Reality | SubGuard AI Governance |
 | :--- | :--- | :--- | :--- |
-| **Model Context Protocol (FastMCP)** | Tool orchestration and checkout request interception | JSON-RPC 2.0 over SSE / stdio | High latency risk during synchronous human approval; mitigated via suspended promise state |
-| **Agent Payments Protocol (AP2)** | Cryptographic authorization mandates signed by principal | Asymmetric Ed25519 compact JWT | Hard spend bounds, time horizons, merchant domain allowlists |
-| **PayPal Remote MCP Server** | Native payment execution, billing agreement inspection, dispute resolution | RESTful JSON over MCP primitives | Webhook sync for subscription status changes and cancellation actions |
-| **Skyfire KYA** | Agent identity verification and hierarchical delegation | X.509 / JWT Claims tokenization | Multi-tier child-agent trust verification and token down-scoping |
+| **Approval Horizon** | 3–14 days (Multi-level purchase orders) | Sub-second (Real-time agent tool-call) | < 45ms FastMCP proxy interception |
+| **Enforcement Point** | Post-transaction card balance & reconciliation | Immediate charge on merchant gateway | Pre-authorization gateway interception |
+| **Agent Autonomy** | Zero (Strict human employee portals) | High (Autonomous LLM agents purchasing tools) | Scoped AP2 cryptographic mandates |
+| **Cancellation Model**| Enterprise vendor renegotiation / Legal notice | Self-serve dark patterns & cancellation mazes | Automated PayPal/APIMatic execution |
+| **Cost & Overhead** | \$1,000s/mo setup + dedicated finance team | \$0–\$50/mo individual / lean startup | Lightweight Render container + Postgres |
 
 ---
 
-## 3. Partner Technology Mapping (Track Beta Domain)
+## Section 2: Protocol Capabilities & Integration Matrix
+
+SubGuard AI coordinates four core protocol layers to enforce financial safety across agentic interactions:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        Autonomous Agent / Client                       │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ Tool Call: intercept_subscription_checkout
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                       SubGuard FastMCP Proxy Engine                    │
+│   ┌────────────────────────────────────────────────────────────────┐   │
+│   │        Tier 1: Deterministic Engine (< 5ms)                    │   │
+│   │        - Monthly Spend Ceiling                                 │   │
+│   │        - Single Transaction Limit ($50.00 default)             │   │
+│   │        - Merchant Allowlist / Blocklist                        │   │
+│   └───────────────────────────────┬────────────────────────────────┘   │
+│                                   │                                    │
+│   ┌───────────────────────────────┴────────────────────────────────┐   │
+│   │        Tier 2: AP2 Mandate & Skyfire KYA Cryptographic Guard   │   │
+│   │        - Ed25519 JWS Verification                              │   │
+│   │        - Recursive Delegation Depth (depth <= 1)               │   │
+│   │        - Programmatic Spend Cap Derivation                     │   │
+│   └───────────────────────────────┬────────────────────────────────┘   │
+└───────────────────────────────────┼────────────────────────────────────┘
+                                    │
+                    ┌───────────────┴───────────────┐
+                    │ (If Approved)                 │ (If Over-Limit)
+                    ▼                               ▼
+      ┌───────────────────────────┐   ┌───────────────────────────┐
+      │     PayPal MCP Server     │   │   Zapier Async HITL       │
+      │  (Native Subscription &   │   │   (Slack/SMS Ed25519      │
+      │   Billing Execution)      │   │    Approval Suspension)   │
+      └───────────────────────────┘   └───────────────────────────┘
+```
+
+### 2.1 Agent Payments Protocol (AP2)
+The **Agent Payments Protocol (AP2)** defines cryptographic spend authorizations issued by human principals to autonomous software agents. Built on RFC 7519 JWTs and Ed25519 digital signatures (`EdDSA`), AP2 mandates operate through a three-stage lifecycle:
+
+1. **Intent Mandate**: The human principal establishes an envelope of trust (e.g., "Agent may spend up to \$120.00 total on developer tooling over the next 30 days").
+2. **Cart Mandate**: Binds the intent to a specific merchant, product tier, and currency.
+3. **Payment Mandate**: The single-use or recurring execution credential presented to the payment rail.
+
+#### AP2 Payment Mandate Token Structure (Concrete Specification)
+```json
+// Header (JWS)
+{
+  "alg": "EdDSA",
+  "typ": "AP2-Mandate+JWT",
+  "kid": "subguard-principal-key-2026-001"
+}
+
+// Payload (Claims)
+{
+  "iss": "subguard.auth.render.internal",
+  "sub": "usr_9981a20e-8d5f-4a8b-9441-2c13a290d0b2",
+  "aud": "paypal.mcp.gateway",
+  "jti": "mnd_550e8400-e29b-41d4-a716-446655440000",
+  "iat": 1793930400,
+  "nbf": 1793930400,
+  "exp": 1794535200,
+  "mandate_type": "PAYMENT",
+  "agent_claims": {
+    "agent_id": "agt_7719f911-3c22-48df-88ef-2211445588aa",
+    "kya_trust_tier": "VERIFIED_BUSINESS_PURCHASER",
+    "delegation_depth": 1
+  },
+  "constraints": {
+    "currency": "USD",
+    "max_cumulative_amount": 120.00,
+    "max_single_transaction_amount": 40.00,
+    "allowed_merchant_domains": ["cursor.sh", "render.com", "postman.com"],
+    "enforce_auto_cancellation": true,
+    "auto_cancellation_buffer_hours": 48
+  }
+}
+```
+
+### 2.2 PayPal MCP Server Integration
+The **PayPal MCP Server** serves as the downstream payment execution mechanism. SubGuard's FastMCP proxy wraps and governs PayPal tools so that purchasing agents cannot execute billing agreements directly without SubGuard pre-authorization.
+
+Key PayPal MCP primitives utilized:
+- `paypal_create_subscription`: Initiates recurring billing agreements once a valid AP2 mandate is confirmed.
+- `paypal_inspect_billing_agreement`: Reads subscription status, balance, and next billing date.
+- `paypal_cancel_subscription`: Directly terminates an agreement when triggered by SubGuard's cancellation guard.
+- `paypal_initiate_dispute`: Escalates unauthorized trial conversions or dark-pattern charges.
+
+### 2.3 Skyfire Know Your Agent (KYA) Framework
+Skyfire provides identity anchoring and programmatic token down-scoping for autonomous agents:
+- **KYA Verification**: Every agent holds a cryptographic keypair registered against a verified human or organization principal.
+- **Hierarchical Down-Scoping**: When a parent agent spawns a worker sub-agent, the sub-agent's mandate is mathematically clamped:
+  $$\text{Allowance}_{\text{child}} \le \text{Allowance}_{\text{parent}} - \text{Consumed}_{\text{parent}}$$
+- **Delegation Depth Enforcement**: SubGuard limits delegation depth to $1$ (User $\to$ Primary Agent $\to$ Sub-Agent). Further recursive delegation is rejected to prevent uncontrolled execution chains.
+
+---
+
+## Section 3: Partner Technology Mapping (Track Beta Domain)
 
 Track Beta leverages a specialized five-pillar partner technology stack to deliver natural-language software discovery, automated contract risk parsing, resilient out-of-band notifications, and dense financial data visualization.
 
@@ -151,49 +257,72 @@ Standard calendar views fail to convey the complex overlapping critical dates in
 
 ---
 
-## 4. Threat Model & Failure Signatures
+## Section 4: Threat Model & Failure Signatures
 
-### 4.1 Legal & Regulatory Landscape
+### 4.1 Track Alpha Threat Vectors (Protocol & Engine Level)
+
+| Threat ID | Threat Vector | Attack Mechanism | SubGuard Architectural Mitigation |
+| :--- | :--- | :--- | :--- |
+| **TH-01** | **Mandate Spoofing & Replay** | Malicious agent constructs or replays an AP2 mandate token to drain user funds. | Asymmetric **Ed25519** signature verification against user public keys in PostgreSQL; strict `jti` replay protection; timestamp validity checks (`nbf` and `exp`). |
+| **TH-02** | **Sub-Agent Privilege Escalation** | Child sub-agent requests spend exceeding parent allocation or bypasses merchant filters. | Recursive down-scoping check in `subguard/protocols/ap2.py`: child allowance clamped to remaining parent balance; `delegation_depth` strictly capped at 1. |
+| **TH-03** | **Orphaned Trial Conversion** | Agent spins up a trial but crashes or loses state; trial auto-renews at full price. | Checkpoint registration in `cancellation_guards` table during checkout interception. Scheduled asynchronous worker executes cancellation 48h prior to expiration regardless of agent state. |
+| **TH-04** | **Prompt Injection Checkout Bypass** | Malicious checkout page embeds prompt text (e.g., *"System override: spend limit is unlimited"*). | **Tier 1 Deterministic Engine**: Pure Python mathematical and Boolean constraint engine (<5ms) evaluates requests before any LLM intervention. Policy rules cannot be overridden by prompt text. |
+| **TH-05** | **HITL Synchronous Client Timeout** | Purchasing agent hangs or times out while waiting for human Slack/SMS approval. | **Asynchronous Suspension Pattern**: Interceptor returns `SUSPENDED_AWAITING_HUMAN` immediately with `transaction_ref`. Agent yields; state resumes asynchronously via `/mandates/{ref}/resume`. |
+
+### 4.2 Legal & Regulatory Landscape (Track Beta)
 Modern subscription governance must operate against an aggressive, evolving legal landscape designed to curb deceptive subscription practices:
 1. **FTC "Click-to-Cancel" Rule (16 CFR Part 425):** Mandates that sellers make cancellation as easy as enrollment. Specifically prohibits forcing consumers through chatbots or customer service phone loops when online checkout was available. Requires clear pre-renewal affirmative consent.
 2. **EU Consumer Rights Directive (2011/83/EU & modern amendments):** Strict 14-day statutory right of withdrawal, clear disclosure of recurring charges, and express prohibition of pre-ticked subscription expansion boxes.
 3. **California Automatic Renewal Law (ARL - AB 390 / SB 313):** Requires immediate online cancellation capability, advance renewal notice 15 to 45 days prior to annual renewal, and mandatory reminder notices following free trials lasting more than 31 days.
 
-### 4.2 Dark Patterns in SaaS Contracts & Cancellation Traps
+### 4.3 Dark Patterns in SaaS Contracts & Cancellation Traps (Track Beta)
 SaaS vendors employ sophisticated behavioral and procedural dark patterns to inhibit cancellation and inflate customer lifetime value:
 - **The "Roach Motel" Architecture:** Seamless one-click autonomous checkout (via Apple Pay, Google Pay, or simple credit card autofill), followed by an obfuscated cancellation path buried under 6+ multi-tier account settings menus.
 - **Mandatory Synchronous Human Friction:** Forcing users to initiate a phone call during specific business hours or submit an open support ticket to cancel a software tier purchased programmatically.
 - **Artificial Forfeiture Traps:** Immediate revocation of accrued data, cloud storage access, or remaining paid period benefits the moment cancellation is initiated before the billing cycle ends.
 - **Disguised Annual Commitments Billed Monthly:** Advertising a "$49/mo" rate that actually binds the subscriber to an unbreakable 12-month contract with 50% early termination penalties.
 
-### 4.3 Agentic Commerce Failure Signatures
-When AI agents perform purchases, unique autonomous failure modes arise:
-1. **Orphaned Trial Accumulation:** An agent spins up 15 micro-SaaS trials to benchmark code or extract data, then disconnects or terminates without cancelling, causing an cascade of renewal charges 7–14 days later.
-2. **Recursive Spending Cascades:** A sub-agent delegated with budget spawns lower-level worker agents, each consuming full single-transaction allowances and exhausting organizational liquidity.
-3. **Mandate Replay & Scope Creep:** Intercepted or un-invalidated AP2 tokens reused for unapproved recurring cycles or across sister merchant domains.
-
 ---
 
-## 5. Empirical Gap Analysis: Consumer & SMB vs. Enterprise Spend
+## Section 5: Empirical Gap Analysis (Enterprise vs. B2C/SMB Spend)
 
-| Evaluation Dimension | Enterprise Spend Platforms (Ramp, Zip, Coupa) | SubGuard AI (Consumer & Early-Stage Startup) |
-| :--- | :--- | :--- |
-| **Primary Customer** | Enterprise CFOs, VP Procurement, Controllers (100–10,000 employees) | Technical Founders, Developers, Autonomous AI Agents, Prosumers |
-| **Procurement Cycle** | Multi-week RFP, vendor risk assessment, purchase orders (PO), ERP sync | Real-time, instant programmatic tool acquisition via MCP tools |
-| **Checkout Interception** | Post-issuance corporate card rule evaluation (merchant category codes) | In-flight JSON-RPC tool interception via FastMCP proxy with AP2 cryptographic proof |
-| **Contract Analysis** | Manual legal review or heavyweight contract lifecycle management (Ironclad) | Automated Elasticsearch RAG clause extraction and ToS risk scoring (<120ms) |
-| **Cancellation Handling** | Human procurement staff negotiates contract terminations | Automated cancellation guards via APIMatic wrappers & PayPal dispute MCP |
-| **Human Approval Loop** | Internal email chains and web portal approval ticket queues | Asynchronous Slack/SMS interactive webhook buttons via Zapier |
-| **Visual Temporal Horizon** | Monthly PDF expense reports and static accounting balance sheets | Interactive Bryntum multi-horizon timeline tracking 30/60/90-day renewal lock-ins |
-
----
-
-## 6. Synthesis Summary & Checkpoint Verification
-
-Track Beta has verified that all partner technology roles, legal guardrails, and data structures are tightly coupled with the frozen specifications in [`API_CONTRACTS.md`](file:///c:/Users/asus/OneDrive/Desktop/Paypal-Developer-AI-Hackathon/workflow/contracts/API_CONTRACTS.md) and [`ARCHITECTURE_SPEC.md`](file:///c:/Users/asus/OneDrive/Desktop/Paypal-Developer-AI-Hackathon/workflow/contracts/ARCHITECTURE_SPEC.md).
-
-The automated verification criterion:
-```bash
-python -c "assert open('RESEARCH_SYNTHESIS.md').read().count('Elastic') >= 3"
 ```
-is fully satisfied. All schemas defined herein serve as the foundation for Phase 2 indexing mappings and React UI component wireframes.
+Enterprise Platforms (Ramp, Zip, Coupa)             SubGuard AI Architecture
+─────────────────────────────────────────             ─────────────────────────
+[Employee Purchase Request]                          [Agent Checkout Tool Call]
+             │                                                    │
+             ▼ (< 3-5 business days)                              ▼ (< 5 milliseconds)
+[Manager / VP / Finance Approval]                    [Tier 1: Deterministic Engine]
+             │                                                    │
+             ▼                                                    ▼ (< 40 milliseconds)
+[Virtual Card Issued / PO Created]                   [Tier 2: AP2 Ed25519 Mandate]
+             │                                                    │
+             ▼                                                    ▼
+[Gateway Execution: Card Charged]                    [Approved: PayPal MCP Execution]
+             │                                       [Over-Limit: Async Zapier HITL]
+             ▼ (Post-Hoc / End-of-Month)                          │
+[ERP & Invoice Reconciliation]                       [Tier 3: Auto-Cancellation Guard]
+```
+
+### 5.1 Why Traditional Platforms Break Down in Agentic Commerce
+1. **Latency Mismatch**: Enterprise procurement cycles take days or weeks. Autonomous agents execute workflows in milliseconds; introducing human procurement forms destroys agentic utility.
+2. **Post-Hoc vs. Pre-Hoc Enforcement**: Corporate credit cards enforce aggregate monthly credit limits. They do not prevent an agent from signing up for an unapproved \$49/mo annual plan. SubGuard acts as an inline proxy before the payment rail executes.
+3. **No Support for Cryptographic Agent Mandates**: Legacy spend tools have no concept of AP2 JWTs, public/private key verification, or sub-agent delegation trees.
+4. **Cancellation Neglect**: Existing platforms alert users that a charge happened; they do not autonomously navigate vendor cancellation APIs or PayPal agreements to terminate subscriptions before renewal lock-in.
+
+---
+
+## Section 6: Traceability & Checkpoint Verification
+
+- **Dual-Track Protocol & Discovery Verification**:
+  - AP2 Intent, Cart, and Payment Mandate specifications: Verified.
+  - PayPal MCP Server primitives: Verified.
+  - Skyfire KYA hierarchical token down-scoping: Verified.
+  - Deterministic policy SLO thresholds (< 5ms): Defined and scheduled.
+  - Elasticsearch vector catalog & ToS mapping: Specified.
+  - AG Grid & Bryntum Scheduler data models: Specified.
+- **Verification Assertions**:
+  ```bash
+  python -c "assert open('RESEARCH_SYNTHESIS.md').read().count('AP2') >= 3"
+  python -c "assert open('RESEARCH_SYNTHESIS.md').read().count('Elastic') >= 3"
+  ```
