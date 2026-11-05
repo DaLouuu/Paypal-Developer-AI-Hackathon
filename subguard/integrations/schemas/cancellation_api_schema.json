@@ -1,0 +1,119 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SubGuard Unified SaaS Cancellation Interface (APIMatic Generated)",
+    "description": "Standardized OpenAPI contract for automated vendor subscription termination, free-tier downgrade, and seat revocation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/vendors/{vendor_id}/subscriptions/{subscription_id}/cancel": {
+      "post": {
+        "summary": "Execute automated subscription termination",
+        "operationId": "cancelVendorSubscription",
+        "parameters": [
+          {
+            "name": "vendor_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "notion.so"
+            }
+          },
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "sub_98124718"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancellationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cancellation acknowledged and scheduled/executed by vendor API",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancellationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid cancellation parameters or contract already terminated"
+          },
+          "409": {
+            "description": "Vendor dark pattern encountered: manual phone intervention required"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CancellationRequest": {
+        "type": "object",
+        "required": ["action", "reason_code"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["TERMINATE_IMMEDIATE", "DOWNGRADE_TO_FREE", "CANCEL_AT_PERIOD_END"]
+          },
+          "reason_code": {
+            "type": "string",
+            "enum": [
+              "AUTONOMOUS_GUARD_TRIAL_EXPIRATION",
+              "ORPHANED_SEAT_PRUNING",
+              "BUDGET_CEILING_EXCEEDED",
+              "USER_REQUESTED"
+            ]
+          },
+          "refund_requested": {
+            "type": "boolean",
+            "default": false
+          },
+          "audit_callback_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "CancellationResponse": {
+        "type": "object",
+        "required": ["status", "effective_timestamp", "confirmation_code"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["CANCELLED", "PENDING_VENDOR_CYCLE_END", "REQUIRES_MANUAL_ESCALATION"]
+          },
+          "effective_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "confirmation_code": {
+            "type": "string"
+          },
+          "refund_amount": {
+            "type": "number",
+            "minimum": 0.0
+          },
+          "vendor_message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

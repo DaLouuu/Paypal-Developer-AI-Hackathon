@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ElasticsearchToSClausesMapping",
+  "description": "Elasticsearch 8.x index mapping for vendor Terms of Service (ToS) clauses and cancellation dark-pattern risk scoring",
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    }
+  },
+  "mappings": {
+    "properties": {
+      "clause_id": {
+        "type": "keyword"
+      },
+      "vendor_domain": {
+        "type": "keyword"
+      },
+      "clause_type": {
+        "type": "keyword"
+      },
+      "raw_text": {
+        "type": "text"
+      },
+      "risk_score": {
+        "type": "float"
+      },
+      "lead_notice_days_required": {
+        "type": "integer"
+      },
+      "has_mandatory_phone_cancellation": {
+        "type": "boolean"
+      },
+      "has_arbitration_opt_out_friction": {
+        "type": "boolean"
+      },
+      "clause_vector": {
+        "type": "dense_vector",
+        "dims": 1536,
+        "index": true,
+        "similarity": "cosine",
+        "index_options": {
+          "type": "hnsw",
+          "m": 16,
+          "ef_construction": 100
+        }
+      },
+      "extracted_at": {
+        "type": "date"
+      }
+    }
+  }
+}

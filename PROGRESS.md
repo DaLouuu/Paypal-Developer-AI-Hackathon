@@ -42,7 +42,11 @@
   - [x] Formulated integration mapping and schemas for Elastic, APIMatic, Zapier, AG Grid, and Bryntum.
   - [x] Authored Sections 3, 4.2-4.3, and 5 of `RESEARCH_SYNTHESIS.md`.
   - [x] Checkpoint 1 verification command passed.
-- [ ] **Phase 2: Indexing & Wireframes**
+- [x] **Phase 2: Indexing & Wireframes**
+  - [x] Defined Elasticsearch mappings (`software_catalog` and `tos_clauses`).
+  - [x] Defined standardized cancellation OpenAPI schema and Zapier webhook schema.
+  - [x] Authored `UI_WIREFRAMES_AND_DATA_BINDINGS.md` for AG Grid and Bryntum Scheduler.
+  - [x] Validated JSON schemas and verified API contracts against `workflow/contracts/API_CONTRACTS.md`.
 - [ ] **Phase 3: Pitch Deck**
 - [ ] **Phase 4: Integrations & Frontend**
 - [ ] **Phase 5: Evaluation & Benchmarks**

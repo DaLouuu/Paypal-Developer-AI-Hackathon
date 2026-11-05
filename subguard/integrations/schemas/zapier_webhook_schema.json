@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ZapierWebhookPayloads",
+  "description": "JSON schemas for Zapier out-of-band suspension dispatch and interactive user callback",
+  "definitions": {
+    "ZapierSuspensionDispatch": {
+      "type": "object",
+      "required": [
+        "event_type",
+        "transaction_ref",
+        "agent_id",
+        "user_id",
+        "merchant_name",
+        "amount",
+        "currency",
+        "violation_reason",
+        "callback_endpoint"
+      ],
+      "properties": {
+        "event_type": {
+          "type": "string",
+          "enum": ["MANDATE_SUSPENSION_TRIGGERED"]
+        },
+        "transaction_ref": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agent_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "merchant_name": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "currency": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        "violation_reason": {
+          "type": "string"
+        },
+        "slack_channel": {
+          "type": "string"
+        },
+        "callback_endpoint": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "ZapierApprovalPayload": {
+      "type": "object",
+      "required": ["transaction_ref", "user_decision"],
+      "properties": {
+        "transaction_ref": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "user_decision": {
+          "type": "string",
+          "enum": ["APPROVED", "REJECTED"]
+        },
+        "channel": {
+          "type": "string",
+          "example": "slack_interactive_button"
+        },
+        "approver_id": {
+          "type": "string"
+        },
+        "signed_mandate_signature": {
+          "type": "string",
+          "description": "Ed25519 signature payload when approved"
+        }
+      }
+    }
+  }
+}
