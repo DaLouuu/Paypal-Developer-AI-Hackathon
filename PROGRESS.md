@@ -66,4 +66,8 @@
   - [x] Tested Zapier fault tolerance (100% malformed payload rejection, graceful degradation).
   - [x] Verified AG Grid virtual scrolling with 500+ items at 60 FPS without DOM lag.
   - [x] Compiled comprehensive `BENCHMARK_REPORT.md`.
-- [ ] **Phase 6: Hardening & Deployment**
+- [x] **Phase 6: Hardening & Deployment**
+  - [x] Production bundle built (`npm run build`) with chunk optimization.
+  - [x] Postman/Newman test suite authored (`tests/postman/SubGuard_Integration.json`, `local_env.json`).
+  - [x] Automated E2E integration test passed (`test_e2e_full_system_flow`) across all 4 steps: discovery -> suspend -> zapier -> resume.
+  - [x] Complete system regression: 29/29 pytest passed, 3/3 frontend vitest passed.
