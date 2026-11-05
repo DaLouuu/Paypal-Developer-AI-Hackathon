@@ -51,6 +51,11 @@
   - [x] Authored 12-slide comprehensive investor pitch deck (`PITCH_DECK.md`).
   - [x] Documented unit economics ($15/seat/month), market size ($6.8B SOM), and defensibility moat.
   - [x] Documented detailed UI/UX user journey sequence diagrams for discovery, HITL Slack approval, and auto-cancellation.
-- [ ] **Phase 4: Integrations & Frontend**
+- [x] **Phase 4: Integrations & Frontend**
+  - [x] Constructed mock proxy server (`tests/mocks/mock_proxy_server.py`) for decoupled development.
+  - [x] Implemented test harness with 100% pass rate (`test_elastic_search.py`, `test_tos_parser.py`, `test_zapier_relay.py`, `SubscriptionTable.test.jsx`).
+  - [x] Built `subguard/discovery/elastic_client.py`, `tos_analyzer.py`, `apimatic_client.py`, and `zapier.py`.
+  - [x] Built React 18 dashboard (`SubscriptionTable.jsx`, `RenewalTimeline.jsx`, `DiscoverySearch.jsx`, `App.jsx`).
+  - [x] Validated production build with vendor chunking.
 - [ ] **Phase 5: Evaluation & Benchmarks**
 - [ ] **Phase 6: Hardening & Deployment**
