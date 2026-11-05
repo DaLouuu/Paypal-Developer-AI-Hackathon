@@ -1,0 +1,138 @@
+{
+  "info": {
+    "name": "SubGuard AI End-to-End Integration Suite",
+    "description": "Integration test collection validating Discovery Search, Mandate Suspension, Zapier HITL Webhook, and Mandate Resumption flows.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Discovery Search - Semantic Query",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"SOC-2 vector database under $30/mo\",\n  \"max_monthly_budget\": 30.0,\n  \"required_features\": [\"vector\"]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/discovery/search",
+          "host": ["{{base_url}}"],
+          "path": ["discovery", "search"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Matches array returned', function () { var json = pm.response.json(); pm.expect(json.matches.length).to.be.above(0); });",
+              "pm.test('Matches satisfy budget constraint', function () { var json = pm.response.json(); pm.expect(json.matches[0].estimated_monthly_cost).to.be.at.most(30.0); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Mandate Suspend - Over-Limit Interception",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"agent_id\": \"7719f911-3c22-48df-88ef-2211445588aa\",\n  \"user_id\": \"9981a20e-8d5f-4a8b-9441-2c13a290d0b2\",\n  \"amount\": 75.0,\n  \"currency\": \"USD\",\n  \"merchant_name\": \"datadoghq.com\",\n  \"policy_violation_reason\": \"Single transaction amount ($75.00) exceeds autonomous ceiling ($50.00)\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/mandates/suspend",
+          "host": ["{{base_url}}"],
+          "path": ["v1", "mandates", "suspend"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 202 Accepted', function () { pm.response.to.have.status(202); });",
+              "pm.test('Returns transaction_ref and SUSPENDED status', function () {",
+              "  var json = pm.response.json();",
+              "  pm.expect(json.status).to.eql('SUSPENDED_AWAITING_HUMAN');",
+              "  pm.environment.set('transaction_ref', json.transaction_ref);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Zapier Webhook - Interactive Slack Approval Callback",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transaction_ref\": \"{{transaction_ref}}\",\n  \"user_decision\": \"APPROVED\",\n  \"channel\": \"slack_interactive_button\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/webhooks/zapier/approval-callback",
+          "host": ["{{base_url}}"],
+          "path": ["v1", "webhooks", "zapier", "approval-callback"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Callback processed successfully', function () { var json = pm.response.json(); pm.expect(json.status).to.eql('processed'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Mandate Resume - Execute Payment Gateway",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"APPROVE\",\n  \"signed_mandate_signature\": \"ed25519_sig_valid_test_payload\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/mandates/{{transaction_ref}}/resume",
+          "host": ["{{base_url}}"],
+          "path": ["v1", "mandates", "{{transaction_ref}}", "resume"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Charge execution succeeded', function () {",
+              "  var json = pm.response.json();",
+              "  pm.expect(json.execution_status).to.eql('SUCCESSFUL_CHARGE');",
+              "  pm.expect(json.paypal_payment_id).to.not.be.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}

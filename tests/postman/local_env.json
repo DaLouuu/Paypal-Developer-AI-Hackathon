@@ -1,0 +1,18 @@
+{
+  "id": "subguard-local-env",
+  "name": "SubGuard Local Environment",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "transaction_ref",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ]
+}

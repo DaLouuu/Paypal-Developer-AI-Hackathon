@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ElasticsearchSoftwareCatalogMapping",
+  "description": "Elasticsearch 8.x index mapping and settings for semantic software tool discovery and ToS risk indexing",
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1,
+      "refresh_interval": "1s"
+    },
+    "analysis": {
+      "analyzer": {
+        "saas_feature_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "stop"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "product_id": {
+        "type": "keyword"
+      },
+      "product_name": {
+        "type": "text",
+        "analyzer": "standard",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "vendor_domain": {
+        "type": "keyword"
+      },
+      "category": {
+        "type": "keyword"
+      },
+      "features": {
+        "type": "text",
+        "analyzer": "saas_feature_analyzer"
+      },
+      "pricing_tier": {
+        "type": "keyword"
+      },
+      "monthly_cost": {
+        "type": "float"
+      },
+      "currency": {
+        "type": "keyword"
+      },
+      "soc2_compliant": {
+        "type": "boolean"
+      },
+      "pricing_vector": {
+        "type": "dense_vector",
+        "dims": 1536,
+        "index": true,
+        "similarity": "cosine",
+        "index_options": {
+          "type": "hnsw",
+          "m": 16,
+          "ef_construction": 100
+        }
+      },
+      "tos_risk_score": {
+        "type": "float"
+      },
+      "cancellation_lead_days_required": {
+        "type": "integer"
+      },
+      "dark_pattern_warnings": {
+        "type": "keyword"
+      },
+      "created_at": {
+        "type": "date"
+      },
+      "updated_at": {
+        "type": "date"
+      }
+    }
+  }
+}

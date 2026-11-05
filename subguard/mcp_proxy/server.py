@@ -296,6 +296,10 @@ def create_app(testing: bool = False) -> FastAPI:
             )
         return {"status": "processed", "transaction_ref": tx_ref}
 
+    # Mount Discovery Router (Track Beta)
+    from subguard.discovery.router import discovery_router
+    app.include_router(discovery_router)
+
     return app
 
 

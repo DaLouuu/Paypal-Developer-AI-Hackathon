@@ -1,17 +1,25 @@
 # Python & Environment
 .venv/
 __pycache__/
+*.py[cod]
+*$py.class
 *.pyc
 *.pyo
 *.pyd
 .pytest_cache/
 .coverage
 htmlcov/
-dist/
 build/
 *.egg-info/
 
-# IDE & OS
+# Node & Frontend
+node_modules/
+dist/
+.vite/
+
+# Environment and IDE
+.env
+.env.local
 .vscode/
 .idea/
 .DS_Store
