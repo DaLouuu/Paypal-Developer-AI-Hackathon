@@ -66,6 +66,36 @@ To eliminate client timeouts during human authorizations:
 5. Zapier calls `/mandates/{ref}/resume` with the signature.
 6. The transaction resumes and completes execution against the payment gateway.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Agent as Purchasing Agent
+    participant Proxy as SubGuard FastMCP Proxy
+    participant DB as PostgreSQL
+    participant Zap as Zapier Webhook
+    actor Human as Human Principal
+    participant PP as PayPal MCP Gateway
+
+    Agent->>Proxy: tools/call (intercept_subscription_checkout)
+    Proxy->>Proxy: Tier 1: Deterministic evaluation (<5ms)
+    alt Spend <= $50.00 & Whitelisted
+        Proxy->>PP: Execute Subscription Creation
+        PP-->>Proxy: Subscription Active
+        Proxy-->>Agent: Decision: APPROVED (delegated_token)
+    else Spend > $50.00 or Unknown Merchant
+        Proxy->>DB: INSERT transaction_ref (status: SUSPENDED_AWAITING_HUMAN)
+        Proxy->>Zap: POST /webhooks/approval (ref, amount, merchant)
+        Proxy-->>Agent: Decision: SUSPENDED_AWAITING_HUMAN (transaction_ref)
+        Zap->>Human: Interactive Slack / SMS Prompt
+        Human->>Zap: Approve & Sign (Ed25519 signature)
+        Zap->>Proxy: POST /mandates/{transaction_ref}/resume (signature)
+        Proxy->>Proxy: Cryptographic Signature Verification
+        Proxy->>PP: Execute Subscription Creation
+        PP-->>Proxy: Payment Confirmed
+        Proxy->>DB: UPDATE status: SUCCESSFUL_CHARGE
+    end
+```
+
 ### 4.2. Tiered Policy Cascading
 1. **Tier 1 (Deterministic Engine - <5ms)**: 100% of transactions pass through hard mathematical constraints (monthly budget ceiling, single transaction limit, blacklisted merchants, minimum trial duration). No LLM cost or latency.
 2. **Tier 2 (Elastic RAG + ToS Risk Evaluator - <120ms)**: Evaluates Terms of Service and scraped cancellation policies if a subscription has auto-renewal clauses.
