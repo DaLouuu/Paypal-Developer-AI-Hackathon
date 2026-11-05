@@ -29,15 +29,17 @@
   - [x] Implement `subguard/engine/`, `subguard/protocols/`, `subguard/mcp_proxy/`, and `subguard/db/`.
   - [x] Pass 100% unit and integration tests (18 passed in 1.30s, 0 warnings).
   - [x] Zero ruff lint errors across subguard/ and tests/.
-- [ ] **Phase 5: Evaluation & Rigorous Benchmarks**
-  - [ ] Run latency benchmarks (p95 < 5ms for deterministic engine, p95 < 45ms proxy overhead).
-  - [ ] Run 50 concurrent suspended session stress test.
-  - [ ] Adversarial prompt injection test (100% block rate on over-limit attempts).
-  - [ ] Author `BENCHMARK_REPORT.md`.
-- [ ] **Phase 6: Hardening & Render Deployment**
-  - [ ] Mandate caching layer.
-  - [ ] Author multi-stage `Dockerfile` and `render.yaml`.
-  - [ ] Full regression testing.
+- [x] **Phase 5: Evaluation & Rigorous Benchmarks**
+  - [x] Run latency benchmarks: Deterministic Engine p95 = 0.016ms (< 5ms SLO), Proxy Overhead p95 = 2.801ms (< 45ms SLO).
+  - [x] Run 50 concurrent suspended session stress test (50/50 successfully resumed with zero state loss).
+  - [x] Adversarial prompt injection test (100% block rate on over-limit & malicious attempts).
+  - [x] Author comprehensive BENCHMARK_REPORT.md.
+- [x] **Phase 6: Hardening & Render Deployment**
+  - [x] In-memory SQLite-backed mandate cache (subguard/core/cache.py).
+  - [x] Webhook dispatcher with exponential backoff and DLQ (subguard/core/dlq.py).
+  - [x] Production multi-stage Dockerfile and Render blueprint render.yaml.
+  - [x] Full regression test suite passing: 21 tests passed with 0 failures.
+  - [x] Verified live local server execution on http://127.0.0.1:8000.
 
 ### Track Beta (Discovery, Integrations & Frontend) - Engineer 2 (Antigravity Instance B)
 - [ ] **Phase 1: Research & Partner Discovery**

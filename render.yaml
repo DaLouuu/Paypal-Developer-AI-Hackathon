@@ -1,0 +1,37 @@
+# ==============================================================================
+# Render Blueprint Specification: SubGuard AI Production Cluster
+# ==============================================================================
+version: "1"
+
+services:
+  # 1. Core MCP Proxy & Policy Orchestration Gateway
+  - type: web
+    name: subguard-core
+    runtime: docker
+    plan: starter
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PORT
+        value: 8000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: subguard-postgres
+          property: connectionString
+      - key: ZAPIER_WEBHOOK_URL
+        sync: false
+      - key: PAYPAL_MODE
+        value: sandbox
+
+databases:
+  # 2. Managed PostgreSQL 16 Database
+  - name: subguard-postgres
+    plan: starter
+    region: oregon
+    databaseName: subguard_db
+    user: subguard
+    postgresMajorVersion: 16
