@@ -14,10 +14,11 @@
   - [x] Formulated AP2 mandate lifecycle, PayPal MCP server primitives, and Skyfire KYA down-scoping.
   - [x] Authored Sections 1, 2, 4, and 5 of `RESEARCH_SYNTHESIS.md`.
   - [x] Checkpoint 1 verification command passed.
-- [ ] **Phase 2: Architecture & Contracts**
-  - [ ] Validate and lock `workflow/contracts/API_CONTRACTS.md`.
-  - [ ] Verify FastMCP proxy tool schemas and PostgreSQL DDL.
-  - [ ] Validate Mermaid architecture diagrams.
+- [x] **Phase 2: Architecture & Contracts**
+  - [x] Validate and lock `workflow/contracts/API_CONTRACTS.md`.
+  - [x] Verify FastMCP proxy tool schemas and PostgreSQL DDL.
+  - [x] Validate Mermaid architecture diagrams.
+  - [x] Formulated Asynchronous Mandate Suspension Sequence in `ARCHITECTURE_SPEC.md`.
 - [ ] **Phase 3: Product RFC & Technical Spec**
   - [ ] Author `PRODUCT_RFC.md` with formal SLOs (< 45ms proxy, < 5ms deterministic engine).
   - [ ] Establish security threat models and async suspension state machine.
