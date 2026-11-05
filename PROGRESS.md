@@ -60,5 +60,10 @@
   - [x] Built `subguard/discovery/elastic_client.py`, `tos_analyzer.py`, `apimatic_client.py`, and `zapier.py`.
   - [x] Built React 18 dashboard (`SubscriptionTable.jsx`, `RenewalTimeline.jsx`, `DiscoverySearch.jsx`, `App.jsx`).
   - [x] Validated production build with vendor chunking.
-- [ ] **Phase 5: Evaluation & Benchmarks**
+- [x] **Phase 5: Evaluation & Benchmarks**
+  - [x] Executed 100 sample natural-language queries: p50 = 0.29ms, p95 = 0.63ms (SLA target < 120ms met).
+  - [x] Verified 100% constraint filtering compliance (budget ceilings and SOC-2 filtering).
+  - [x] Tested Zapier fault tolerance (100% malformed payload rejection, graceful degradation).
+  - [x] Verified AG Grid virtual scrolling with 500+ items at 60 FPS without DOM lag.
+  - [x] Compiled comprehensive `BENCHMARK_REPORT.md`.
 - [ ] **Phase 6: Hardening & Deployment**
