@@ -1148,9 +1148,81 @@ main {
   box-shadow: 6px 6px 0px var(--line);
 }
 
+/* Cancellation Shield Paused / Inactive State */
 .shield-off {
-  filter: saturate(0.35);
-  opacity: 0.85;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Freeze animations when protection is paused */
+.shield-off .orbit,
+.shield-off .orbit-one,
+.shield-off .orbit-two,
+.shield-off .orbit-dot,
+.shield-off .shield-core,
+.shield-off .live-label i,
+.shield-visual.is-paused .orbit,
+.shield-visual.is-paused .orbit-one,
+.shield-visual.is-paused .orbit-two,
+.shield-visual.is-paused .orbit-dot,
+.shield-visual.is-paused .shield-core {
+  animation-play-state: paused !important;
+}
+
+/* Paused Color Scheme - Light Mode (Warm Amber / Caution Safeguard) */
+.shield-off .shield-core,
+.shield-visual.is-paused .shield-core {
+  background: linear-gradient(145deg, #f59e0b, #d97706);
+  filter: drop-shadow(0 6px 14px rgba(217, 119, 6, 0.32));
+  color: #060723;
+}
+
+.shield-off .shield-core svg,
+.shield-visual.is-paused .shield-core svg {
+  color: #060723;
+  stroke: #060723;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.45));
+}
+
+.shield-off .orbit,
+.shield-visual.is-paused .orbit {
+  border-color: rgba(217, 119, 6, 0.3);
+}
+
+.shield-off .orbit-dot,
+.shield-visual.is-paused .orbit-dot {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+
+.shield-off .live-label {
+  color: #b45309;
+}
+
+.shield-off .live-label i {
+  background: #f59e0b;
+  box-shadow: none;
+}
+
+.shield-off .shield-status span {
+  color: #b45309;
+}
+
+.shield-off .shield-status strong {
+  color: #b45309;
+}
+
+.shield-off .next-step {
+  border-color: rgba(245, 158, 11, 0.45);
+  background: rgba(254, 243, 199, 0.45);
+}
+
+.shield-off .next-step small {
+  color: #b45309;
+}
+
+.shield-off .next-step .step-icon {
+  background: #fef3c7;
+  color: #b45309;
 }
 
 .shield-heading {
@@ -1242,11 +1314,13 @@ main {
   clip-path: polygon(50% 0, 90% 18%, 84% 72%, 50% 100%, 16% 72%, 10% 18%);
   filter: drop-shadow(0 6px 16px rgba(33, 110, 101, 0.3));
   animation: pulse-glow 3.5s ease-in-out infinite;
+  transition: background 0.35s ease, filter 0.35s ease, color 0.35s ease;
 }
 
 .shield-core svg {
   color: #060723;
   stroke: #060723;
+  transition: color 0.35s ease, stroke 0.35s ease, filter 0.35s ease;
 }
 
 .orbit {
@@ -1254,6 +1328,7 @@ main {
   border: 1px solid rgba(33, 110, 101, 0.22);
   border-radius: 50%;
   pointer-events: none;
+  transition: border-color 0.35s ease;
 }
 
 .orbit-one {
@@ -3235,6 +3310,63 @@ footer {
 
 [data-theme="dark"] .orbit {
   border: 1px solid rgba(46, 220, 196, 0.32);
+}
+
+/* Dark Mode Paused Autopilot / Cancellation Shield State */
+[data-theme="dark"] .shield-off .shield-core,
+[data-theme="dark"] .shield-visual.is-paused .shield-core {
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.45));
+  filter: drop-shadow(0 8px 24px rgba(245, 158, 11, 0.5));
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .shield-off .shield-core svg,
+[data-theme="dark"] .shield-visual.is-paused .shield-core svg {
+  color: #fbbf24;
+  stroke: #fbbf24;
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.75));
+}
+
+[data-theme="dark"] .shield-off .orbit,
+[data-theme="dark"] .shield-visual.is-paused .orbit {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+[data-theme="dark"] .shield-off .orbit-dot,
+[data-theme="dark"] .shield-visual.is-paused .orbit-dot {
+  background: #fbbf24;
+  box-shadow: 0 0 8px #fbbf24;
+}
+
+[data-theme="dark"] .shield-off .live-label {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .shield-off .live-label i {
+  background: #fbbf24;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .shield-off .shield-status span {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .shield-off .shield-status strong {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .shield-off .next-step {
+  border-color: rgba(245, 158, 11, 0.6);
+  background: rgba(6, 7, 35, 0.9);
+}
+
+[data-theme="dark"] .shield-off .next-step small {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .shield-off .next-step .step-icon {
+  background: #f59e0b;
+  color: #060723;
 }
 
 [data-theme="dark"] .promise {

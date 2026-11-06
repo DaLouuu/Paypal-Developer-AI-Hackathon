@@ -38,6 +38,19 @@ export default function SubGuardIcon({
         <path d="m9 12 2 2 4-4" />
       </>
     ),
+    'shield-pause': (
+      <>
+        <path d="M12 3 5 6v5c0 4.9 2.8 8.2 7 10 4.2-1.8 7-5.1 7-10V6l-7-3Z" />
+        <line x1="10" y1="10.5" x2="10" y2="14.5" />
+        <line x1="14" y1="10.5" x2="14" y2="14.5" />
+      </>
+    ),
+    pause: (
+      <>
+        <line x1="9" y1="6" x2="9" y2="18" />
+        <line x1="15" y1="6" x2="15" y2="18" />
+      </>
+    ),
     search: (
       <>
         <circle cx="10.5" cy="10.5" r="6.5" />

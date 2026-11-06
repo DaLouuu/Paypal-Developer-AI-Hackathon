@@ -454,7 +454,7 @@ export default function App() {
                 <div className="card-top-header">
                   <div>
                     <span className="live-label">
-                      <i /> SUBGUARD AUTOPILOT
+                      <i /> {shieldOn ? 'SUBGUARD AUTOPILOT' : 'AUTOPILOT PAUSED'}
                     </span>
                     <h3 style={{ margin: '4px 0 0', fontSize: '17px', fontWeight: 700, color: 'var(--navy)' }}>
                       Cancellation Shield
@@ -473,11 +473,11 @@ export default function App() {
                   </button>
                 </div>
 
-                <div className="shield-visual" style={{ margin: '10px 0' }}>
+                <div className={`shield-visual ${shieldOn ? '' : 'is-paused'}`} style={{ margin: '10px 0' }}>
                   <div className="orbit orbit-one" />
                   <div className="orbit orbit-two" />
                   <div className="shield-core">
-                    <SubGuardIcon name="shield" size={26} stroke={2.2} />
+                    <SubGuardIcon name={shieldOn ? "shield" : "shield-pause"} size={26} stroke={2.2} />
                   </div>
                   <span className="orbit-dot dot-one" />
                   <span className="orbit-dot dot-two" />
@@ -495,10 +495,10 @@ export default function App() {
 
                 <div className="next-step" style={{ marginTop: '16px' }}>
                   <span className="step-icon">
-                    <SubGuardIcon name="wand" size={17} />
+                    <SubGuardIcon name={shieldOn ? "wand" : "alert"} size={17} />
                   </span>
                   <div>
-                    <small>WHAT HAPPENS NEXT</small>
+                    <small>{shieldOn ? 'WHAT HAPPENS NEXT' : 'PROTECTION HALTED'}</small>
                     <p>
                       {shieldOn
                         ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
@@ -734,7 +734,7 @@ export default function App() {
                   <div className="shield-heading">
                     <div>
                       <span className="live-label">
-                        <i /> SUBGUARD AUTOPILOT
+                        <i /> {shieldOn ? 'SUBGUARD AUTOPILOT' : 'AUTOPILOT PAUSED'}
                       </span>
                       <h2>Cancellation Shield</h2>
                     </div>
@@ -751,11 +751,11 @@ export default function App() {
                     </button>
                   </div>
 
-                  <div className="shield-visual">
+                  <div className={`shield-visual ${shieldOn ? '' : 'is-paused'}`}>
                     <div className="orbit orbit-one" />
                     <div className="orbit orbit-two" />
                     <div className="shield-core">
-                      <SubGuardIcon name="shield" size={26} stroke={2.2} />
+                      <SubGuardIcon name={shieldOn ? "shield" : "shield-pause"} size={26} stroke={2.2} />
                     </div>
                     <span className="orbit-dot dot-one" />
                     <span className="orbit-dot dot-two" />
@@ -773,10 +773,10 @@ export default function App() {
 
                   <div className="next-step">
                     <span className="step-icon">
-                      <SubGuardIcon name="wand" size={17} />
+                      <SubGuardIcon name={shieldOn ? "wand" : "alert"} size={17} />
                     </span>
                     <div>
-                      <small>WHAT HAPPENS NEXT</small>
+                      <small>{shieldOn ? 'WHAT HAPPENS NEXT' : 'PROTECTION HALTED'}</small>
                       <p>
                         {shieldOn
                           ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
