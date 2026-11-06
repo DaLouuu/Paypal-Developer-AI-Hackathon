@@ -396,7 +396,7 @@ export default function DiscoverySearch({ onSelectTool }) {
                     title={isFav ? 'In your wishlist' : 'Save to wishlist'}
                     onClick={(e) => toggleFavorite(product.product_id, e)}
                   >
-                    <SubGuardIcon name="heart" size={14} />
+                    <SubGuardIcon name="heart" size={14} fill={isFav ? 'currentColor' : 'none'} className="heart-icon" />
                   </button>
                 </div>
               </div>

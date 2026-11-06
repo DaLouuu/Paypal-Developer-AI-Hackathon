@@ -25,6 +25,11 @@
   --c-turquoise: #2edcc4;
   --c-spruce: #216e65;
 
+  /* Complementing Heart Crimson/Rose Red */
+  --c-heart-red: #ff335c;
+  --c-heart-red-soft: rgba(255, 51, 92, 0.12);
+  --c-heart-red-glow: rgba(255, 51, 92, 0.3);
+
   /* Functional Mappings (Light Mode) */
   --navy: #060723;
   --navy-deep: #1b1f9d;
@@ -1642,24 +1647,40 @@ main {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1.5px solid var(--line);
-  background: var(--surface);
-  color: var(--navy);
+  border: 1.5px solid rgba(255, 51, 92, 0.35);
+  background: #ffffff;
+  color: var(--c-heart-red, #ff335c);
   display: grid;
   place-items: center;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 0;
 }
+.wishlist-btn svg path {
+  transition: fill 0.2s ease, stroke 0.2s ease, transform 0.2s ease;
+}
 .wishlist-btn:hover {
-  color: #060723;
-  border-color: #1b1f9d;
-  background: #f9dec9;
+  color: var(--c-heart-red, #ff335c);
+  border-color: var(--c-heart-red, #ff335c);
+  background: var(--c-heart-red-soft, rgba(255, 51, 92, 0.12));
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px var(--c-heart-red-glow, rgba(255, 51, 92, 0.25));
+}
+.wishlist-btn:hover svg path {
+  fill: var(--c-heart-red-soft, rgba(255, 51, 92, 0.25));
 }
 .wishlist-btn.active {
-  color: #060723;
-  background: #f9dec9;
-  border-color: #1b1f9d;
+  color: var(--c-heart-red, #ff335c);
+  background: var(--c-heart-red-soft, rgba(255, 51, 92, 0.14));
+  border-color: var(--c-heart-red, #ff335c);
+  box-shadow: 0 2px 10px var(--c-heart-red-glow, rgba(255, 51, 92, 0.3));
+}
+.wishlist-btn.active svg path {
+  fill: var(--c-heart-red, #ff335c);
+}
+.wishlist-btn.active:hover {
+  transform: scale(1.14);
+  box-shadow: 0 3px 12px var(--c-heart-red-glow, rgba(255, 51, 92, 0.4));
 }
 .product-identity {
   display: flex;
@@ -2494,6 +2515,11 @@ footer {
   --yellow-light: #060723;
   --yellow-dark: #f9dec9;
   --meter-inactive: rgba(249, 222, 201, 0.25);
+
+  /* Complementing Heart Crimson/Rose Red (Dark Mode High Vibrancy) */
+  --c-heart-red: #ff4d6d;
+  --c-heart-red-soft: rgba(255, 77, 109, 0.2);
+  --c-heart-red-glow: rgba(255, 77, 109, 0.45);
 }
 [data-theme="dark"] body {
   background: #060723;
@@ -2810,19 +2836,32 @@ footer {
   border-color: rgba(46, 220, 196, 0.3);
 }
 [data-theme="dark"] .wishlist-btn {
-  background: #060723;
-  border-color: #1b1f9d;
-  color: #f9dec9;
+  background: rgba(6, 7, 35, 0.85);
+  border-color: rgba(255, 77, 109, 0.35);
+  color: var(--c-heart-red, #ff4d6d);
 }
 [data-theme="dark"] .wishlist-btn:hover {
-  background: #f9dec9;
-  border-color: #f9dec9;
-  color: #060723;
+  background: var(--c-heart-red-soft, rgba(255, 77, 109, 0.2));
+  border-color: var(--c-heart-red, #ff4d6d);
+  color: var(--c-heart-red, #ff4d6d);
+  transform: scale(1.1);
+  box-shadow: 0 0 12px var(--c-heart-red-glow, rgba(255, 77, 109, 0.4));
+}
+[data-theme="dark"] .wishlist-btn:hover svg path {
+  fill: var(--c-heart-red-soft, rgba(255, 77, 109, 0.3));
 }
 [data-theme="dark"] .wishlist-btn.active {
-  background: #f9dec9;
-  border-color: #f9dec9;
-  color: #060723;
+  background: var(--c-heart-red-soft, rgba(255, 77, 109, 0.24));
+  border-color: var(--c-heart-red, #ff4d6d);
+  color: var(--c-heart-red, #ff4d6d);
+  box-shadow: 0 0 14px var(--c-heart-red-glow, rgba(255, 77, 109, 0.5));
+}
+[data-theme="dark"] .wishlist-btn.active svg path {
+  fill: var(--c-heart-red, #ff4d6d);
+}
+[data-theme="dark"] .wishlist-btn.active:hover {
+  transform: scale(1.14);
+  box-shadow: 0 0 18px var(--c-heart-red-glow, rgba(255, 77, 109, 0.65));
 }
 [data-theme="dark"] .star-rating {
   color: #f9dec9;

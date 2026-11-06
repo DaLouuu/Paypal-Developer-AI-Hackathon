@@ -4,7 +4,8 @@ export default function SubGuardIcon({
   name,
   size = 18,
   stroke = 1.8,
-  className = ''
+  className = '',
+  fill = 'none'
 }) {
   const paths = {
     bag: (
@@ -134,7 +135,7 @@ export default function SubGuardIcon({
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={fill}
       stroke="currentColor"
       strokeWidth={stroke}
       strokeLinecap="round"
