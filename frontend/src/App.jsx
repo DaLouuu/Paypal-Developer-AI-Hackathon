@@ -481,154 +481,197 @@ export default function App() {
             </div>
 
             <div className="protection-grid">
-              <div>
-                {/* Autopilot Cancellation Shield Panel */}
-                <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`} style={{ marginBottom: '24px' }}>
-                  <div className="shield-heading">
-                    <div>
-                      <span className="live-label">
-                        <i /> SUBGUARD AUTOPILOT
-                      </span>
-                      <h2>Cancellation Shield</h2>
-                    </div>
-                    <button
-                      className={`toggle ${shieldOn ? 'on' : ''}`}
-                      aria-pressed={shieldOn}
-                      onClick={() => {
-                        setShieldOn(!shieldOn);
-                        showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
-                      }}
-                      type="button"
-                    >
-                      <span />
-                    </button>
-                  </div>
-
-                  <div className="shield-visual">
-                    <div className="orbit orbit-one" />
-                    <div className="orbit orbit-two" />
-                    <div className="shield-core">
-                      <SubGuardIcon name="shield" size={26} stroke={1.8} />
-                    </div>
-                    <span className="orbit-dot dot-one" />
-                    <span className="orbit-dot dot-two" />
-                  </div>
-
-                  <div className="shield-status">
-                    <span>CURSOR PRO TRIAL</span>
-                    <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
-                    <p>
-                      {shieldOn
-                        ? 'Until SubGuard steps in before renewal'
-                        : 'Turn protection back on to avoid an unwanted renewal.'}
-                    </p>
-                  </div>
-
-                  <div className="next-step">
-                    <span className="step-icon">
-                      <SubGuardIcon name="wand" size={17} />
+              {/* Row 1, Col 1: Autopilot Cancellation Shield Panel */}
+              <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`}>
+                <div className="card-top-header">
+                  <div>
+                    <span className="live-label">
+                      <i /> SUBGUARD AUTOPILOT
                     </span>
-                    <div>
-                      <small>WHAT HAPPENS NEXT</small>
-                      <p>
-                        {shieldOn
-                          ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
-                          : 'Automated cancellation is currently disabled.'}
-                      </p>
-                    </div>
-                  </div>
-                </aside>
-
-                {/* Autonomous Spending Policy Card */}
-                <div className="governance-card">
-                  <h3>
-                    <SubGuardIcon name="shield" size={18} /> Active Autonomous Spending Policy
-                  </h3>
-                  <div className="governance-metric-row">
-                    <div className="governance-metric-box">
-                      <span>Single Transaction Ceiling</span>
-                      <strong>${spendingCap.toFixed(2)}</strong>
-                      <small>Transactions above require HITL</small>
-                    </div>
-                    <div className="governance-metric-box">
-                      <span>Monthly Hard Cap</span>
-                      <strong>$500.00</strong>
-                      <small>Hard deterministic rejection</small>
-                    </div>
+                    <h3 style={{ margin: '4px 0 0', fontSize: '17px', fontWeight: 700, color: 'var(--navy)' }}>
+                      Cancellation Shield
+                    </h3>
                   </div>
                   <button
+                    className={`toggle ${shieldOn ? 'on' : ''}`}
+                    aria-pressed={shieldOn}
+                    onClick={() => {
+                      setShieldOn(!shieldOn);
+                      showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
+                    }}
                     type="button"
-                    className="outline-button"
-                    onClick={() => setIsAccountOpen(true)}
-                    style={{ width: '100%', justifyContent: 'center' }}
                   >
-                    Configure Policy Ceilings in Passport
+                    <span />
                   </button>
+                </div>
+
+                <div className="shield-visual" style={{ margin: '10px 0' }}>
+                  <div className="orbit orbit-one" />
+                  <div className="orbit orbit-two" />
+                  <div className="shield-core">
+                    <SubGuardIcon name="shield" size={26} stroke={1.8} />
+                  </div>
+                  <span className="orbit-dot dot-one" />
+                  <span className="orbit-dot dot-two" />
+                </div>
+
+                <div className="shield-status">
+                  <span>CURSOR PRO TRIAL</span>
+                  <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
+                  <p>
+                    {shieldOn
+                      ? 'Until SubGuard steps in before renewal'
+                      : 'Turn protection back on to avoid an unwanted renewal.'}
+                  </p>
+                </div>
+
+                <div className="next-step" style={{ marginTop: '16px' }}>
+                  <span className="step-icon">
+                    <SubGuardIcon name="wand" size={17} />
+                  </span>
+                  <div>
+                    <small>WHAT HAPPENS NEXT</small>
+                    <p>
+                      {shieldOn
+                        ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
+                        : 'Automated cancellation is currently disabled.'}
+                    </p>
+                  </div>
+                </div>
+              </aside>
+
+              {/* Row 1, Col 2: Cryptographic Key & Protocol Binding */}
+              <div className="governance-card">
+                <div className="card-top-header">
+                  <div>
+                    <span className="live-label">
+                      <i /> PROTOCOL VERIFIER
+                    </span>
+                    <h3 style={{ margin: '4px 0 0', fontSize: '17px', fontWeight: 700, color: 'var(--navy)' }}>
+                      Cryptographic Protocol Binding
+                    </h3>
+                  </div>
+                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px' }}>
+                    <SubGuardIcon name="lock" size={11} stroke={2.2} /> Ed25519 Active
+                  </span>
+                </div>
+
+                <div className="protocol-spec-list" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '14px 0' }}>
+                  <div className="protocol-spec-item">
+                    <span>AP2 Protocol Verifier</span>
+                    <strong style={{ color: 'var(--green, #216e65)' }}>Ed25519 ENFORCED</strong>
+                  </div>
+                  <div className="protocol-spec-item">
+                    <span>Key Fingerprint</span>
+                    <strong>ed25519:e4a7...99b2</strong>
+                  </div>
+                  <div className="protocol-spec-item">
+                    <span>FastMCP Proxy Gateway</span>
+                    <strong>http://localhost:8000</strong>
+                  </div>
+                  <div className="protocol-spec-item">
+                    <span>Handshake Latency</span>
+                    <strong style={{ color: 'var(--green, #216e65)' }}>0.42 ms (SLO &lt; 50ms)</strong>
+                  </div>
+                </div>
+
+                <div className="next-step" style={{ marginTop: '16px' }}>
+                  <span className="step-icon">
+                    <SubGuardIcon name="shield" size={17} />
+                  </span>
+                  <div>
+                    <small>GATEWAY AUDIT STATUS</small>
+                    <p>Deterministic mandates validated by FastMCP daemon on Port 8000.</p>
+                  </div>
                 </div>
               </div>
 
-              <div>
-                {/* Cryptographic Key & Protocol Binding */}
-                <div className="governance-card">
-                  <h3>
-                    <SubGuardIcon name="lock" size={18} /> Cryptographic Key & Protocol Binding
-                  </h3>
-                  <div className="protocol-spec-list">
-                    <div className="protocol-spec-item">
-                      <span>AP2 Protocol Verifier</span>
-                      <strong style={{ color: 'var(--green, #216e65)' }}>Ed25519 ENFORCED</strong>
-                    </div>
-                    <div className="protocol-spec-item">
-                      <span>Key Fingerprint</span>
-                      <strong>ed25519:e4a7...99b2</strong>
-                    </div>
-                    <div className="protocol-spec-item">
-                      <span>FastMCP Proxy Gateway</span>
-                      <strong>http://localhost:8000</strong>
-                    </div>
-                    <div className="protocol-spec-item">
-                      <span>Handshake Latency</span>
-                      <strong style={{ color: 'var(--green, #216e65)' }}>0.42 ms (SLO &lt; 50ms)</strong>
-                    </div>
+              {/* Row 2, Col 1: Autonomous Spending Policy Card */}
+              <div className="governance-card">
+                <div className="card-top-header" style={{ marginBottom: '14px' }}>
+                  <div>
+                    <span className="live-label">
+                      <i /> GOVERNANCE CONTROLS
+                    </span>
+                    <h3 style={{ margin: '4px 0 0', fontSize: '17px', fontWeight: 700, color: 'var(--navy)' }}>
+                      Autonomous Spending Policy
+                    </h3>
+                  </div>
+                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px', background: 'var(--blue)', color: '#ffffff' }}>
+                    Deterministic
+                  </span>
+                </div>
+
+                <div className="governance-metric-row" style={{ margin: 'auto 0 16px' }}>
+                  <div className="governance-metric-box">
+                    <span>Single Transaction Ceiling</span>
+                    <strong>${spendingCap.toFixed(2)}</strong>
+                    <small>Transactions above require HITL</small>
+                  </div>
+                  <div className="governance-metric-box">
+                    <span>Monthly Hard Cap</span>
+                    <strong>$500.00</strong>
+                    <small>Hard deterministic rejection</small>
                   </div>
                 </div>
 
-                {/* Pending Human Approval Card */}
-                <div className="governance-card">
-                  <h3>
-                    <SubGuardIcon name="alert" size={18} /> Awaiting Human Approval
-                  </h3>
-                  <div className="notice-card notice-card-crimson" style={{ margin: 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span className="notice-tag tag-crimson">Limit Exceeded</span>
-                      <span className="notice-time">Action Needed</span>
-                    </div>
-                    <strong className="notice-title">Datadog APM ($75.00/mo)</strong>
-                    <p className="notice-body">
-                      Autonomous agent spend exceeds $50.00 ceiling. Requires founder sign-off to proceed.
-                    </p>
-                    <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-                      <button
-                        type="button"
-                        className="approve-button"
-                        onClick={() => {
-                          handleApproveDatadog();
-                          showNotice('Datadog APM approved via FastMCP Proxy');
-                        }}
-                        style={{ fontSize: '11px', padding: '7px 12px' }}
-                      >
-                        Approve Mandate
-                      </button>
-                      <button
-                        type="button"
-                        className="outline-button"
-                        onClick={() => navigateTo('subscriptions')}
-                        style={{ fontSize: '11px', padding: '7px 12px' }}
-                      >
-                        View in Subscriptions
-                      </button>
-                    </div>
+                <button
+                  type="button"
+                  className="outline-button"
+                  onClick={() => setIsAccountOpen(true)}
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  Configure Policy Ceilings in Passport
+                </button>
+              </div>
+
+              {/* Row 2, Col 2: Pending Human Approval Card */}
+              <div className="governance-card">
+                <div className="card-top-header" style={{ marginBottom: '14px' }}>
+                  <div>
+                    <span className="live-label" style={{ color: '#e05260' }}>
+                      <i style={{ background: '#e05260', boxShadow: '0 0 0 4px rgba(224, 82, 96, 0.15)' }} /> HUMAN-IN-THE-LOOP
+                    </span>
+                    <h3 style={{ margin: '4px 0 0', fontSize: '17px', fontWeight: 700, color: 'var(--navy)' }}>
+                      Awaiting Human Approval
+                    </h3>
                   </div>
+                  <span className="notice-tag tag-crimson" style={{ margin: 0 }}>
+                    1 Pending
+                  </span>
+                </div>
+
+                <div className="notice-card notice-card-crimson" style={{ margin: 'auto 0 16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span className="notice-tag tag-crimson">Limit Exceeded</span>
+                    <span className="notice-time">Action Needed</span>
+                  </div>
+                  <strong className="notice-title">Datadog APM ($75.00/mo)</strong>
+                  <p className="notice-body">
+                    Autonomous agent spend exceeds $50.00 ceiling. Requires founder sign-off to proceed.
+                  </p>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  <button
+                    type="button"
+                    className="approve-button"
+                    onClick={() => {
+                      handleApproveDatadog();
+                      showNotice('Datadog APM approved via FastMCP Proxy');
+                    }}
+                    style={{ fontSize: '12px', padding: '9px 12px', width: '100%', justifyContent: 'center' }}
+                  >
+                    Approve Mandate
+                  </button>
+                  <button
+                    type="button"
+                    className="outline-button"
+                    onClick={() => navigateTo('subscriptions')}
+                    style={{ fontSize: '12px', padding: '9px 12px', width: '100%', justifyContent: 'center' }}
+                  >
+                    View in Ledger
+                  </button>
                 </div>
               </div>
             </div>
