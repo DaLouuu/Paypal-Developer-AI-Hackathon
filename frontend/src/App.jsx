@@ -288,6 +288,35 @@ export default function App() {
             <span />
           </button>
 
+          {/* Subscriptions Cart / Bag */}
+          <button
+            className="notification"
+            aria-label="Guarded Subscriptions Bag"
+            onClick={() => navigateTo('subscriptions')}
+            title={`${activeCount} Active Plans Guarded`}
+            type="button"
+          >
+            <SubGuardIcon name="cart" size={18} />
+            <span
+              style={{
+                background: '#f59e0b',
+                color: '#1a1400',
+                fontWeight: 800,
+                fontSize: '9px',
+                width: '14px',
+                height: '14px',
+                display: 'grid',
+                placeItems: 'center',
+                borderRadius: '50%',
+                border: 'none',
+                top: '-3px',
+                right: '-3px'
+              }}
+            >
+              {activeCount}
+            </span>
+          </button>
+
           {/* User Profile / Governance Passport */}
           <button
             className="profile"

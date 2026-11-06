@@ -119,8 +119,8 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, color: 'var(--muted)' }}>
                 Contract & Dark-Pattern Inspection
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--blue, #3f64ff)' }}>
-                SubGuard Trust {product.rating || '4.8'}
+              <span style={{ fontSize: '12px', fontWeight: 800, color: '#b45309', background: '#fef3c7', padding: '3px 8px', borderRadius: '6px', border: '1px solid #fde68a', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <SubGuardIcon name="star" size={12} /> SubGuard Trust {product.rating || '4.8'}
               </span>
             </div>
             <RiskMeter score={product.tos_risk_score || 0.15} />

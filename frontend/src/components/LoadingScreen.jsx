@@ -182,10 +182,10 @@ export default function LoadingScreen({ onComplete }) {
             style={{
               height: '100%',
               width: `${progress}%`,
-              background: 'linear-gradient(90deg, #3f64ff 0%, #2bbf88 100%)',
+              background: 'linear-gradient(90deg, #16a34a 0%, #f59e0b 100%)',
               borderRadius: '100px',
               transition: 'width 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-              boxShadow: '0 0 12px rgba(63, 100, 255, 0.5)'
+              boxShadow: '0 0 12px rgba(22, 163, 74, 0.45)'
             }}
           />
         </div>

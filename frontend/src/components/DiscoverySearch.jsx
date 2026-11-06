@@ -12,6 +12,8 @@ const CURATED_PRODUCTS = [
     category: 'Productivity',
     line: 'One calm place for your team to think, write, and plan.',
     price: 10,
+    original_price: 15,
+    reviews_count: '24.1k',
     rating: '4.8',
     risk: 'Low risk',
     tag: 'Best for teams',
@@ -30,9 +32,11 @@ const CURATED_PRODUCTS = [
     category: 'Design',
     line: 'Design, prototype, and bring your best ideas to life.',
     price: 15,
+    original_price: 20,
+    reviews_count: '18.4k',
     rating: '4.9',
     risk: 'Low risk',
-    tag: 'Popular',
+    tag: 'Best Seller',
     pricing_tier: 'Professional',
     vendor_domain: 'figma.com',
     soc2_compliant: true,
@@ -48,9 +52,11 @@ const CURATED_PRODUCTS = [
     category: 'Development',
     line: 'The AI code editor built to help you move faster.',
     price: 20,
+    original_price: 28,
+    reviews_count: '9.8k',
     rating: '4.7',
     risk: 'Medium risk',
-    tag: 'AI pick',
+    tag: 'Trending AI',
     pricing_tier: 'Pro Individual',
     vendor_domain: 'cursor.sh',
     soc2_compliant: true,
@@ -68,9 +74,11 @@ const CURATED_PRODUCTS = [
     category: 'Communication',
     line: 'A smarter, simpler way to keep your team in sync.',
     price: 8.75,
+    original_price: 12.5,
+    reviews_count: '31.2k',
     rating: '4.8',
     risk: 'Low risk',
-    tag: 'Great value',
+    tag: 'Hot Deal',
     pricing_tier: 'Pro',
     vendor_domain: 'slack.com',
     soc2_compliant: true,
@@ -86,6 +94,8 @@ const CURATED_PRODUCTS = [
     category: 'Development',
     line: 'Managed vector database with serverless indexing and sub-millisecond retrieval.',
     price: 25,
+    original_price: 35,
+    reviews_count: '4.2k',
     rating: '4.8',
     risk: 'Low risk',
     tag: 'SOC-2 Type II',
@@ -104,9 +114,11 @@ const CURATED_PRODUCTS = [
     category: 'Development',
     line: 'End-to-end distributed tracing, infrastructure telemetry, and synthetic monitors.',
     price: 31,
+    original_price: 40,
+    reviews_count: '7.9k',
     rating: '4.6',
     risk: 'Medium risk',
-    tag: 'Observability',
+    tag: 'Enterprise',
     pricing_tier: 'Pro Infra',
     vendor_domain: 'datadoghq.com',
     soc2_compliant: true,
@@ -122,6 +134,8 @@ const CURATED_PRODUCTS = [
     category: 'Development',
     line: 'Distributed tracing with promotional trial that automatically converts to an annual contract.',
     price: 49,
+    original_price: 49,
+    reviews_count: '320',
     rating: '2.1',
     risk: 'High risk (Trapped)',
     tag: 'Contract Trap',
@@ -150,7 +164,15 @@ export default function DiscoverySearch({ onSelectTool }) {
   const [query, setQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [soc2Only, setSoc2Only] = useState(false);
+  const [favorites, setFavorites] = useState(['prod_notion', 'prod_figma']);
   const searchRef = useRef(null);
+
+  const toggleFavorite = (productId, e) => {
+    e.stopPropagation();
+    setFavorites((prev) =>
+      prev.includes(productId) ? prev.filter((id) => id !== productId) : [...prev, productId]
+    );
+  };
 
   useEffect(() => {
     const handleShortcut = (e) => {
@@ -193,12 +215,37 @@ export default function DiscoverySearch({ onSelectTool }) {
 
   return (
     <section className="marketplace-section" id="discover">
+      {/* Amazon-Style High-Conversion Guarantee Banner */}
+      <div className="ecommerce-promo-banner">
+        <div className="promo-copy">
+          <span className="promo-kicker">
+            <SubGuardIcon name="sparkle" size={13} /> SUBGUARD EXCLUSIVE GUARANTEE
+          </span>
+          <h3>48-Hour Cancellation Shield on Every Subscription</h3>
+          <p>
+            Browse curated software provisioned through PayPal with deterministic spend limits. SubGuard intercepts checkout, checks contract terms, and auto-schedules rollover shields.
+          </p>
+          <div className="promo-perks">
+            <span><SubGuardIcon name="check" size={13} /> Ed25519 Cryptographic Signatures</span>
+            <span><SubGuardIcon name="check" size={13} /> 48h Autopilot Rollover Blocker</span>
+            <span><SubGuardIcon name="check" size={13} /> $50.00 Autonomous Spend Ceiling</span>
+          </div>
+        </div>
+        <div className="promo-badge-box">
+          <div className="promo-badge-icon">
+            <SubGuardIcon name="shield" size={38} stroke={2.4} />
+          </div>
+          <strong>100% Protected</strong>
+          <small>PayPal Dev Sandbox</small>
+        </div>
+      </div>
+
       {/* Section Header */}
       <div className="section-heading">
         <div>
           <span className="section-kicker">THE SUBGUARD EDIT</span>
           <h2>Software worth paying for.</h2>
-          <p>Handpicked tools with clear pricing, verified security, and no nasty renewal surprises.</p>
+          <p>Handpicked tools with transparent pricing, verified compliance, and zero auto-renewal traps.</p>
         </div>
         <a href="#discover">
           Browse all software <SubGuardIcon name="arrow" size={17} />
@@ -234,10 +281,10 @@ export default function DiscoverySearch({ onSelectTool }) {
                 fontSize: '11px',
                 fontWeight: 600,
                 cursor: 'pointer',
-                color: soc2Only ? 'var(--blue)' : 'var(--muted)',
-                background: soc2Only ? 'rgba(63, 100, 255, 0.1)' : 'transparent',
+                color: soc2Only ? '#15803d' : 'var(--muted)',
+                background: soc2Only ? '#dcfce7' : 'transparent',
                 border: '1px solid',
-                borderColor: soc2Only ? 'var(--blue)' : 'var(--line)',
+                borderColor: soc2Only ? '#86efac' : 'var(--line)',
                 padding: '8px 12px',
                 borderRadius: '9px',
                 transition: 'all 0.15s ease'
@@ -303,66 +350,92 @@ export default function DiscoverySearch({ onSelectTool }) {
 
       {/* Product Cards Grid */}
       <div className="product-grid">
-        {filtered.map((product) => (
-          <article
-            key={product.product_id}
-            className="product-card"
-            onClick={() => handleCardClick(product)}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="product-topline">
-              <span className="product-tag">{product.tag}</span>
-              <button
-                className="icon-button"
-                aria-label={`Inspect ${product.name}`}
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCardClick(product);
-                }}
-              >
-                <SubGuardIcon name="more" />
-              </button>
-            </div>
+        {filtered.map((product) => {
+          const isFav = favorites.includes(product.product_id);
+          const hasDiscount = product.original_price && product.original_price > product.price;
 
-            <div className="product-identity">
-              <span className="product-logo" style={{ background: product.bg, color: product.color }}>
-                {product.mark}
-              </span>
-              <div>
-                <h3>{product.name}</h3>
-                <span>{product.category}</span>
+          return (
+            <article
+              key={product.product_id}
+              className="product-card"
+              onClick={() => handleCardClick(product)}
+              style={{ cursor: 'pointer' }}
+            >
+              {/* Card Topline: Tag + Wishlist Heart */}
+              <div className="product-topline">
+                <span className="product-tag">{product.tag}</span>
+                <button
+                  className={`wishlist-btn ${isFav ? 'active' : ''}`}
+                  aria-label={isFav ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+                  type="button"
+                  title={isFav ? 'In your wishlist' : 'Save to wishlist'}
+                  onClick={(e) => toggleFavorite(product.product_id, e)}
+                >
+                  <SubGuardIcon name="heart" size={14} />
+                </button>
               </div>
-            </div>
 
-            <p>{product.line}</p>
-
-            <div className="trust-row">
-              <span style={{ color: product.tos_risk_score > 0.6 ? '#c24e49' : undefined }}>
-                <SubGuardIcon name="shield" size={14} /> {product.risk}
-              </span>
-              <span className="guard-score">SG {product.rating}</span>
-            </div>
-
-            <div className="product-footer">
-              <div>
-                <strong>${product.price}</strong>
-                <span> / user / mo</span>
+              {/* Product Identity */}
+              <div className="product-identity">
+                <span className="product-logo" style={{ background: product.bg, color: product.color }}>
+                  {product.mark}
+                </span>
+                <div>
+                  <h3>{product.name}</h3>
+                  <span>{product.vendor_domain} · {product.category}</span>
+                </div>
               </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCardClick(product);
-                }}
-                aria-label={`View details and provision ${product.name}`}
-                title="Review & Provision"
-                type="button"
-              >
-                <SubGuardIcon name="arrow" size={17} />
-              </button>
-            </div>
-          </article>
-        ))}
+
+              <p>{product.line}</p>
+
+              {/* Star Rating E-commerce Row */}
+              <div className="star-rating">
+                <SubGuardIcon name="star" size={13} />
+                <span>{product.rating}</span>
+                <small>({product.reviews_count || '1.2k'} reviews)</small>
+              </div>
+
+              {/* Contract Risk & Trust Row */}
+              <div className="trust-row">
+                <span style={{ color: product.tos_risk_score > 0.6 ? '#c24e49' : undefined }}>
+                  <SubGuardIcon name="shield" size={14} /> {product.risk}
+                </span>
+                <span className="guard-score">SG {product.rating}</span>
+              </div>
+
+              {/* E-Commerce Footer with Strikethrough Pricing & Green Cart Button */}
+              <div className="product-footer">
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                    <strong>${Number(product.price).toFixed(2)}</strong>
+                    {hasDiscount && (
+                      <span className="price-strike">
+                        ${Number(product.original_price).toFixed(2)}
+                      </span>
+                    )}
+                    {hasDiscount && (
+                      <span className="discount-pill">
+                        Save ${Number(product.original_price - product.price).toFixed(0)}
+                      </span>
+                    )}
+                  </div>
+                  <span className="unit">/ user / mo</span>
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCardClick(product);
+                  }}
+                  aria-label={`View details and provision ${product.name}`}
+                  title="Provision with SubGuard Shield"
+                  type="button"
+                >
+                  <SubGuardIcon name="arrow" size={17} />
+                </button>
+              </div>
+            </article>
+          );
+        })}
 
         {filtered.length === 0 && (
           <div className="empty-state">

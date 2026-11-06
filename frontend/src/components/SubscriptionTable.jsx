@@ -359,7 +359,12 @@ export default function SubscriptionTable({
                   {logoChar}
                 </span>
                 <div>
-                  <strong>{sub.product_name}</strong>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <strong>{sub.product_name}</strong>
+                    <span className="ap2-verified-tag">
+                      <SubGuardIcon name="check" size={9} stroke={2.4} /> AP2 Signed
+                    </span>
+                  </div>
                   <small>
                     {sub.product_tier || 'Team plan'} · {sub.active_seats || 1} seat{sub.active_seats > 1 ? 's' : ''}
                   </small>
