@@ -32,17 +32,17 @@
   --sky: #216e65;
 
   --blue: #1b1f9d;
-  --green: #2edcc4;
+  --green: #216e65;
   --green-bright: #2edcc4;
   --green-soft: rgba(46, 220, 196, 0.18);
   --yellow: #f9dec9;
   --yellow-light: #f9dec9;
-  --muted: #216e65;
+  --muted: #1b1f9d;
   --line: #1b1f9d;
   --surface: #ffffff;
-  --surface-soft: #f9dec9;
+  --surface-soft: #ffffff;
   --text: #060723;
-  --text-muted: #216e65;
+  --text-muted: #1b1f9d;
 }
 
 * {
@@ -140,23 +140,24 @@ html {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: linear-gradient(145deg, #1b1f9d, #2edcc4);
-  color: white;
+  background: #060723;
+  color: #2edcc4;
+  border: 1.5px solid #2edcc4;
   display: grid;
   place-items: center;
   position: relative;
-  box-shadow: 0 8px 18px rgba(46, 220, 196, 0.25);
+  box-shadow: 0 4px 14px rgba(6, 7, 35, 0.25);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
 }
 .brand:hover .brand-mark {
   transform: scale(1.08) rotate(-3deg);
-  box-shadow: 0 10px 24px rgba(46, 220, 196, 0.4);
+  box-shadow: 0 6px 18px rgba(46, 220, 196, 0.4);
 }
 .brand-mark::before {
   content: "";
   position: absolute;
   inset: 1px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(46, 220, 196, 0.3);
   border-radius: 11px;
 }
 .brand-shield {
@@ -166,11 +167,11 @@ html {
   width: 17px;
   height: 17px;
   border-radius: 50%;
-  background: var(--yellow, #f9dec9);
-  color: #1b1f9d;
+  background: #f9dec9;
+  color: #060723;
   display: grid;
   place-items: center;
-  border: 2px solid white;
+  border: 1.5px solid #060723;
 }
 .brand-name {
   font-family: Manrope, sans-serif;
@@ -296,14 +297,14 @@ nav a.active svg {
 .icon-button[aria-label*="Close"]:hover,
 .icon-button[aria-label*="close"]:hover {
   transform: rotate(90deg) scale(1.2);
-  color: #f9dec9 !important;
+  color: #060723 !important;
 }
 .notification span {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #f9dec9;
-  border: 1px solid white;
+  background: #2edcc4;
+  border: 1.5px solid #060723;
   position: absolute;
   top: 1px;
   right: 0;
@@ -1572,18 +1573,20 @@ main {
   width: 20px;
   height: 20px;
   padding: 0;
-  border: 0;
+  border: 1px solid #1b1f9d;
   border-radius: 50%;
   background: #1b1f9d;
-  color: #1b1f9d;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
   cursor: pointer;
   line-height: 1;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
 }
 .search-clear:hover {
   transform: rotate(90deg) scale(1.15);
-  background: #1b1f9d;
-  color: var(--navy);
+  background: #060723;
+  color: #ffffff;
 }
 .suggested-chip {
   background: var(--surface-soft, #ffffff);
@@ -1659,8 +1662,8 @@ main {
 }
 .product-tag {
   background: #f9dec9;
-  color: #f9dec9;
-  border: 1px solid #f9dec9;
+  color: #060723;
+  border: 1.5px solid #1b1f9d;
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 9px;
@@ -1675,9 +1678,9 @@ main {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--line);
   background: var(--surface);
-  color: var(--muted);
+  color: var(--navy);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -1686,14 +1689,14 @@ main {
 }
 .wishlist-btn:hover {
   transform: scale(1.18);
-  color: #f9dec9;
-  border-color: #f9dec9;
+  color: #060723;
+  border-color: #1b1f9d;
   background: #f9dec9;
 }
 .wishlist-btn.active {
-  color: #f9dec9;
+  color: #060723;
   background: #f9dec9;
-  border-color: #f9dec9;
+  border-color: #1b1f9d;
 }
 .product-identity {
   display: flex;
@@ -1736,16 +1739,16 @@ main {
   gap: 4px;
   font-size: 11px;
   font-weight: 700;
-  color: #f9dec9;
+  color: #060723;
   margin-bottom: 12px;
 }
 .star-rating svg {
-  color: #f9dec9;
+  color: #216e65;
 }
 .star-rating small {
   font-size: 10px;
-  color: var(--muted);
-  font-weight: 500;
+  color: #1b1f9d;
+  font-weight: 600;
 }
 .trust-row {
   display: flex;
@@ -1813,19 +1816,19 @@ main {
 .product-footer button {
   width: 38px;
   height: 38px;
-  border: 0;
+  border: 1.5px solid #060723;
   background: #2edcc4;
-  color: white;
+  color: #060723;
   border-radius: 10px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(46, 220, 196, 0.22);
+  box-shadow: 2px 2px 0px #060723;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
 }
 .product-card:hover .product-footer button {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(46, 220, 196, 0.35);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #060723;
   background: #2edcc4;
 }
 .product-card .product-footer button:hover {
@@ -1924,18 +1927,19 @@ main {
 }
 .horizon-btn:hover:not(.active) {
   transform: translateY(-1px);
-  background: #2edcc4;
-  color: #2edcc4;
+  background: #f9dec9;
+  color: #060723;
 }
 .horizon-btn.active {
-  color: #ffffff;
+  color: #060723;
   background: #2edcc4;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(46, 220, 196, 0.25);
+  font-weight: 800;
+  border: 1.5px solid #060723;
+  box-shadow: 2px 2px 0px #060723;
 }
 .horizon-btn.active:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(46, 220, 196, 0.35);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #060723;
 }
 .modal-overlay {
   position: fixed;
@@ -1961,11 +1965,13 @@ main {
 }
 .confirm-icon-box.danger {
   background-color: #f9dec9;
-  color: #f9dec9;
+  color: #060723;
+  border: 1.5px solid #1b1f9d;
 }
 .confirm-icon-box.primary {
   background-color: #216e65;
-  color: #216e65;
+  color: #ffffff;
+  border: 1.5px solid #060723;
 }
 .notice-card {
   padding: 16px 18px;
@@ -1980,16 +1986,16 @@ main {
   box-shadow: 0 6px 18px rgba(6, 7, 35, 0.08);
 }
 .notice-card-amber {
-  background-color: #f9dec9;
-  border: 1px solid #f9dec9;
+  background-color: #ffffff;
+  border: 1.5px solid #1b1f9d;
 }
 .notice-card-crimson {
-  background-color: #f9dec9;
-  border: 1px solid #f9dec9;
+  background-color: #ffffff;
+  border: 1.5px solid #1b1f9d;
 }
 .notice-card-neutral {
   background-color: var(--surface-soft, #ffffff);
-  border: 1px solid var(--line, #1b1f9d);
+  border: 1.5px solid var(--line, #1b1f9d);
 }
 .notice-tag {
   font-size: 10px;
@@ -2000,16 +2006,19 @@ main {
   border-radius: 5px;
 }
 .tag-amber {
-  color: #f9dec9;
+  color: #060723;
   background-color: #f9dec9;
+  border: 1px solid #1b1f9d;
 }
 .tag-crimson {
-  color: #f9dec9;
-  background-color: #f9dec9;
+  color: #ffffff;
+  background-color: #060723;
+  border: 1px solid #1b1f9d;
 }
 .tag-green {
-  color: #2edcc4;
+  color: #060723;
   background-color: #2edcc4;
+  border: 1px solid #060723;
 }
 .notice-time {
   font-size: 10px;
@@ -2031,19 +2040,19 @@ main {
 }
 .warning-callout {
   background-color: #f9dec9;
-  border: 1px solid #f9dec9;
+  border: 1.5px solid #1b1f9d;
   border-radius: 12px;
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  color: #f9dec9;
+  color: #060723;
 }
 .compliance-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--green, #2edcc4);
+  color: #216e65;
   font-weight: 600;
 }
 .ap2-verified-tag {
@@ -2055,15 +2064,15 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background: #2edcc4;
-  color: #2edcc4;
-  border: 1px solid #2edcc4;
+  color: #060723;
+  border: 1px solid #060723;
   padding: 1px 5px;
   border-radius: 4px;
 }
 .loading-step-done {
   background: #2edcc4;
-  color: #2edcc4;
-  border: 1px solid #2edcc4;
+  color: #060723;
+  border: 1px solid #060723;
 }
 .loading-step-current {
   background: rgba(33, 110, 101, 0.12);
@@ -2085,9 +2094,9 @@ main {
   border-radius: 100px;
 }
 .status-pill-active {
-  color: #2edcc4;
+  color: #060723;
   background-color: #2edcc4;
-  border: 1px solid #2edcc4;
+  border: 1.5px solid #060723;
 }
 .status-pill-blue {
   color: var(--blue);
@@ -2097,9 +2106,9 @@ main {
 .badge-verified {
   font-size: 10px;
   font-weight: 800;
-  color: #2edcc4;
+  color: #060723;
   background-color: #2edcc4;
-  border: 1px solid #2edcc4;
+  border: 1.5px solid #060723;
   padding: 2px 7px;
   border-radius: 5px;
   letter-spacing: 0.05em;
@@ -2124,25 +2133,25 @@ main {
   align-items: center;
   padding: 0 10px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   gap: 6px;
   overflow: hidden;
   transition: all 0.2s ease;
 }
 .timeline-bar-trial {
   background-color: #f9dec9;
-  border: 1px solid #f9dec9;
-  color: #f9dec9;
+  border: 1.5px solid #1b1f9d;
+  color: #060723;
 }
 .timeline-bar-active {
   background-color: #2edcc4;
-  border: 1px solid #2edcc4;
-  color: #2edcc4;
+  border: 1.5px solid #060723;
+  color: #060723;
 }
 .timeline-bar-suspended {
   background-color: #f9dec9;
-  border: 1px solid #f9dec9;
-  color: #f9dec9;
+  border: 1.5px solid #1b1f9d;
+  color: #060723;
 }
 .timeline-tooltip {
   position: absolute;
@@ -2203,14 +2212,15 @@ main {
 .notion {
   background: #ffffff;
   color: #060723;
+  border: 1px solid #1b1f9d;
 }
 .cursor {
   background: #216e65;
-  color: #216e65;
+  color: #ffffff;
 }
 .datadog {
-  background: #216e65;
-  color: #216e65;
+  background: #1b1f9d;
+  color: #ffffff;
 }
 .sub-identity div {
   display: grid;
@@ -2242,21 +2252,27 @@ main {
 }
 .sub-status.active {
   background: #2edcc4;
-  color: #2edcc4;
+  color: #060723;
+  border: 1px solid #060723;
 }
 .sub-status.active i {
-  background: #2edcc4;
+  background: #060723;
 }
 .sub-status.trial {
   background: #f9dec9;
-  color: #f9dec9;
+  color: #060723;
+  border: 1.5px solid #1b1f9d;
+}
+.sub-status.trial i {
+  background: #1b1f9d;
 }
 .sub-status.attention {
   background: #f9dec9;
-  color: #f9dec9;
+  color: #060723;
+  border: 1.5px solid #1b1f9d;
 }
 .sub-status.attention i {
-  background: #f9dec9;
+  background: #060723;
 }
 .auto-cancel-ready-tag {
   font-size: 11px;
@@ -2264,9 +2280,9 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  color: #f9dec9;
-  background-color: #f9dec9;
-  border: 1px solid #f9dec9;
+  color: #060723;
+  background-color: #2edcc4;
+  border: 1.5px solid #060723;
   padding: 4px 10px;
   border-radius: 8px;
 }
@@ -2428,8 +2444,9 @@ footer {
   top: 92px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--navy);
-  color: white;
+  background: #060723;
+  color: #ffffff;
+  border: 1.5px solid #2edcc4;
   padding: 11px 17px;
   border-radius: 10px;
   z-index: 50;
@@ -2489,18 +2506,18 @@ footer {
 [data-theme="dark"] {
   color-scheme: dark;
   --navy: #f9dec9;
-  --navy-deep: #1b1f9d;
+  --navy-deep: #060723;
   --cream: #060723;
-  --muted: #216e65;
+  --muted: #f9dec9;
   --line: #1b1f9d;
   --surface: #1b1f9d;
-  --surface-soft: #1b1f9d;
+  --surface-soft: #060723;
   --text: #ffffff;
-  --text-muted: #216e65;
-  --blue: #216e65;
+  --text-muted: #f9dec9;
+  --blue: #2edcc4;
   --green: #2edcc4;
   --green-bright: #2edcc4;
-  --green-soft: rgba(46, 220, 196, 0.15);
+  --green-soft: rgba(46, 220, 196, 0.2);
   --yellow: #f9dec9;
   --yellow-light: #060723;
   --yellow-dark: #f9dec9;
@@ -2535,17 +2552,18 @@ footer {
   color: #f9dec9;
 }
 [data-theme="dark"] nav a {
-  color: #216e65;
+  color: #ffffff;
 }
 [data-theme="dark"] nav a:hover,
 [data-theme="dark"] nav a.active {
-  color: #2edcc4;
-  background: #1b1f9d;
+  color: #060723;
+  background: #2edcc4;
+  border-color: #2edcc4;
 }
 [data-theme="dark"] .theme-button {
-  color: #216e65;
+  color: #f9dec9;
   border-color: #1b1f9d;
-  background: #1b1f9d;
+  background: #060723;
 }
 [data-theme="dark"] .profile > span:first-child {
   color: #060723;
@@ -2566,7 +2584,7 @@ footer {
 [data-theme="dark"] .product-identity span,
 [data-theme="dark"] .sub-identity small,
 [data-theme="dark"] .sub-price small {
-  color: #216e65;
+  color: #f9dec9;
 }
 [data-theme="dark"] .mini-chart {
   border-color: #1b1f9d;
@@ -2599,7 +2617,7 @@ footer {
   background: #060723;
 }
 [data-theme="dark"] .categories button {
-  color: #216e65;
+  color: #ffffff;
 }
 [data-theme="dark"] .categories button.active,
 [data-theme="dark"] .product-footer button,
@@ -2610,8 +2628,9 @@ footer {
 }
 [data-theme="dark"] .primary-button:hover,
 [data-theme="dark"] .product-footer button:hover {
-  background: #216e65;
-  box-shadow: 0 8px 20px rgba(33, 110, 101, 0.35);
+  background: #f9dec9;
+  color: #060723;
+  box-shadow: 0 8px 20px rgba(249, 222, 201, 0.35);
 }
 [data-theme="dark"] .search-box,
 [data-theme="dark"] .product-card,
@@ -2624,11 +2643,15 @@ footer {
 [data-theme="dark"] .search-box input {
   color: #ffffff;
 }
-[data-theme="dark"] .search-box span,
-[data-theme="dark"] .search-clear {
-  color: #216e65;
+[data-theme="dark"] .search-box span {
+  color: #f9dec9;
   background: #060723;
   border-color: #1b1f9d;
+}
+[data-theme="dark"] .search-clear {
+  color: #060723;
+  background: #2edcc4;
+  border: 1px solid #2edcc4;
 }
 [data-theme="dark"] .product-card:hover {
   background: #1b1f9d;
@@ -2636,10 +2659,10 @@ footer {
   border-color: #1b1f9d;
 }
 [data-theme="dark"] .outline-button:hover {
-  border-color: #216e65;
-  color: #216e65;
+  border-color: #2edcc4;
+  color: #2edcc4;
   background: #060723;
-  box-shadow: 0 8px 18px rgba(33, 110, 101, 0.2);
+  box-shadow: 0 8px 18px rgba(46, 220, 196, 0.2);
 }
 [data-theme="dark"] .profile:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -2703,19 +2726,19 @@ footer {
   border-color: rgba(46, 220, 196, 0.3);
 }
 [data-theme="dark"] .wishlist-btn {
-  background: #1b1f9d;
+  background: #060723;
   border-color: #1b1f9d;
-  color: #216e65;
+  color: #f9dec9;
 }
 [data-theme="dark"] .wishlist-btn:hover {
-  background: #060723;
-  border-color: #060723;
-  color: #f9dec9;
+  background: #f9dec9;
+  border-color: #f9dec9;
+  color: #060723;
 }
 [data-theme="dark"] .wishlist-btn.active {
-  background: #060723;
-  border-color: #060723;
-  color: #f9dec9;
+  background: #f9dec9;
+  border-color: #f9dec9;
+  color: #060723;
 }
 [data-theme="dark"] .star-rating {
   color: #f9dec9;
@@ -2731,10 +2754,12 @@ footer {
 [data-theme="dark"] .confirm-icon-box.danger {
   background-color: #060723;
   color: #f9dec9;
+  border: 1.5px solid #f9dec9;
 }
 [data-theme="dark"] .confirm-icon-box.primary {
-  background-color: #1b1f9d;
-  color: #216e65;
+  background-color: #060723;
+  color: #2edcc4;
+  border: 1.5px solid #2edcc4;
 }
 [data-theme="dark"] .notice-card-amber {
   background-color: rgba(249, 222, 201, 0.08);
@@ -2774,9 +2799,9 @@ footer {
   border-color: rgba(46, 220, 196, 0.3);
 }
 [data-theme="dark"] .status-pill-blue {
-  color: #216e65;
-  background-color: rgba(33, 110, 101, 0.15);
-  border-color: rgba(33, 110, 101, 0.3);
+  color: #f9dec9;
+  background-color: rgba(249, 222, 201, 0.15);
+  border-color: rgba(249, 222, 201, 0.3);
 }
 [data-theme="dark"] .badge-verified {
   color: #2edcc4;
@@ -2815,9 +2840,9 @@ footer {
   border-color: rgba(46, 220, 196, 0.3);
 }
 [data-theme="dark"] .loading-step-current {
-  background: rgba(33, 110, 101, 0.18);
-  color: #216e65;
-  border-color: rgba(33, 110, 101, 0.35);
+  background: rgba(46, 220, 196, 0.18);
+  color: #2edcc4;
+  border-color: rgba(46, 220, 196, 0.35);
 }
 [data-theme="dark"] .sub-status.active {
   color: #2edcc4;

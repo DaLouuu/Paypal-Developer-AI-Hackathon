@@ -275,7 +275,8 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                             backgroundColor: '#2edcc4',
                             display: 'grid',
                             placeItems: 'center',
-                            color: '#ffffff',
+                            color: '#060723',
+                            border: '1.5px solid #060723',
                             boxShadow: '0 2px 8px rgba(46, 220, 196, 0.45)',
                             cursor: 'pointer',
                             zIndex: 10

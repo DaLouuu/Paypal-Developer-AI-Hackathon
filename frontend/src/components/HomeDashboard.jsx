@@ -201,13 +201,13 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#f9dec9', color: '#f9dec9', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#f9dec9', color: '#060723', border: '1.5px solid #1b1f9d', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <ShieldAlert size={18} />
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ fontWeight: 700, fontSize: '14px', color: '#060723' }}>{item.product_name}</span>
-                      <span style={{ fontSize: '11px', fontWeight: 600, color: '#f9dec9', backgroundColor: '#f9dec9', padding: '1px 6px', borderRadius: '4px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#060723', backgroundColor: '#f9dec9', border: '1.5px solid #1b1f9d', padding: '1px 6px', borderRadius: '4px' }}>
                         Agent Over-Limit (${item.recurring_amount})
                       </span>
                     </div>
@@ -253,13 +253,13 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#f9dec9', color: '#f9dec9', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '8px', backgroundColor: '#f9dec9', color: '#060723', border: '1.5px solid #1b1f9d', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Clock size={18} />
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ fontWeight: 700, fontSize: '14px', color: '#060723' }}>{item.product_name} Free Trial</span>
-                      <span style={{ fontSize: '11px', fontWeight: 600, color: '#f9dec9', backgroundColor: '#f9dec9', padding: '1px 6px', borderRadius: '4px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#060723', backgroundColor: '#f9dec9', border: '1.5px solid #1b1f9d', padding: '1px 6px', borderRadius: '4px' }}>
                         Conversion Risk
                       </span>
                     </div>

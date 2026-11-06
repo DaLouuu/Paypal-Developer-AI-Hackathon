@@ -122,7 +122,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, color: 'var(--muted)' }}>
                 Contract & Dark-Pattern Inspection
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#f9dec9', background: '#f9dec9', padding: '3px 8px', borderRadius: '6px', border: '1px solid #f9dec9', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 800, color: '#060723', background: '#f9dec9', padding: '3px 8px', borderRadius: '6px', border: '1.5px solid #1b1f9d', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                 <SubGuardIcon name="star" size={12} /> SubGuard Trust {product.rating || '4.8'}
               </span>
             </div>

@@ -197,7 +197,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
             <div style={{ padding: '14px', background: 'var(--surface-soft)', borderRadius: '12px', border: '1px solid var(--line)', marginTop: '8px', fontSize: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: 'var(--muted)' }}>AP2 Protocol Verifier:</span>
-                <span style={{ color: '#2edcc4', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ color: 'var(--green, #216e65)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                   <SubGuardIcon name="check" size={13} /> Ed25519 Enforced
                 </span>
               </div>
