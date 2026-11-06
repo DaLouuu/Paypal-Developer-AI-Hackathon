@@ -1818,31 +1818,38 @@ main {
   padding-top: 14px;
 }
 .product-footer strong {
-  font-family: var(--font-mono);
-  font-size: 19px;
+  font-family: var(--font-sans);
+  font-size: 20px;
   font-weight: 700;
+  color: #060723;
+  letter-spacing: -0.02em;
 }
 .price-strike {
   text-decoration: line-through;
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 600;
-  margin-left: 4px;
+  text-decoration-color: rgba(6, 7, 35, 0.4);
+  font-size: 12px;
+  color: rgba(6, 7, 35, 0.45);
+  font-weight: 500;
+  margin-left: 6px;
 }
 .discount-pill {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   background: #2edcc4;
-  color: #1b1f9d;
-  padding: 2px 5px;
+  color: #060723;
+  border: 1px solid #060723;
+  padding: 2px 6px;
   border-radius: 4px;
-  margin-left: 5px;
+  margin-left: 8px;
+  box-shadow: 1px 1px 0px #060723;
+  letter-spacing: 0.02em;
 }
 .product-footer span.unit {
-  font-size: 9px;
-  color: var(--muted);
+  font-size: 10px;
+  color: rgba(6, 7, 35, 0.55);
   display: block;
-  margin-top: 1px;
+  margin-top: 2px;
+  font-weight: 500;
 }
 .product-footer button {
   width: 38px;
@@ -2589,7 +2596,6 @@ footer {
 [data-theme="dark"] .spend-meta strong,
 [data-theme="dark"] .section-heading h2,
 [data-theme="dark"] .product-identity h3,
-[data-theme="dark"] .product-footer strong,
 [data-theme="dark"] .sub-identity strong,
 [data-theme="dark"] .sub-renew strong,
 [data-theme="dark"] .sub-price strong,
@@ -2965,9 +2971,22 @@ footer {
 [data-theme="dark"] .star-rating {
   color: #f9dec9;
 }
+[data-theme="dark"] .product-footer strong {
+  color: #ffffff;
+}
+[data-theme="dark"] .price-strike {
+  color: rgba(249, 222, 201, 0.42);
+  text-decoration-color: rgba(249, 222, 201, 0.35);
+}
 [data-theme="dark"] .discount-pill {
-  background: rgba(46, 220, 196, 0.15);
-  color: #2edcc4;
+  background: #2edcc4;
+  color: #060723;
+  border: 1px solid #060723;
+  box-shadow: 0 1px 4px rgba(46, 220, 196, 0.35);
+  font-weight: 700;
+}
+[data-theme="dark"] .product-footer span.unit {
+  color: rgba(249, 222, 201, 0.6);
 }
 [data-theme="dark"] .subscriptions-section {
   background: transparent;
