@@ -3446,7 +3446,33 @@ footer span {
 }
 
 [data-theme="dark"] .live-label {
-  color: #2edcc4;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+[data-theme="dark"] .live-label i {
+  background: #2edcc4;
+  box-shadow: 0 0 0 3px rgba(46, 220, 196, 0.25), 0 0 8px #2edcc4;
+}
+
+.live-label-hitl {
+  color: #dc2626 !important;
+}
+
+.live-label-hitl i {
+  background: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2) !important;
+}
+
+[data-theme="dark"] .live-label-hitl {
+  color: #ff859d !important;
+  font-weight: 800;
+}
+
+[data-theme="dark"] .live-label-hitl i {
+  background: #ff335c !important;
+  box-shadow: 0 0 0 3px rgba(255, 51, 92, 0.25), 0 0 8px #ff335c !important;
 }
 
 [data-theme="dark"] .shield-status span {
@@ -3470,8 +3496,9 @@ footer span {
 }
 
 [data-theme="dark"] .next-step small {
-  color: #2edcc4;
-  font-weight: 700;
+  color: #f9dec9;
+  font-weight: 800;
+  letter-spacing: 0.1em;
 }
 
 [data-theme="dark"] .next-step p {
@@ -3899,8 +3926,10 @@ footer span {
 
 [data-theme="dark"] .badge-verified {
   color: #2edcc4;
-  background-color: rgba(46, 220, 196, 0.15);
-  border-color: rgba(46, 220, 196, 0.3);
+  background-color: #060723;
+  border: 1.5px solid #2edcc4;
+  font-weight: 800;
+  box-shadow: 0 0 8px rgba(46, 220, 196, 0.25);
 }
 
 [data-theme="dark"] .timeline-bar-trial {
@@ -4103,7 +4132,7 @@ footer span {
 }
 
 [data-theme="dark"] .governance-card h3 {
-  color: #f9dec9;
+  color: #ffffff;
 }
 
 [data-theme="dark"] .governance-metric-box {
@@ -4111,12 +4140,32 @@ footer span {
   border-color: #1b1f9d;
 }
 
-[data-theme="dark"] .governance-metric-box strong {
+[data-theme="dark"] .governance-metric-box span {
   color: #f9dec9;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+[data-theme="dark"] .governance-metric-box strong {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .governance-metric-box small {
+  color: #f9dec9;
+  opacity: 0.85;
 }
 
 [data-theme="dark"] .protocol-spec-item {
-  border-color: #1b1f9d;
+  border-color: rgba(249, 222, 201, 0.2);
+}
+
+[data-theme="dark"] .protocol-spec-item span {
+  color: #f9dec9;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .protocol-spec-item strong {
+  color: #ffffff;
 }
 
 @keyframes toast-in {

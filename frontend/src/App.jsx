@@ -527,7 +527,7 @@ export default function App() {
                 <div className="protocol-spec-list" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '14px 0' }}>
                   <div className="protocol-spec-item">
                     <span>AP2 Protocol Verifier</span>
-                    <strong style={{ color: 'var(--green, #216e65)' }}>Ed25519 ENFORCED</strong>
+                    <strong style={{ color: 'var(--green-bright, #2edcc4)' }}>Ed25519 ENFORCED</strong>
                   </div>
                   <div className="protocol-spec-item">
                     <span>Key Fingerprint</span>
@@ -539,7 +539,7 @@ export default function App() {
                   </div>
                   <div className="protocol-spec-item">
                     <span>Handshake Latency</span>
-                    <strong style={{ color: 'var(--green, #216e65)' }}>0.42 ms (SLO &lt; 50ms)</strong>
+                    <strong style={{ color: 'var(--green-bright, #2edcc4)' }}>0.42 ms (SLO &lt; 50ms)</strong>
                   </div>
                 </div>
 
@@ -598,8 +598,8 @@ export default function App() {
               <div className="governance-card">
                 <div className="card-top-header" style={{ marginBottom: '14px' }}>
                   <div>
-                    <span className="live-label" style={{ color: '#e05260' }}>
-                      <i style={{ background: '#e05260', boxShadow: '0 0 0 4px rgba(224, 82, 96, 0.15)' }} /> HUMAN-IN-THE-LOOP
+                    <span className="live-label live-label-hitl">
+                      <i /> HUMAN-IN-THE-LOOP
                     </span>
                     <h3 style={{ margin: '4px 0 0', fontSize: '17px', fontWeight: 700, color: 'var(--navy)' }}>
                       Awaiting Human Approval
