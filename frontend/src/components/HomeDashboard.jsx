@@ -14,12 +14,14 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
       <div
         style={{
           backgroundColor: '#060723',
+          backgroundImage: 'radial-gradient(ellipse at 85% 25%, rgba(27, 31, 157, 0.75), rgba(0, 47, 167, 0.35) 45%, transparent 70%)',
           color: '#ffffff',
           borderRadius: '16px',
+          border: '1.5px solid #1b1f9d',
           padding: '32px 36px',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: '0 12px 24px -4px rgba(6, 7, 35, 0.15)'
+          boxShadow: '4px 4px 0px #1b1f9d'
         }}
       >
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '640px' }}>
@@ -176,7 +178,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
       {(suspended.length > 0 || trials.length > 0) && (
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-            <AlertTriangle size={16} color="#f9dec9" />
+            <AlertTriangle size={16} color="#1b1f9d" />
             <h2 style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: '#060723' }}>
               Attention Required ({suspended.length + trials.length})
             </h2>

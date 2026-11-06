@@ -16,9 +16,11 @@
   --font-mono: "JetBrains Mono", monospace;
   --font-display: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
 
-  /* 5-Color Scheme Tokens */
+  /* 5-Color Scheme Tokens + Ultramarine */
   --c-prussian: #060723;
   --c-royal: #1b1f9d;
+  --c-ultramarine: #1b1f9d;
+  --c-ultramarine-electric: #002fa7;
   --c-petal: #f9dec9;
   --c-turquoise: #2edcc4;
   --c-spruce: #216e65;
@@ -220,19 +222,19 @@ nav a svg {
   transition: transform 0.14s ease, color 0.14s ease;
 }
 nav a:hover {
-  color: var(--navy);
-  background: var(--surface-soft);
-  border-color: var(--line);
+  color: #1b1f9d;
+  background: rgba(27, 31, 157, 0.08);
+  border-color: #1b1f9d;
 }
 nav a.active {
-  color: #060723;
-  background: #2edcc4;
+  color: #ffffff;
+  background: #1b1f9d;
   border-color: #060723;
   box-shadow: 2px 2px 0px #060723;
   font-weight: 700;
 }
 nav a.active svg {
-  color: #060723;
+  color: #ffffff;
 }
 .nav-dot {
   width: 6px;
@@ -539,16 +541,16 @@ main {
 }
 .governance-card {
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
   padding: 24px 26px;
-  box-shadow: 0 8px 24px rgba(6, 7, 35, 0.04);
+  box-shadow: 4px 4px 0px var(--line);
   margin-bottom: 24px;
 }
 .governance-card h3 {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0 0 16px;
   display: flex;
   align-items: center;
@@ -563,8 +565,9 @@ main {
 }
 .governance-metric-box {
   background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 2px 2px 0px var(--line);
   padding: 14px 16px;
 }
 .governance-metric-box span {
@@ -751,16 +754,16 @@ main {
 }
 .governance-card {
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
   padding: 24px 26px;
-  box-shadow: 0 8px 24px rgba(6, 7, 35, 0.04);
+  box-shadow: 4px 4px 0px var(--line);
   margin-bottom: 24px;
 }
 .governance-card h3 {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0 0 16px;
   display: flex;
   align-items: center;
@@ -775,8 +778,9 @@ main {
 }
 .governance-metric-box {
   background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 2px 2px 0px var(--line);
   padding: 14px 16px;
 }
 .governance-metric-box span {
@@ -1515,28 +1519,33 @@ main {
   gap: 4px;
 }
 .categories button {
-  border: 0;
+  border: 1.5px solid transparent;
   background: transparent;
   color: #1b1f9d;
-  padding: 9px 13px;
-  border-radius: 9px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: var(--font-display);
   font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 .categories button:hover:not(.active) {
-  color: var(--navy);
-  background: rgba(6, 7, 35, 0.08);
-  transform: translateY(-2px);
+  color: #060723;
+  background: rgba(27, 31, 157, 0.08);
+  border-color: #1b1f9d;
+  transform: translate(-1px, -1px);
 }
 .categories button.active {
-  color: white;
-  background: var(--navy);
+  color: #ffffff;
+  background: #1b1f9d;
+  border: 1.5px solid #060723;
+  box-shadow: 2px 2px 0px #060723;
 }
 .categories button.active:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(6, 7, 35, 0.2);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #060723;
 }
 .search-box {
   width: 275px;
