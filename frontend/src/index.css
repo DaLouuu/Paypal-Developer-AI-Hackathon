@@ -853,7 +853,7 @@ main {
   text-transform: uppercase;
 }
 .eyebrow {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   width: max-content;
@@ -864,6 +864,54 @@ main {
   border: 1.5px solid #060723;
   box-shadow: 2px 2px 0px #060723;
   font-weight: 700;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.eyebrow:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #060723;
+}
+.eyebrow:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px #060723;
+}
+.eyebrow.status-alert {
+  background: #f9dec9;
+  color: #060723;
+  border-color: #060723;
+}
+.eyebrow.status-warning {
+  background: #f9dec9;
+  color: #060723;
+  border-color: #1b1f9d;
+}
+.eyebrow.status-paused {
+  background: #ffffff;
+  color: #1b1f9d;
+  border-color: #1b1f9d;
+}
+.eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.eyebrow-dot.pulse {
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+.eyebrow-dot.active {
+  background: #060723;
+}
+.eyebrow-dot.alert {
+  background: #1b1f9d;
+}
+.eyebrow-dot.warning {
+  background: #1b1f9d;
+}
+.eyebrow-dot.paused {
+  background: #1b1f9d;
 }
 .welcome-copy h1 {
   font-family: var(--font-serif);
@@ -2614,7 +2662,39 @@ footer {
 [data-theme="dark"] .eyebrow {
   color: #2edcc4;
   background: rgba(46, 220, 196, 0.15);
-  border-color: rgba(46, 220, 196, 0.3);
+  border: 1.5px solid rgba(46, 220, 196, 0.35);
+  box-shadow: 2px 2px 0px rgba(6, 7, 35, 0.5);
+}
+[data-theme="dark"] .eyebrow:hover {
+  background: rgba(46, 220, 196, 0.25);
+  border-color: #2edcc4;
+}
+[data-theme="dark"] .eyebrow.status-alert {
+  color: #f9dec9;
+  background: rgba(249, 222, 201, 0.16);
+  border-color: rgba(249, 222, 201, 0.4);
+}
+[data-theme="dark"] .eyebrow.status-warning {
+  color: #f9dec9;
+  background: rgba(249, 222, 201, 0.14);
+  border-color: #1b1f9d;
+}
+[data-theme="dark"] .eyebrow.status-paused {
+  color: #ffffff;
+  background: rgba(27, 31, 157, 0.25);
+  border-color: #1b1f9d;
+}
+[data-theme="dark"] .eyebrow-dot.active {
+  background: #2edcc4;
+}
+[data-theme="dark"] .eyebrow-dot.alert {
+  background: #f9dec9;
+}
+[data-theme="dark"] .eyebrow-dot.warning {
+  background: #f9dec9;
+}
+[data-theme="dark"] .eyebrow-dot.paused {
+  background: #ffffff;
 }
 [data-theme="dark"] .intro,
 [data-theme="dark"] .section-heading p,

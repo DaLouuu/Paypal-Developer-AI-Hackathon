@@ -149,6 +149,20 @@ export default function App() {
     const suspended = subscriptions.filter(s => s.status === 'SUSPENDED_AWAITING_HUMAN');
     const trials = subscriptions.filter(s => s.status === 'TRIAL_ACTIVE' || s.is_trial);
 
+    // If Autopilot shield has been toggled off by user
+    if (!shieldOn) {
+      return {
+        prefix: 'Autopilot protection is ',
+        highlight: 'paused.',
+        statusType: 'paused',
+        badgeIcon: 'shield',
+        badgeTone: 'paused',
+        badgeText: 'AUTOPILOT PAUSED · CLICK TO RESUME',
+        badgeActionTooltip: 'Click to resume automated cancellation safeguard',
+        description: 'Automated 48-hour cancellation guards and policy monitors are temporarily halted.'
+      };
+    }
+
     // Case 1: Suspended subscriptions needing human approval
     if (suspended.length > 0) {
       const sName = suspended[0].product_name || '1 subscription';
@@ -157,7 +171,11 @@ export default function App() {
         highlight: 'attention.',
         statusType: 'attention',
         badgeIcon: 'alert',
-        badgeText: `${suspended.length} ACTION NEEDED`,
+        badgeTone: 'alert',
+        badgeText: suspended.length === 1
+          ? `1 ACTION REQUIRED · ${sName.toUpperCase()} HELD`
+          : `${suspended.length} ACTIONS REQUIRED · HELD AT CEILING`,
+        badgeActionTooltip: 'Click to inspect and authorize suspended subscription',
         description: `${sName} triggered policy limits and is awaiting your founder authorization.`
       };
     }
@@ -169,7 +187,9 @@ export default function App() {
         highlight: 'limit.',
         statusType: 'warning',
         badgeIcon: 'shield',
-        badgeText: 'CEILING REACHED',
+        badgeTone: 'warning',
+        badgeText: `CEILING REACHED · $${totalBurn.toFixed(0)} / $${spendingCap.toFixed(0)} CAP`,
+        badgeActionTooltip: 'Click to adjust transaction ceiling in Passport',
         description: `Total monthly burn ($${totalBurn.toFixed(2)}) is at your $${spendingCap.toFixed(2)} transaction limit.`
       };
     }
@@ -181,7 +201,9 @@ export default function App() {
         highlight: 'protected.',
         statusType: 'protected',
         badgeIcon: 'shield',
-        badgeText: `${trials.length} TRIAL${trials.length > 1 ? 'S' : ''} GUARDED`,
+        badgeTone: 'active',
+        badgeText: `AUTOPILOT ARMED · ${trials.length} TRIAL${trials.length > 1 ? 'S' : ''} SECURED`,
+        badgeActionTooltip: 'Click to view 48-hour cancellation countdown schedule',
         description: `All software contracts are monitored, with ${trials.length} trial armed for auto-cancellation.`
       };
     }
@@ -193,7 +215,9 @@ export default function App() {
         highlight: 'clear.',
         statusType: 'clear',
         badgeIcon: 'shield',
-        badgeText: '0 ACTIVE CHARGES',
+        badgeTone: 'active',
+        badgeText: 'AUTOPILOT READY · 0 ACTIVE CHARGES',
+        badgeActionTooltip: 'Click to discover pre-vetted tools in catalog',
         description: 'No recurring charges active. Discover contract-checked software in the catalog.'
       };
     }
@@ -204,10 +228,12 @@ export default function App() {
       highlight: 'healthy.',
       statusType: 'healthy',
       badgeIcon: 'shield',
-      badgeText: 'GUARDED BY SUBGUARD',
+      badgeTone: 'active',
+      badgeText: `AUTOPILOT ACTIVE · ${activeCount} CONTRACTS VERIFIED`,
+      badgeActionTooltip: 'Click to inspect AP2 verification and protection center',
       description: 'Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.'
     };
-  }, [subscriptions, spendingCap, totalBurn]);
+  }, [subscriptions, spendingCap, totalBurn, shieldOn, activeCount]);
 
   const showNotice = (msg) => {
     setNotice(msg);
@@ -631,9 +657,28 @@ export default function App() {
             <section className="welcome-section">
               <div className="welcome-grid">
                 <div className="welcome-copy">
-                  <span className="eyebrow">
-                    <SubGuardIcon name={subscriptionHealth.badgeIcon || "shield"} size={15} /> {subscriptionHealth.badgeText}
-                  </span>
+                  <button
+                    type="button"
+                    className={`eyebrow status-${subscriptionHealth.badgeTone}`}
+                    onClick={() => {
+                      if (!shieldOn) {
+                        setShieldOn(true);
+                        showNotice('Autopilot protection resumed: active contracts guarded');
+                      } else if (subscriptionHealth.statusType === 'attention') {
+                        navigateTo('protection');
+                      } else if (subscriptionHealth.statusType === 'warning') {
+                        setIsAccountOpen(true);
+                      } else {
+                        navigateTo('protection');
+                      }
+                    }}
+                    title={subscriptionHealth.badgeActionTooltip || "Click to inspect protection details"}
+                    aria-label={subscriptionHealth.badgeText}
+                  >
+                    <span className={`eyebrow-dot pulse ${subscriptionHealth.badgeTone}`} />
+                    <SubGuardIcon name={subscriptionHealth.badgeIcon || "shield"} size={13} />
+                    <span>{subscriptionHealth.badgeText}</span>
+                  </button>
 
                   <h1>
                     {greeting}, {user.firstName || 'Alex'}.
