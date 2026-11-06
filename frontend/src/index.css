@@ -3140,9 +3140,9 @@ footer span {
   --navy-deep: #060723;
   --cream: #060723;
   --muted: #f9dec9;
-  --line: #1b1f9d;
-  --surface: #1b1f9d;
-  --surface-soft: #060723;
+  --line: #20296e;
+  --surface: #101740;
+  --surface-soft: #080c2b;
   --text: #ffffff;
   --text-muted: #f9dec9;
   --blue: #2edcc4;
@@ -3217,7 +3217,7 @@ footer span {
 
 [data-theme="dark"] .theme-button {
   color: #f9dec9;
-  border-color: #1b1f9d;
+  border-color: #20296e;
   background: #060723;
 }
 
@@ -3274,13 +3274,13 @@ footer span {
 [data-theme="dark"] .eyebrow.status-warning {
   color: #f9dec9;
   background: rgba(249, 222, 201, 0.14);
-  border-color: #1b1f9d;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .eyebrow.status-paused {
   color: #ffffff;
-  background: rgba(27, 31, 157, 0.25);
-  border-color: #1b1f9d;
+  background: rgba(32, 41, 110, 0.25);
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .eyebrow-dot.active {
@@ -3340,8 +3340,8 @@ footer span {
 }
 
 [data-theme="dark"] .shield-panel {
-  background: #1b1f9d;
-  border: 1.5px solid #1b1f9d;
+  background: #101740;
+  border: 1.5px solid #20296e;
   color: #f9dec9;
   box-shadow: 4px 4px 0px #060723;
 }
@@ -3420,7 +3420,7 @@ footer span {
 }
 
 [data-theme="dark"] .promise {
-  background: linear-gradient(145deg, #1b1f9d, #060723);
+  background: linear-gradient(145deg, #101740, #060723);
   border: 1px solid rgba(46, 220, 196, 0.25);
   box-shadow: 4px 4px 0px #060723;
 }
@@ -3524,8 +3524,8 @@ footer span {
 
 [data-theme="dark"] .renewal-ribbon {
   color: #f9dec9;
-  background: #1b1f9d;
-  border-color: rgba(249, 222, 201, 0.2);
+  background: #101740;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .renewal-ribbon p {
@@ -3568,8 +3568,8 @@ footer span {
 [data-theme="dark"] .search-box,
 [data-theme="dark"] .product-card {
   color: #ffffff;
-  background: #1b1f9d;
-  border-color: #1b1f9d;
+  background: #101740;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .approve-button {
@@ -3652,9 +3652,9 @@ footer span {
 }
 
 [data-theme="dark"] .product-card:hover {
-  background: #1b1f9d;
+  background: #131c4f;
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
-  border-color: #1b1f9d;
+  border-color: #2b3794;
 }
 
 
@@ -3723,7 +3723,7 @@ footer span {
 [data-theme="dark"] .trust-row,
 [data-theme="dark"] .subscription-list,
 [data-theme="dark"] .subscription-list article {
-  border-color: #1b1f9d;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] footer {
@@ -3893,8 +3893,8 @@ footer span {
 }
 
 [data-theme="dark"] .notice-card-neutral {
-  background-color: #1b1f9d;
-  border-color: #1b1f9d;
+  background-color: #101740;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .tag-amber {
@@ -3991,7 +3991,7 @@ footer span {
 
 [data-theme="dark"] .fingerprint-pill {
   background: #060723;
-  border-color: #1b1f9d;
+  border-color: #20296e;
   color: #f9dec9;
 }
 
@@ -4008,8 +4008,8 @@ footer span {
 }
 
 [data-theme="dark"] .subscription-ledger {
-  background: #1b1f9d;
-  border: 1.5px solid #1b1f9d;
+  background: #101740;
+  border: 1.5px solid #20296e;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 [data-theme="dark"] .ledger-header {
@@ -4089,14 +4089,14 @@ footer span {
 }
 
 [data-theme="dark"] .ecommerce-promo-banner {
-  background: linear-gradient(135deg, #1b1f9d 0%, #060723 100%);
+  background: linear-gradient(135deg, #101740 0%, #060723 100%);
   border: 1px solid rgba(33, 110, 101, 0.25);
   color: #f9dec9;
 }
 
 [data-theme="dark"] .promo-badge-box {
   background: #060723;
-  border-color: #1b1f9d;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .promo-badge-icon {
@@ -4104,8 +4104,8 @@ footer span {
 }
 
 [data-theme="dark"] .spend-story {
-  background: #1b1f9d;
-  border-color: #1b1f9d;
+  background: #101740;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .page-breadcrumb strong {
@@ -4117,13 +4117,13 @@ footer span {
 }
 
 [data-theme="dark"] .home-shortcut-card {
-  background: #1b1f9d;
-  border-color: #1b1f9d;
+  background: #101740;
+  border-color: #20296e;
   box-shadow: 4px 4px 0px #060723;
 }
 
 [data-theme="dark"] .home-shortcut-card:hover {
-  background: #1b1f9d;
+  background: #131c4f;
   border-color: #2edcc4;
   box-shadow: 6px 6px 0px #060723;
 }
@@ -4144,8 +4144,8 @@ footer span {
 }
 
 [data-theme="dark"] .governance-card {
-  background: #1b1f9d;
-  border-color: #1b1f9d;
+  background: #101740;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .governance-card h3 {
@@ -4154,7 +4154,7 @@ footer span {
 
 [data-theme="dark"] .governance-metric-box {
   background: #060723;
-  border-color: #1b1f9d;
+  border-color: #20296e;
 }
 
 [data-theme="dark"] .governance-metric-box span {
@@ -4413,7 +4413,7 @@ footer span {
     left: 16px;
     right: 16px;
     background: white;
-    border: 1px solid #1b1f9d;
+    border: 1px solid var(--line, #1b1f9d);
     box-shadow: 0 8px 35px rgba(6, 7, 35, 0.16);
     border-radius: 16px;
     justify-content: space-around;
@@ -4670,8 +4670,8 @@ footer span {
 
 @media (max-width: 800px) {
   [data-theme="dark"] nav {
-    background: #1b1f9d;
-    border-color: #1b1f9d;
+    background: #101740;
+    border-color: #20296e;
     box-shadow: 0 10px 38px rgba(0, 0, 0, 0.6);
   }
 }
