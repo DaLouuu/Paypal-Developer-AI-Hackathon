@@ -65,7 +65,7 @@ export default function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [user, setUser] = useState(() => {
     try {

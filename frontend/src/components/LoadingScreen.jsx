@@ -172,7 +172,7 @@ export default function LoadingScreen({ onComplete }) {
           style={{
             width: '100%',
             height: '6px',
-            background: 'rgba(6, 7, 35, 0.08)',
+            background: 'var(--meter-inactive, rgba(6, 7, 35, 0.12))',
             borderRadius: '100px',
             overflow: 'hidden',
             position: 'relative',
@@ -217,10 +217,10 @@ export default function LoadingScreen({ onComplete }) {
                   alignItems: 'center',
                   gap: '10px',
                   fontSize: '11px',
-                  color: isDone ? 'var(--navy, #060723)' : (isCurrent ? 'var(--blue, #216e65)' : 'var(--muted, #1b1f9d)'),
+                  color: isDone ? 'var(--text, #060723)' : (isCurrent ? 'var(--blue, #216e65)' : 'var(--muted, #1b1f9d)'),
                   fontWeight: isCurrent || isDone ? 600 : 500,
                   transition: 'all 0.2s ease',
-                  opacity: currentStep >= idx ? 1 : 0.5
+                  opacity: currentStep >= idx ? 1 : 0.6
                 }}
               >
                 <span
@@ -268,7 +268,8 @@ export default function LoadingScreen({ onComplete }) {
           style={{
             marginTop: '18px',
             fontSize: '11px',
-            color: 'var(--muted, #1b1f9d)'
+            color: 'var(--muted, #1b1f9d)',
+            cursor: 'pointer'
           }}
         >
           Skip initialization →

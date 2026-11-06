@@ -4304,6 +4304,12 @@ footer span {
   border-color: rgba(46, 220, 196, 0.35);
 }
 
+[data-theme="dark"] .loading-step-pending {
+  background: rgba(16, 23, 64, 0.6);
+  color: #8e9cd0;
+  border-color: #20296e;
+}
+
 [data-theme="dark"] .subscription-ledger {
   background: #101740;
   border: 1.5px solid #20296e;
