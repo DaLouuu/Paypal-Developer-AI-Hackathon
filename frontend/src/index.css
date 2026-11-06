@@ -2789,7 +2789,7 @@ main {
   text-overflow: ellipsis;
   line-height: 1;
   display: inline-block;
-  flex-shrink: 0;
+  min-width: 0;
 }
 
 .timeline-bar-trial {

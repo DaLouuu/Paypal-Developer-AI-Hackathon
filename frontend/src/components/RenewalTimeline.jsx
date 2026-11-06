@@ -266,7 +266,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
 
                       {/* Gantt Bar & Label Renderer */}
                       {(() => {
-                        const isNarrow = endPercent < 22;
+                        const isNarrow = isSuspended ? endPercent < 50 : endPercent < 35;
 
                         if (isTrial) {
                           return (
@@ -366,15 +366,16 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                                     width: '26px',
                                     height: '26px',
                                     borderRadius: '50%',
-                                    backgroundColor: 'rgba(255, 51, 92, 0.22)',
-                                    border: '1.5px solid #ff335c',
+                                    backgroundColor: '#ff335c',
+                                    border: '1.5px solid #060723',
+                                    boxShadow: '0 2px 8px rgba(255, 51, 92, 0.45)',
                                     display: 'grid',
                                     placeItems: 'center',
-                                    color: '#ff335c',
+                                    color: '#ffffff',
                                     zIndex: 10
                                   }}
                                 >
-                                  <SubGuardIcon name="alert" size={13} stroke={2.4} />
+                                  <SubGuardIcon name="alert" size={14} stroke={2.6} />
                                 </div>
 
                                 {/* External Suspended Label */}
@@ -406,7 +407,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                               style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'hidden' }}
                             >
                               <SubGuardIcon name="alert" size={13} style={{ flexShrink: 0 }} />
-                              <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flex: '1 1 auto' }}>
                                 Suspended: Awaiting Authorization
                               </span>
                               <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
@@ -440,15 +441,16 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                                   width: '26px',
                                   height: '26px',
                                   borderRadius: '50%',
-                                  backgroundColor: 'rgba(46, 220, 196, 0.22)',
-                                  border: '1.5px solid #2edcc4',
+                                  backgroundColor: '#2edcc4',
+                                  border: '1.5px solid #060723',
+                                  boxShadow: '0 2px 8px rgba(46, 220, 196, 0.45)',
                                   display: 'grid',
                                   placeItems: 'center',
-                                  color: '#2edcc4',
+                                  color: '#060723',
                                   zIndex: 10
                                 }}
                               >
-                                <SubGuardIcon name="check" size={13} stroke={2.4} />
+                                <SubGuardIcon name="check" size={14} stroke={2.6} />
                               </div>
 
                               {/* External Active Label */}
@@ -480,7 +482,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                             style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'hidden' }}
                           >
                             <SubGuardIcon name="check" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
-                            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flex: '1 1 auto' }}>
                               Current Cycle ({daysFromNow.toFixed(0)}d)
                             </span>
                             <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
