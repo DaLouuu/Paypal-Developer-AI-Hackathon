@@ -455,7 +455,14 @@ export default function DiscoverySearch({ onSelectTool }) {
 
               {/* Contract Risk & Trust Row */}
               <div className="trust-row">
-                <span style={{ color: product.tos_risk_score > 0.6 ? '#f9dec9' : undefined }}>
+                <span
+                  style={{
+                    color: product.tos_risk_score > 0.6
+                      ? '#ff4d6d'
+                      : (product.tos_risk_score > 0.3 ? '#fbbf24' : '#2edcc4'),
+                    fontWeight: 700
+                  }}
+                >
                   <SubGuardIcon name="shield" size={14} /> {product.risk}
                 </span>
                 <span className="guard-score">SG {product.rating}</span>
