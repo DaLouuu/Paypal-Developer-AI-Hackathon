@@ -86,32 +86,33 @@ export default function SubscriptionTable({
     {
       headerName: 'Vendor & Product',
       field: 'product_name',
-      flex: 1.6,
-      minWidth: 180,
+      flex: 1.8,
+      minWidth: 200,
       cellRenderer: (params) => {
         const domain = params.data?.merchant_domain || '';
         const initial = (params.value || 'S').charAt(0).toUpperCase();
         return (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', height: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', height: '100%', paddingLeft: '4px' }}>
             <span
               style={{
-                width: '30px',
-                height: '30px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
                 background: 'var(--surface-soft)',
                 border: '1px solid var(--line)',
                 display: 'grid',
                 placeItems: 'center',
                 fontWeight: 700,
-                fontSize: '12px',
-                color: 'var(--navy)'
+                fontSize: '13px',
+                color: 'var(--navy)',
+                flexShrink: 0
               }}
             >
               {initial}
             </span>
-            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-              <strong style={{ fontSize: '13px', color: 'var(--navy)' }}>{params.value}</strong>
-              <small style={{ fontSize: '10px', color: 'var(--muted)' }}>{domain}</small>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', lineHeight: 1.25 }}>
+              <strong style={{ fontSize: '13px', color: 'var(--navy)', fontWeight: 700 }}>{params.value}</strong>
+              <small style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>{domain}</small>
             </div>
           </div>
         );
@@ -120,25 +121,39 @@ export default function SubscriptionTable({
     {
       headerName: 'Tier',
       field: 'product_tier',
-      width: 120,
+      width: 175,
       cellRenderer: (params) => (
-        <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{params.value || 'Standard'}</span>
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+          <span style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: 500 }}>
+            {params.value || 'Standard'}
+          </span>
+        </div>
       )
     },
     {
       headerName: 'Seats',
       field: 'active_seats',
       width: 90,
+      headerClass: 'ag-header-center',
       cellRenderer: (params) => (
-        <span style={{ fontSize: '12px', fontWeight: 600 }}>{params.value || 1}</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+          <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--navy)' }}>
+            {params.value || 1}
+          </span>
+        </div>
       )
     },
     {
       headerName: 'Recurring Burn',
       field: 'recurring_amount',
-      width: 130,
+      width: 160,
       cellRenderer: (params) => (
-        <strong style={{ fontSize: '13px' }}>${Number(params.value || 0).toFixed(2)}/mo</strong>
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+          <strong style={{ fontSize: '13px', color: 'var(--navy)', fontVariantNumeric: 'tabular-nums' }}>
+            ${Number(params.value || 0).toFixed(2)}
+            <span style={{ fontSize: '11px', fontWeight: 500, color: 'var(--muted)', marginLeft: '2px' }}>/mo</span>
+          </strong>
+        </div>
       )
     },
     {
@@ -146,116 +161,122 @@ export default function SubscriptionTable({
       field: 'next_billing_date',
       width: 140,
       cellRenderer: (params) => {
-        if (!params.value) return <span>—</span>;
+        if (!params.value) return <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>—</div>;
         return (
-          <span style={{ fontSize: '12px' }}>
-            {new Date(params.value).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+            <span style={{ fontSize: '12px', color: 'var(--navy)' }}>
+              {new Date(params.value).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+            </span>
+          </div>
         );
       }
     },
     {
       headerName: 'Status',
       field: 'status',
-      width: 160,
+      width: 170,
       cellRenderer: (params) => {
         const val = params.value;
+        let content;
         if (val === 'ACTIVE_RECURRING') {
-          return (
+          content = (
             <span className="sub-status active">
               <i /> Active
             </span>
           );
-        }
-        if (val === 'TRIAL_ACTIVE' || params.data?.is_trial) {
-          return (
+        } else if (val === 'TRIAL_ACTIVE' || params.data?.is_trial) {
+          content = (
             <span className="sub-status trial">
               <SubGuardIcon name="clock" size={12} /> Trial protected
             </span>
           );
-        }
-        if (val === 'SUSPENDED_AWAITING_HUMAN') {
-          return (
+        } else if (val === 'SUSPENDED_AWAITING_HUMAN') {
+          content = (
             <span className="sub-status attention">
               <i /> Needs approval
             </span>
           );
-        }
-        if (val === 'PENDING_CANCELLATION') {
-          return (
+        } else if (val === 'PENDING_CANCELLATION') {
+          content = (
             <span className="sub-status trial">
               <SubGuardIcon name="shield" size={12} /> Guard armed
             </span>
           );
+        } else {
+          content = <span className="sub-status">{val}</span>;
         }
-        return <span className="sub-status">{val}</span>;
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+            {content}
+          </div>
+        );
       }
     },
     {
       headerName: 'ToS Risk',
       field: 'tos_risk_score',
-      width: 140,
+      width: 150,
       cellRenderer: (params) => (
-        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-          <RiskMeter score={params.value || 0.1} />
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%', paddingRight: '12px' }}>
+          <div style={{ width: '100%' }}>
+            <RiskMeter score={params.value || 0.1} />
+          </div>
         </div>
       )
     },
     {
       headerName: 'Action',
       field: 'id',
-      width: 140,
+      width: 130,
       pinned: 'right',
       cellRenderer: (params) => {
         const sub = params.data;
         if (!sub) return null;
-        if (sub.status === 'SUSPENDED_AWAITING_HUMAN') {
-          return (
-            <button
-              type="button"
-              className="approve-button"
-              onClick={() => promptApprove(sub)}
-              style={{ fontSize: '10px', padding: '4px 8px' }}
-            >
-              Approve
-            </button>
-          );
-        }
-        if (sub.status === 'PENDING_CANCELLATION') {
-          return (
-            <span
-              style={{
-                fontSize: '11px',
-                fontWeight: 600,
-                color: '#216e65',
-                padding: '3px 8px',
-                background: 'rgba(33, 110, 101, 0.12)',
-                borderRadius: '4px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px'
-              }}
-            >
-              <SubGuardIcon name="shield" size={12} /> Shielded
-            </span>
-          );
-        }
         return (
-          <button
-            type="button"
-            className="outline-button"
-            onClick={() => promptCancel(sub)}
-            style={{
-              fontSize: '11px',
-              padding: '4px 8px',
-              fontWeight: 600,
-              borderRadius: '4px',
-              whiteSpace: 'nowrap'
-            }}
-            title="Arm Cancellation Shield"
-          >
-            Arm Shield
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', height: '100%', paddingLeft: '4px' }}>
+            {sub.status === 'SUSPENDED_AWAITING_HUMAN' ? (
+              <button
+                type="button"
+                className="approve-button"
+                onClick={() => promptApprove(sub)}
+                style={{ fontSize: '11px', padding: '6px 12px', borderRadius: '6px' }}
+              >
+                Approve
+              </button>
+            ) : sub.status === 'PENDING_CANCELLATION' ? (
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#2edcc4',
+                  padding: '4px 8px',
+                  background: 'rgba(46, 220, 196, 0.12)',
+                  borderRadius: '6px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+              >
+                <SubGuardIcon name="shield" size={12} /> Shielded
+              </span>
+            ) : (
+              <button
+                type="button"
+                className="outline-button"
+                onClick={() => promptCancel(sub)}
+                style={{
+                  fontSize: '11px',
+                  padding: '5px 12px',
+                  fontWeight: 600,
+                  borderRadius: '6px',
+                  whiteSpace: 'nowrap'
+                }}
+                title="Arm Cancellation Shield"
+              >
+                Arm Shield
+              </button>
+            )}
+          </div>
         );
       }
     }
@@ -512,6 +533,8 @@ export default function SubscriptionTable({
           rowData={filteredSubscriptions}
           columnDefs={columnDefs}
           defaultColDef={{ resizable: true, sortable: true }}
+          rowHeight={56}
+          headerHeight={44}
           rowBuffer={20}
           animateRows={true}
         />
