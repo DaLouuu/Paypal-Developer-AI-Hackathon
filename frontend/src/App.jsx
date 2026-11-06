@@ -429,33 +429,12 @@ export default function App() {
       <main>
         {activeNav === 'discover' && (
           <div className="page-container" id="discover">
-            <div className="page-breadcrumb">
-              <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
-              <span>/</span>
-              <strong>Software Catalog</strong>
-            </div>
-            <div className="page-header" style={{ marginBottom: '16px' }}>
-              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
-                Software Catalog
-              </h1>
-            </div>
             <DiscoverySearch onSelectTool={handleSelectTool} />
           </div>
         )}
 
         {activeNav === 'subscriptions' && (
           <div className="page-container" id="subscriptions">
-            <div className="page-breadcrumb">
-              <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
-              <span>/</span>
-              <strong>Subscription Ledger</strong>
-            </div>
-            <div className="page-header" style={{ marginBottom: '16px' }}>
-              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
-                Subscription Ledger
-              </h1>
-            </div>
-
             <section className="subscriptions-section">
               <SubscriptionTable
                 subscriptions={subscriptions}
@@ -469,17 +448,6 @@ export default function App() {
 
         {activeNav === 'protection' && (
           <div className="page-container" id="protection">
-            <div className="page-breadcrumb">
-              <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
-              <span>/</span>
-              <strong>Protection Center</strong>
-            </div>
-            <div className="page-header" style={{ marginBottom: '16px' }}>
-              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
-                Protection & Autopilot
-              </h1>
-            </div>
-
             <div className="protection-grid">
               {/* Row 1, Col 1: Autopilot Cancellation Shield Panel */}
               <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`}>
