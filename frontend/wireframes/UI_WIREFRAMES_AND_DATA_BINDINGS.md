@@ -195,3 +195,4 @@ interface BryntumTimelineEvent {
 
 ## 5. Phase 2 Verification & Freeze Sign-Off
 All JSON schemas and component definitions in this specification comply with OpenAPI 3.1 standards and match the contract definitions in [`workflow/contracts/API_CONTRACTS.md`](../workflow/contracts/API_CONTRACTS.md).
+

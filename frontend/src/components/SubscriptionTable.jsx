@@ -1,8 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ShieldAlert, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { ShieldAlert, AlertTriangle, CheckCircle2, Clock, DollarSign, Layers, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import StatusBadge from './StatusBadge';
+import RiskMeter from './RiskMeter';
+import ConfirmationModal from './ConfirmationModal';
 
 export default function SubscriptionTable({ subscriptions, onCancelSubscription, onApproveSuspension }) {
+  const [modalConfig, setModalConfig] = useState({ isOpen: false });
+
+  // Telemetry KPIs
   const totalBurn = useMemo(() => {
     return subscriptions.reduce((sum, item) => sum + (Number(item.recurring_amount) || 0), 0);
   }, [subscriptions]);
@@ -11,147 +17,282 @@ export default function SubscriptionTable({ subscriptions, onCancelSubscription,
     return subscriptions.filter(item => item.status === 'ACTIVE_RECURRING' || item.status === 'TRIAL_ACTIVE').length;
   }, [subscriptions]);
 
+  const trialsAtRisk = useMemo(() => {
+    return subscriptions.filter(item => item.status === 'TRIAL_ACTIVE' || item.is_trial).length;
+  }, [subscriptions]);
+
+  const suspendedCount = useMemo(() => {
+    return subscriptions.filter(item => item.status === 'SUSPENDED_AWAITING_HUMAN').length;
+  }, [subscriptions]);
+
+  // Confirmation handlers
+  const promptCancel = (sub) => {
+    setModalConfig({
+      isOpen: true,
+      title: `Arm Cancellation Guard for ${sub.product_name}?`,
+      message: `SubGuard will monitor this subscription and automatically trigger cancellation 48 hours prior to the next billing cycle on ${new Date(sub.next_billing_date).toLocaleDateString()}, preventing unintended conversion charges.`,
+      confirmText: 'Arm Cancellation Guard',
+      confirmStyle: 'danger',
+      onConfirm: () => {
+        if (onCancelSubscription) onCancelSubscription(sub.id);
+        setModalConfig({ isOpen: false });
+      }
+    });
+  };
+
+  const promptApprove = (sub) => {
+    setModalConfig({
+      isOpen: true,
+      title: `Approve Autonomous Agent Mandate?`,
+      message: `This will resume the suspended transaction for ${sub.product_name} ($${Number(sub.recurring_amount).toFixed(2)}) using your Ed25519 principal signature and execute the payment agreement via PayPal MCP.`,
+      confirmText: 'Approve & Resume Payment',
+      confirmStyle: 'primary',
+      onConfirm: () => {
+        if (onApproveSuspension) onApproveSuspension(sub.id);
+        setModalConfig({ isOpen: false });
+      }
+    });
+  };
+
   const columnDefs = useMemo(() => [
     {
       headerName: 'Vendor & Product',
       field: 'product_name',
-      flex: 1.5,
-      minWidth: 180,
-      cellRenderer: (params) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', height: '100%' }}>
-          <span style={{ fontWeight: 600, color: '#0f172a' }}>{params.value}</span>
-          <span style={{ fontSize: '11px', color: '#64748b' }}>({params.data.merchant_domain})</span>
-        </div>
-      )
+      flex: 1.6,
+      minWidth: 200,
+      cellRenderer: (params) => {
+        const domain = params.data.merchant_domain || '';
+        const initial = (params.value || 'V').charAt(0).toUpperCase();
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', height: '100%' }}>
+            <div
+              style={{
+                width: '28px',
+                height: '28px',
+                borderRadius: '6px',
+                backgroundColor: '#f1f5f9',
+                border: '1px solid #e2e8f0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '12px',
+                fontWeight: 700,
+                color: '#334155',
+                flexShrink: 0
+              }}
+            >
+              {initial}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
+              <span style={{ fontWeight: 600, color: '#0f172a', fontSize: '13px' }}>{params.value}</span>
+              <span style={{ fontSize: '11px', color: '#64748b' }}>{domain}</span>
+            </div>
+          </div>
+        );
+      }
     },
     {
       headerName: 'Tier',
       field: 'product_tier',
-      flex: 1,
-      minWidth: 110,
+      width: 120,
+      cellRenderer: (params) => (
+        <span style={{ fontSize: '12px', color: '#475569', fontWeight: 500 }}>{params.value}</span>
+      )
     },
     {
       headerName: 'Seats',
       field: 'active_seats',
       width: 90,
-      valueFormatter: (params) => params.value ? `${params.value} seats` : '1 seat'
+      cellRenderer: (params) => (
+        <span style={{ fontSize: '12px', color: '#475569', fontVariantNumeric: 'tabular-nums' }}>
+          {params.value ? `${params.value} seats` : '1 seat'}
+        </span>
+      )
     },
     {
       headerName: 'Recurring Burn',
       field: 'recurring_amount',
       width: 140,
-      valueFormatter: (params) => `$${Number(params.value).toFixed(2)} / mo`
+      cellRenderer: (params) => (
+        <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a', fontVariantNumeric: 'tabular-nums' }}>
+          ${Number(params.value).toFixed(2)} <span style={{ fontSize: '11px', fontWeight: 400, color: '#64748b' }}>/mo</span>
+        </span>
+      )
     },
     {
       headerName: 'Cadence',
       field: 'billing_cycle',
       width: 110,
+      cellRenderer: (params) => (
+        <span style={{ fontSize: '11px', fontWeight: 500, color: '#64748b', textTransform: 'capitalize' }}>
+          {params.value ? params.value.toLowerCase() : 'monthly'}
+        </span>
+      )
     },
     {
       headerName: 'Renewal / End',
       field: 'next_billing_date',
       width: 130,
-      valueFormatter: (params) => params.value ? new Date(params.value).toLocaleDateString() : 'Pending'
-    },
-    {
-      headerName: 'Lifecycle State',
-      field: 'status',
-      width: 190,
       cellRenderer: (params) => {
-        const val = params.value;
-        if (val === 'ACTIVE_RECURRING') {
-          return (
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '2px 8px', borderRadius: '9999px', fontSize: '11px', fontWeight: 600, backgroundColor: '#dcfce7', color: '#166534', border: '1px solid #bbf7d0' }}>
-              <CheckCircle size={12} /> ACTIVE
-            </span>
-          );
-        }
-        if (val === 'TRIAL_ACTIVE') {
-          return (
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '2px 8px', borderRadius: '9999px', fontSize: '11px', fontWeight: 600, backgroundColor: '#fef3c7', color: '#92400e', border: '1px solid #fde68a' }}>
-              <Clock size={12} /> TRIAL ACTIVE
-            </span>
-          );
-        }
-        if (val === 'SUSPENDED_AWAITING_HUMAN') {
-          return (
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '2px 8px', borderRadius: '9999px', fontSize: '11px', fontWeight: 700, backgroundColor: '#ffe4e6', color: '#9f1239', border: '1px solid #fecdd3' }}>
-              <ShieldAlert size={12} /> SUSPENDED (HITL)
-            </span>
-          );
-        }
-        return <span style={{ padding: '2px 8px', borderRadius: '4px', fontSize: '11px', backgroundColor: '#f1f5f9' }}>{val}</span>;
-      }
-    },
-    {
-      headerName: 'ToS Risk',
-      field: 'tos_risk_score',
-      width: 110,
-      cellRenderer: (params) => {
-        const score = Number(params.value) || 0;
-        const color = score > 0.6 ? '#dc2626' : (score > 0.3 ? '#d97706' : '#16a34a');
+        if (!params.value) return <span style={{ fontSize: '11px', color: '#94a3b8' }}>Pending</span>;
+        const date = new Date(params.value);
         return (
-          <span style={{ fontWeight: 600, color }}>
-            {(score * 100).toFixed(0)}%
+          <span style={{ fontSize: '12px', color: '#334155', fontVariantNumeric: 'tabular-nums' }}>
+            {date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
           </span>
         );
       }
     },
     {
-      headerName: 'Quick Actions',
+      headerName: 'Lifecycle State',
+      field: 'status',
+      width: 180,
+      cellRenderer: (params) => <StatusBadge status={params.value} />
+    },
+    {
+      headerName: 'ToS Risk',
+      field: 'tos_risk_score',
+      width: 110,
+      cellRenderer: (params) => <RiskMeter score={params.value} size="compact" />
+    },
+    {
+      headerName: 'Actions',
       field: 'actions',
-      width: 150,
+      width: 140,
+      pinned: 'right',
       cellRenderer: (params) => {
         const item = params.data;
         if (item.status === 'SUSPENDED_AWAITING_HUMAN') {
           return (
             <button
-              onClick={() => onApproveSuspension && onApproveSuspension(item.id)}
-              style={{ backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontWeight: 600, cursor: 'pointer' }}
+              type="button"
+              onClick={() => promptApprove(item)}
+              style={{
+                backgroundColor: '#2563eb',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '4px 10px',
+                fontSize: '11px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
             >
-              Approve
+              Approve Mandate
             </button>
+          );
+        }
+        if (item.status === 'PENDING_CANCELLATION') {
+          return (
+            <span style={{ fontSize: '11px', color: '#0284c7', fontWeight: 600 }}>
+              Guard Armed
+            </span>
           );
         }
         return (
           <button
-            onClick={() => onCancelSubscription && onCancelSubscription(item.id)}
-            style={{ backgroundColor: '#fff', color: '#dc2626', border: '1px solid #fca5a5', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontWeight: 500, cursor: 'pointer' }}
+            type="button"
+            onClick={() => promptCancel(item)}
+            style={{
+              backgroundColor: '#ffffff',
+              color: '#dc2626',
+              border: '1px solid #fecaca',
+              borderRadius: '6px',
+              padding: '4px 10px',
+              fontSize: '11px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease'
+            }}
           >
             Arm Cancel
           </button>
         );
       }
     }
-  ], [onCancelSubscription, onApproveSuspension]);
+  ], []);
 
   return (
-    <div data-testid="subscription-table-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      {/* Metric Header Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-        <div style={{ backgroundColor: '#ffffff', borderRadius: '8px', padding: '16px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Monthly Burn</div>
-          <div data-testid="total-burn" style={{ fontSize: '24px', fontWeight: 700, color: '#0f172a', marginTop: '4px' }}>
+    <div data-testid="subscription-table-container" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* Telemetry KPI Overview Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+        {/* KPI 1: Monthly Burn */}
+        <div className="glass-panel" style={{ padding: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Total Monthly Burn
+            </span>
+            <span style={{ display: 'inline-flex', padding: '6px', borderRadius: '6px', backgroundColor: '#eff6ff', color: '#2563eb' }}>
+              <DollarSign size={16} />
+            </span>
+          </div>
+          <div data-testid="total-burn" className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, color: '#0f172a', marginTop: '8px' }}>
             ${totalBurn.toFixed(2)}
           </div>
-        </div>
-
-        <div style={{ backgroundColor: '#ffffff', borderRadius: '8px', padding: '16px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Active Subscriptions</div>
-          <div data-testid="active-count" style={{ fontSize: '24px', fontWeight: 700, color: '#0f172a', marginTop: '4px' }}>
-            {activeCount}
+          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>
+            Across all active developer & team seats
           </div>
         </div>
 
-        <div style={{ backgroundColor: '#ffffff', borderRadius: '8px', padding: '16px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Trials At Risk (48h)</div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#d97706', marginTop: '4px' }}>
-            {subscriptions.filter(i => i.status === 'TRIAL_ACTIVE').length}
+        {/* KPI 2: Active Subscriptions */}
+        <div className="glass-panel" style={{ padding: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Active Licenses
+            </span>
+            <span style={{ display: 'inline-flex', padding: '6px', borderRadius: '6px', backgroundColor: '#ecfdf5', color: '#10b981' }}>
+              <Layers size={16} />
+            </span>
+          </div>
+          <div data-testid="active-count" className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, color: '#0f172a', marginTop: '8px' }}>
+            {activeCount}
+          </div>
+          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>
+            Live recurring software contracts
+          </div>
+        </div>
+
+        {/* KPI 3: Trials Under 48h Guard */}
+        <div className="glass-panel" style={{ padding: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Trials Under 48h Guard
+            </span>
+            <span style={{ display: 'inline-flex', padding: '6px', borderRadius: '6px', backgroundColor: '#fffbeb', color: '#f59e0b' }}>
+              <Clock size={16} />
+            </span>
+          </div>
+          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, color: trialsAtRisk > 0 ? '#d97706' : '#0f172a', marginTop: '8px' }}>
+            {trialsAtRisk}
+          </div>
+          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>
+            Automated cancellation scheduled
+          </div>
+        </div>
+
+        {/* KPI 4: Suspended Agent Requests */}
+        <div className="glass-panel" style={{ padding: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Suspended Agent Requests
+            </span>
+            <span style={{ display: 'inline-flex', padding: '6px', borderRadius: '6px', backgroundColor: suspendedCount > 0 ? '#fef2f2' : '#f1f5f9', color: suspendedCount > 0 ? '#ef4444' : '#64748b' }}>
+              <ShieldAlert size={16} />
+            </span>
+          </div>
+          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, color: suspendedCount > 0 ? '#dc2626' : '#0f172a', marginTop: '8px' }}>
+            {suspendedCount}
+          </div>
+          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>
+            {suspendedCount > 0 ? 'Awaiting human authorization' : 'All agent actions governed'}
           </div>
         </div>
       </div>
 
-      {/* Virtualized AG Grid Table */}
+      {/* Subscription Data Grid Table */}
       <div className="ag-theme-alpine" data-testid="subscription-table" style={{ height: '360px', width: '100%' }}>
         <AgGridReact
           rowData={subscriptions}
@@ -161,6 +302,17 @@ export default function SubscriptionTable({ subscriptions, onCancelSubscription,
           animateRows={true}
         />
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={modalConfig.isOpen}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        confirmText={modalConfig.confirmText}
+        confirmStyle={modalConfig.confirmStyle}
+        onConfirm={modalConfig.onConfirm}
+        onCancel={() => setModalConfig({ isOpen: false })}
+      />
     </div>
   );
 }

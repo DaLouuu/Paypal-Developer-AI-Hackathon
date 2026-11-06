@@ -73,3 +73,4 @@ describe('SubscriptionTable Component', () => {
     expect(activeCountElement).toHaveTextContent('2');
   });
 });
+
