@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Check, ShieldCheck, ArrowRight, Layers } from 'lucide-react';
+import { X, Check, ArrowRight, Layers } from 'lucide-react';
 import RiskMeter from './RiskMeter';
 
 export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, onProvision }) {
@@ -10,23 +10,24 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
       <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ display: 'inline-flex', padding: '4px', borderRadius: '6px', backgroundColor: '#F0F3F8', color: '#4568F5' }}>
+            <span style={{ display: 'inline-flex', padding: '5px', borderRadius: '7px', backgroundColor: 'var(--surface-soft)', color: 'var(--blue)' }}>
               <Layers size={16} />
             </span>
-            <span style={{ fontSize: '14px', fontWeight: 700, color: '#17243D' }}>
+            <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy)' }}>
               Product Comparison & Shortlist ({items.length}/3)
             </span>
-            <span style={{ fontSize: '11px', color: '#64748B' }}>Compare pricing, compliance, and contractual lock-in risks</span>
+            <span style={{ fontSize: '11px', color: 'var(--muted)' }}>Compare pricing, compliance, and contractual lock-in risks</span>
           </div>
 
           <button
             onClick={onClearAll}
+            className="text-button"
             style={{
               background: 'transparent',
               border: 'none',
               fontSize: '11px',
               fontWeight: 600,
-              color: '#64748B',
+              color: 'var(--muted)',
               cursor: 'pointer',
               textDecoration: 'underline'
             }}
@@ -41,50 +42,56 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
             <div
               key={tool.product_id}
               style={{
-                backgroundColor: '#FAFBFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '8px',
-                padding: '12px 14px',
-                position: 'relative'
+                backgroundColor: 'var(--surface)',
+                border: '1px solid var(--line)',
+                borderRadius: '12px',
+                padding: '14px 16px',
+                position: 'relative',
+                boxShadow: '0 4px 12px rgba(19, 35, 62, 0.05)'
               }}
             >
               <button
                 onClick={() => onRemoveItem(tool.product_id)}
+                aria-label={`Remove ${tool.product_name} from comparison`}
                 style={{
                   position: 'absolute',
-                  top: '10px',
-                  right: '10px',
+                  top: '12px',
+                  right: '12px',
                   border: 'none',
                   background: 'transparent',
-                  color: '#94A3B8',
+                  color: 'var(--muted)',
                   cursor: 'pointer',
-                  padding: '2px'
+                  padding: '4px'
                 }}
               >
                 <X size={14} />
               </button>
 
-              <div style={{ fontWeight: 700, fontSize: '14px', color: '#17243D' }}>{tool.product_name}</div>
-              <div style={{ fontSize: '11px', color: '#64748B' }}>{tool.vendor_domain} · {tool.pricing_tier}</div>
+              <div style={{ fontWeight: 700, fontSize: '15px', color: 'var(--navy)', fontFamily: 'Manrope, sans-serif' }}>
+                {tool.product_name}
+              </div>
+              <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>
+                {tool.vendor_domain} · {tool.pricing_tier}
+              </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '10px 0', borderTop: '1px solid #E2E8F0', paddingTop: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '12px 0', borderTop: '1px solid var(--line)', paddingTop: '10px' }}>
                 <div>
-                  <div style={{ fontSize: '10px', color: '#64748B', textTransform: 'uppercase' }}>Monthly Cost</div>
-                  <div style={{ fontSize: '16px', fontWeight: 800, color: '#17243D', fontVariantNumeric: 'tabular-nums' }}>
+                  <div style={{ fontSize: '10px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>Monthly Cost</div>
+                  <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--navy)', fontVariantNumeric: 'tabular-nums' }}>
                     ${Number(tool.monthly_cost).toFixed(2)}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '10px', color: '#64748B', textTransform: 'uppercase' }}>Compliance</div>
-                  <div style={{ fontSize: '12px', fontWeight: 600, color: tool.soc2_compliant ? '#22B982' : '#64748B', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                  <div style={{ fontSize: '10px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>Compliance</div>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: tool.soc2_compliant ? '#158763' : 'var(--muted)', display: 'flex', alignItems: 'center', gap: '3px' }}>
                     {tool.soc2_compliant ? <Check size={13} strokeWidth={3} /> : null}
                     {tool.soc2_compliant ? 'SOC-2 Verified' : 'Standard'}
                   </div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '10px', color: '#64748B', textTransform: 'uppercase' }}>Contract Risk</div>
+                  <div style={{ fontSize: '10px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>Contract Risk</div>
                   <div style={{ width: '90px' }}>
                     <RiskMeter score={tool.tos_risk_score} size="compact" />
                   </div>
@@ -93,20 +100,16 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
 
               <button
                 onClick={() => onProvision(tool)}
+                className="primary-button"
                 style={{
                   width: '100%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '6px',
-                  border: 'none',
-                  backgroundColor: '#4568F5',
-                  color: '#ffffff',
-                  borderRadius: '6px',
-                  padding: '8px',
+                  padding: '10px',
                   fontSize: '12px',
-                  fontWeight: 600,
-                  cursor: 'pointer'
+                  fontWeight: 600
                 }}
               >
                 <span>Provision Subscription</span>

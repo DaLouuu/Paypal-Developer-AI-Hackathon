@@ -30,13 +30,15 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
   const seg2Active = normalized > 0.3;
   const seg3Active = normalized > 0.6;
 
+  const inactiveBg = 'var(--line, #e2e8f0)';
+
   if (size === 'compact') {
     return (
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
         <div style={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : '#10b981') : '#e2e8f0' }} />
-          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : '#e2e8f0' }} />
-          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg3Active ? '#ef4444' : '#e2e8f0' }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : '#10b981') : inactiveBg }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : inactiveBg }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg3Active ? '#ef4444' : inactiveBg }} />
         </div>
         <span style={{ fontSize: '11px', fontWeight: 600, color, fontVariantNumeric: 'tabular-nums' }}>
           {percent}%
@@ -59,9 +61,9 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
 
       {/* Segmented bar */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3px', height: '4px', borderRadius: '2px', overflow: 'hidden' }}>
-        <div style={{ backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : '#10b981') : '#e2e8f0', borderRadius: '1px' }} />
-        <div style={{ backgroundColor: seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : '#e2e8f0', borderRadius: '1px' }} />
-        <div style={{ backgroundColor: seg3Active ? '#ef4444' : '#e2e8f0', borderRadius: '1px' }} />
+        <div style={{ backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : '#10b981') : inactiveBg, borderRadius: '1px' }} />
+        <div style={{ backgroundColor: seg2Active ? (seg3Active ? '#ef4444' : '#f59e0b') : inactiveBg, borderRadius: '1px' }} />
+        <div style={{ backgroundColor: seg3Active ? '#ef4444' : inactiveBg, borderRadius: '1px' }} />
       </div>
     </div>
   );

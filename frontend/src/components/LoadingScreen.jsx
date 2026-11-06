@@ -223,6 +223,7 @@ export default function LoadingScreen({ onComplete }) {
                 }}
               >
                 <span
+                  className={isDone ? 'loading-step-done' : (isCurrent ? 'loading-step-current' : 'loading-step-pending')}
                   style={{
                     width: '18px',
                     height: '18px',
@@ -231,9 +232,6 @@ export default function LoadingScreen({ onComplete }) {
                     placeItems: 'center',
                     fontSize: '9px',
                     flexShrink: 0,
-                    background: isDone ? '#eaf8f2' : (isCurrent ? 'rgba(63, 100, 255, 0.12)' : 'rgba(0,0,0,0.04)'),
-                    color: isDone ? '#158763' : (isCurrent ? 'var(--blue)' : 'var(--muted)'),
-                    border: isDone ? '1px solid #b6edd9' : (isCurrent ? '1px solid #bac6ff' : '1px solid transparent'),
                     transition: 'all 0.2s ease'
                   }}
                 >
@@ -278,3 +276,4 @@ export default function LoadingScreen({ onComplete }) {
     </div>
   );
 }
+

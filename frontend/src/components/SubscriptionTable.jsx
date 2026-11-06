@@ -303,16 +303,6 @@ export default function SubscriptionTable({
           type="button"
           className={`filter-tab ${filterState === 'ALL' ? 'active' : ''}`}
           onClick={() => setFilterState('ALL')}
-          style={{
-            border: 0,
-            background: filterState === 'ALL' ? 'var(--navy)' : 'transparent',
-            color: filterState === 'ALL' ? 'white' : 'var(--muted)',
-            padding: '7px 12px',
-            borderRadius: '9px',
-            fontSize: '12px',
-            cursor: 'pointer',
-            fontWeight: 600
-          }}
         >
           All ({subscriptions.length})
         </button>
@@ -321,16 +311,6 @@ export default function SubscriptionTable({
           type="button"
           className={`filter-tab ${filterState === 'ACTIVE' ? 'active' : ''}`}
           onClick={() => setFilterState('ACTIVE')}
-          style={{
-            border: 0,
-            background: filterState === 'ACTIVE' ? 'var(--navy)' : 'transparent',
-            color: filterState === 'ACTIVE' ? 'white' : 'var(--muted)',
-            padding: '7px 12px',
-            borderRadius: '9px',
-            fontSize: '12px',
-            cursor: 'pointer',
-            fontWeight: 600
-          }}
         >
           Active Plans ({activeCount - trialsCount})
         </button>
@@ -339,16 +319,6 @@ export default function SubscriptionTable({
           type="button"
           className={`filter-tab ${filterState === 'TRIAL' ? 'active' : ''}`}
           onClick={() => setFilterState('TRIAL')}
-          style={{
-            border: 0,
-            background: filterState === 'TRIAL' ? 'var(--navy)' : 'transparent',
-            color: filterState === 'TRIAL' ? 'white' : 'var(--muted)',
-            padding: '7px 12px',
-            borderRadius: '9px',
-            fontSize: '12px',
-            cursor: 'pointer',
-            fontWeight: 600
-          }}
         >
           Protected Trials ({trialsCount})
         </button>
@@ -357,16 +327,6 @@ export default function SubscriptionTable({
           type="button"
           className={`filter-tab ${filterState === 'SUSPENDED' ? 'active' : ''}`}
           onClick={() => setFilterState('SUSPENDED')}
-          style={{
-            border: 0,
-            background: filterState === 'SUSPENDED' ? 'var(--navy)' : 'transparent',
-            color: filterState === 'SUSPENDED' ? 'white' : (suspendedCount > 0 ? '#c24e49' : 'var(--muted)'),
-            padding: '7px 12px',
-            borderRadius: '9px',
-            fontSize: '12px',
-            cursor: 'pointer',
-            fontWeight: 600
-          }}
         >
           Needs Approval ({suspendedCount})
         </button>
@@ -376,16 +336,6 @@ export default function SubscriptionTable({
             type="button"
             className={`filter-tab ${filterState === 'CANCELLED' ? 'active' : ''}`}
             onClick={() => setFilterState('CANCELLED')}
-            style={{
-              border: 0,
-              background: filterState === 'CANCELLED' ? 'var(--navy)' : 'transparent',
-              color: filterState === 'CANCELLED' ? 'white' : 'var(--muted)',
-              padding: '7px 12px',
-              borderRadius: '9px',
-              fontSize: '12px',
-              cursor: 'pointer',
-              fontWeight: 600
-            }}
           >
             Shield Armed ({cancelledCount})
           </button>
@@ -462,7 +412,7 @@ export default function SubscriptionTable({
                   Review request
                 </button>
               ) : isArmed ? (
-                <span style={{ fontSize: '11px', color: '#a07832', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <span className="auto-cancel-ready-tag">
                   <SubGuardIcon name="shield" size={12} /> Auto-Cancel Ready
                 </span>
               ) : (

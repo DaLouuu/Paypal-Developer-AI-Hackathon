@@ -1,7 +1,15 @@
 import React from 'react';
 import { AlertCircle, X } from 'lucide-react';
 
-export default function ConfirmationModal({ isOpen, title, message, confirmText = 'Confirm', confirmStyle = 'danger', onConfirm, onCancel }) {
+export default function ConfirmationModal({
+  isOpen,
+  title,
+  message,
+  confirmText = 'Confirm',
+  confirmStyle = 'danger',
+  onConfirm,
+  onCancel
+}) {
   if (!isOpen) return null;
 
   const isDanger = confirmStyle === 'danger';
@@ -9,16 +17,19 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
   return (
     <div className="modal-overlay" onClick={onCancel}>
       <div
+        className="modal-card"
         onClick={(e) => e.stopPropagation()}
         style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '12px',
+          backgroundColor: 'var(--surface, #ffffff)',
+          color: 'var(--navy, #13233e)',
+          borderRadius: '18px',
           width: '100%',
-          maxWidth: '440px',
-          boxShadow: '0 20px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.1)',
-          border: '1px solid #e2e8f0',
-          padding: '24px',
+          maxWidth: '460px',
+          boxShadow: '0 24px 60px rgba(19, 35, 62, 0.22)',
+          border: '1px solid var(--line, #dedbd3)',
+          padding: '26px',
           position: 'relative',
+          animation: 'toast-in 0.2s ease'
         }}
       >
         <button
@@ -27,52 +38,52 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
           aria-label="Close modal"
           style={{
             position: 'absolute',
-            top: '16px',
-            right: '16px',
-            border: 'none',
-            background: 'transparent',
-            color: '#94a3b8',
-            cursor: 'pointer',
-            padding: '4px'
+            top: '18px',
+            right: '18px',
+            fontSize: '18px',
+            color: 'var(--muted)'
           }}
         >
-          <X size={16} />
+          <X size={18} />
         </button>
 
-        <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
           <div
+            className={`confirm-icon-box ${isDanger ? 'danger' : 'primary'}`}
             style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '8px',
-              backgroundColor: isDanger ? '#fee2e2' : '#dbeafe',
+              width: '44px',
+              height: '44px',
+              borderRadius: '12px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: isDanger ? '#dc2626' : '#2563eb',
               flexShrink: 0
             }}
           >
-            <AlertCircle size={20} />
+            <AlertCircle size={22} />
           </div>
 
           <div style={{ flex: 1 }}>
-            <h3 style={{ margin: 0, fontSize: '15px', fontWeight: 600, color: '#0f172a' }}>{title}</h3>
-            <p style={{ margin: '8px 0 0 0', fontSize: '13px', color: '#64748b', lineHeight: 1.5 }}>{message}</p>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'Manrope, sans-serif', color: 'var(--navy)' }}>
+              {title}
+            </h3>
+            <p style={{ margin: '10px 0 0 0', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.55 }}>
+              {message}
+            </p>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '24px' }}>
               <button
                 type="button"
                 className="cancel-btn text-button"
                 onClick={onCancel}
                 style={{
-                  border: '1px solid #cbd5e1',
-                  backgroundColor: '#ffffff',
-                  color: '#475569',
-                  borderRadius: '6px',
-                  padding: '7px 14px',
+                  border: '1px solid var(--line)',
+                  backgroundColor: 'var(--surface-soft)',
+                  color: 'var(--navy)',
+                  borderRadius: '9px',
+                  padding: '9px 16px',
                   fontSize: '12px',
-                  fontWeight: 500,
+                  fontWeight: 600,
                   cursor: 'pointer'
                 }}
               >
@@ -85,14 +96,14 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
                 onClick={onConfirm}
                 style={{
                   border: 'none',
-                  backgroundColor: isDanger ? '#dc2626' : '#2563eb',
+                  backgroundColor: isDanger ? '#dc2626' : 'var(--blue, #3f64ff)',
                   color: '#ffffff',
-                  borderRadius: '6px',
-                  padding: '7px 16px',
+                  borderRadius: '9px',
+                  padding: '9px 18px',
                   fontSize: '12px',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   cursor: 'pointer',
-                  boxShadow: isDanger ? '0 1px 2px rgba(220, 38, 38, 0.2)' : '0 1px 2px rgba(37, 99, 235, 0.2)'
+                  boxShadow: isDanger ? '0 4px 14px rgba(220, 38, 38, 0.25)' : '0 4px 14px rgba(63, 100, 255, 0.25)'
                 }}
               >
                 {confirmText}
@@ -104,4 +115,3 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
     </div>
   );
 }
-

@@ -7,25 +7,17 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        backgroundColor: 'rgba(19, 35, 62, 0.55)',
-        backdropFilter: 'blur(6px)',
-        zIndex: 1000,
-        display: 'grid',
-        placeItems: 'center',
-        padding: '16px'
-      }}
+      className="modal-overlay"
       onClick={onClose}
     >
       <div
+        className="modal-card"
         style={{
           backgroundColor: 'var(--surface, #ffffff)',
           color: 'var(--navy, #13233e)',
           borderRadius: '20px',
           width: '100%',
-          maxWidth: '520px',
+          maxWidth: '540px',
           boxShadow: '0 24px 60px rgba(19, 35, 62, 0.22)',
           border: '1px solid var(--line, #dedbd3)',
           overflow: 'hidden',
@@ -36,7 +28,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         {/* Modal Top Header */}
         <div
           style={{
-            padding: '20px 24px',
+            padding: '22px 26px',
             borderBottom: '1px solid var(--line, #dedbd3)',
             display: 'flex',
             alignItems: 'center',
@@ -44,25 +36,26 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             background: 'var(--surface-soft, #f1f3f5)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <span
               className="product-logo"
               style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '12px',
+                width: '46px',
+                height: '46px',
+                borderRadius: '13px',
                 background: product.bg || '#f1f1ef',
                 color: product.color || '#13233e',
-                fontSize: '18px'
+                fontSize: '20px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
               }}
             >
               {product.mark || product.name.charAt(0)}
             </span>
             <div>
-              <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
+              <h3 style={{ margin: 0, fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
                 {product.name}
               </h3>
-              <div style={{ fontSize: '11px', color: 'var(--muted, #687387)' }}>
+              <div style={{ fontSize: '12px', color: 'var(--muted, #687387)', marginTop: '2px' }}>
                 {product.vendor_domain || `${product.name.toLowerCase()}.com`} · {product.category}
               </div>
             </div>
@@ -79,12 +72,12 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         </div>
 
         {/* Modal Body */}
-        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px', maxHeight: '70vh', overflowY: 'auto' }}>
+        <div style={{ padding: '26px', display: 'flex', flexDirection: 'column', gap: '20px', maxHeight: '70vh', overflowY: 'auto' }}>
           <div>
-            <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, color: 'var(--muted)' }}>
-              Overview
+            <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, color: 'var(--muted)' }}>
+              Overview & Capabilities
             </span>
-            <p style={{ margin: '6px 0 0', fontSize: '13px', lineHeight: 1.5, color: 'var(--text-muted)' }}>
+            <p style={{ margin: '8px 0 0', fontSize: '13px', lineHeight: 1.6, color: 'var(--text-muted)' }}>
               {product.line}
             </p>
           </div>
@@ -94,26 +87,27 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: '12px',
+              gap: '14px',
               backgroundColor: 'var(--surface-soft, #f1f3f5)',
-              padding: '14px 16px',
-              borderRadius: '12px'
+              padding: '16px 18px',
+              borderRadius: '14px',
+              border: '1px solid var(--line, #dedbd3)'
             }}
           >
             <div>
-              <small style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--muted)' }}>
+              <small style={{ fontSize: '10px', fontWeight: 800, letterSpacing: '0.08em', color: 'var(--muted)' }}>
                 RECURRING PRICE
               </small>
-              <div style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'Manrope, sans-serif', marginTop: '2px' }}>
+              <div style={{ fontSize: '20px', fontWeight: 800, fontFamily: 'Manrope, sans-serif', marginTop: '3px' }}>
                 ${product.price}
-                <span style={{ fontSize: '11px', fontWeight: 500, color: 'var(--muted)' }}> / user / mo</span>
+                <span style={{ fontSize: '12px', fontWeight: 500, color: 'var(--muted)' }}> / user / mo</span>
               </div>
             </div>
             <div>
-              <small style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--muted)' }}>
+              <small style={{ fontSize: '10px', fontWeight: 800, letterSpacing: '0.08em', color: 'var(--muted)' }}>
                 CONTRACT TIER
               </small>
-              <div style={{ fontSize: '14px', fontWeight: 700, marginTop: '4px' }}>
+              <div style={{ fontSize: '15px', fontWeight: 700, marginTop: '6px' }}>
                 {product.pricing_tier || 'Team Plan'}
               </div>
             </div>
@@ -121,11 +115,11 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
 
           {/* ToS & Governance Inspection */}
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-              <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, color: 'var(--muted)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, color: 'var(--muted)' }}>
                 Contract & Dark-Pattern Inspection
               </span>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#3653b5' }}>
+              <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--blue, #3f64ff)' }}>
                 SubGuard Trust {product.rating || '4.8'}
               </span>
             </div>
@@ -134,23 +128,13 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
 
           {/* Dark Pattern Warnings (if detected by ToS Analyzer) */}
           {product.dark_pattern_warnings && product.dark_pattern_warnings.length > 0 && (
-            <div
-              style={{
-                backgroundColor: '#fff0ef',
-                border: '1px solid #ffd4d1',
-                borderRadius: '10px',
-                padding: '12px 14px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '6px'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: '#c24e49' }}>
-                <SubGuardIcon name="shield" size={13} stroke={2.4} />
+            <div className="warning-callout">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 800 }}>
+                <SubGuardIcon name="shield" size={14} stroke={2.4} />
                 <span>ToS Clause Warnings Detected:</span>
               </div>
               {product.dark_pattern_warnings.map((w, idx) => (
-                <div key={idx} style={{ fontSize: '11px', color: '#c24e49', lineHeight: 1.4 }}>
+                <div key={idx} style={{ fontSize: '12px', lineHeight: 1.5, marginTop: '4px' }}>
                   • {w}
                 </div>
               ))}
@@ -158,17 +142,17 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
           )}
 
           {/* Compliance & Safeguards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#1aa978' }}>
-              <SubGuardIcon name="check" size={14} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
+            <div className="compliance-row">
+              <SubGuardIcon name="check" size={15} stroke={2.4} />
               <span>48-Hour Cancellation Shield actively pre-scheduled</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#1aa978' }}>
-              <SubGuardIcon name="check" size={14} />
+            <div className="compliance-row">
+              <SubGuardIcon name="check" size={15} stroke={2.4} />
               <span>Bounded by autonomous spending ceiling ($50.00 / mo)</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#1aa978' }}>
-              <SubGuardIcon name="check" size={14} />
+            <div className="compliance-row">
+              <SubGuardIcon name="check" size={15} stroke={2.4} />
               <span>AP2 Ed25519 cryptographic mandate verified</span>
             </div>
           </div>
@@ -177,12 +161,12 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         {/* Modal Footer Actions */}
         <div
           style={{
-            padding: '16px 24px',
+            padding: '18px 26px',
             borderTop: '1px solid var(--line, #dedbd3)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
-            gap: '12px',
+            gap: '14px',
             background: 'var(--surface-soft, #f1f3f5)'
           }}
         >
@@ -201,7 +185,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               onProvision(product);
               onClose();
             }}
-            style={{ padding: '10px 18px', fontSize: '13px' }}
+            style={{ padding: '11px 20px', fontSize: '13px' }}
           >
             Confirm & Provision <SubGuardIcon name="arrow" size={15} />
           </button>

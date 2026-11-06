@@ -6,6 +6,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
 
   return (
     <div
+      className="drawer-overlay"
       style={{
         position: 'fixed',
         inset: 0,
@@ -18,13 +19,14 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
       onClick={onClose}
     >
       <div
+        className="drawer-panel"
         style={{
           width: '100%',
-          maxWidth: '420px',
+          maxWidth: '430px',
           height: '100%',
           backgroundColor: 'var(--surface, #ffffff)',
           color: 'var(--navy, #13233e)',
-          boxShadow: '-8px 0 32px rgba(19, 35, 62, 0.2)',
+          boxShadow: '-10px 0 36px rgba(19, 35, 62, 0.2)',
           display: 'flex',
           flexDirection: 'column',
           borderLeft: '1px solid var(--line, #dedbd3)',
@@ -35,7 +37,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
         {/* Header */}
         <div
           style={{
-            padding: '20px 24px',
+            padding: '22px 24px',
             borderBottom: '1px solid var(--line, #dedbd3)',
             display: 'flex',
             alignItems: 'center',
@@ -43,11 +45,28 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
             background: 'var(--surface-soft, #f1f3f5)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <SubGuardIcon name="bell" size={18} />
-            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'Manrope, sans-serif' }}>
-              Notifications & Alerts
-            </h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '8px',
+                display: 'grid',
+                placeItems: 'center',
+                background: 'rgba(63, 100, 255, 0.1)',
+                color: 'var(--blue)'
+              }}
+            >
+              <SubGuardIcon name="bell" size={17} />
+            </span>
+            <div>
+              <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
+                Notifications & Alerts
+              </h3>
+              <small style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: 600 }}>
+                2 pending actions require attention
+              </small>
+            </div>
           </div>
           <button
             onClick={onClose}
@@ -60,34 +79,24 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
         </div>
 
         {/* Notifications List */}
-        <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px', flex: 1, overflowY: 'auto' }}>
+        <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, overflowY: 'auto' }}>
           {/* Notification 1: Cursor Trial */}
-          <div
-            style={{
-              padding: '14px',
-              borderRadius: '12px',
-              backgroundColor: '#fffbf2',
-              border: '1px solid #e5d9be',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '6px'
-            }}
-          >
+          <div className="notice-card notice-card-amber">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '10px', fontWeight: 700, color: '#a07832', textTransform: 'uppercase' }}>
+              <span className="notice-tag tag-amber">
                 48h Cancellation Shield Armed
               </span>
-              <span style={{ fontSize: '10px', color: '#a07832' }}>Today</span>
+              <span className="notice-time">Today</span>
             </div>
-            <strong style={{ fontSize: '13px', color: '#13233e' }}>Cursor Pro Trial Ending Soon</strong>
-            <p style={{ margin: 0, fontSize: '11px', color: '#687387', lineHeight: 1.4 }}>
+            <strong className="notice-title">Cursor Pro Trial Ending Soon</strong>
+            <p className="notice-body">
               Trial ends in 2 days (Nov 10). SubGuard will automatically prevent unwanted $80.00/mo rollover charges unless you confirm renewal.
             </p>
-            <div style={{ marginTop: '4px' }}>
+            <div style={{ marginTop: '6px' }}>
               <button
                 type="button"
                 className="text-button"
-                style={{ fontSize: '11px', color: '#3f64ff' }}
+                style={{ fontSize: '12px', color: 'var(--blue)' }}
                 onClick={() => {
                   onClose();
                   onNavigate('protection');
@@ -99,32 +108,22 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
           </div>
 
           {/* Notification 2: Datadog Mandate Suspension */}
-          <div
-            style={{
-              padding: '14px',
-              borderRadius: '12px',
-              backgroundColor: '#fff0ef',
-              border: '1px solid #ffd4d1',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '6px'
-            }}
-          >
+          <div className="notice-card notice-card-crimson">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '10px', fontWeight: 700, color: '#c24e49', textTransform: 'uppercase' }}>
+              <span className="notice-tag tag-crimson">
                 Human Approval Required
               </span>
-              <span style={{ fontSize: '10px', color: '#c24e49' }}>1h ago</span>
+              <span className="notice-time">1h ago</span>
             </div>
-            <strong style={{ fontSize: '13px', color: '#13233e' }}>Datadog APM Spending Limit Exceeded</strong>
-            <p style={{ margin: 0, fontSize: '11px', color: '#687387', lineHeight: 1.4 }}>
+            <strong className="notice-title">Datadog APM Spending Limit Exceeded</strong>
+            <p className="notice-body">
               Agent requested $75.00/mo, exceeding your $50.00 autonomous ceiling. The transaction has been safely suspended awaiting your Ed25519 signature.
             </p>
-            <div style={{ marginTop: '6px' }}>
+            <div style={{ marginTop: '8px' }}>
               <button
                 type="button"
                 className="approve-button"
-                style={{ padding: '6px 12px', fontSize: '11px' }}
+                style={{ padding: '8px 14px', fontSize: '11px', fontWeight: 700 }}
                 onClick={() => {
                   onClose();
                   if (onApproveDatadog) onApproveDatadog();
@@ -136,38 +135,20 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
           </div>
 
           {/* Notification 3: FastMCP Live Gateway */}
-          <div
-            style={{
-              padding: '14px',
-              borderRadius: '12px',
-              backgroundColor: 'var(--surface-soft, #f1f3f5)',
-              border: '1px solid var(--line, #dedbd3)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '4px'
-            }}
-          >
+          <div className="notice-card notice-card-neutral">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '10px', fontWeight: 700, color: '#1aa978', textTransform: 'uppercase' }}>
+              <span className="notice-tag tag-green">
                 System Operational
               </span>
-              <span style={{ fontSize: '10px', color: 'var(--muted)' }}>Active</span>
+              <span className="notice-time">Active</span>
             </div>
-            <strong style={{ fontSize: '13px' }}>FastMCP Protocol Proxy Online</strong>
-            <p style={{ margin: 0, fontSize: '11px', color: 'var(--muted)', lineHeight: 1.4 }}>
+            <strong className="notice-title">FastMCP Protocol Proxy Online</strong>
+            <p className="notice-body">
               SubGuard proxy running on port 8000 with AP2 cryptographic governance active.
             </p>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div style={{ padding: '16px 24px', borderTop: '1px solid var(--line, #dedbd3)', textAlign: 'center' }}>
-          <small style={{ fontSize: '10px', color: 'var(--muted)' }}>
-            All notifications are logged in the cryptographic audit trail.
-          </small>
         </div>
       </div>
     </div>
   );
 }
-

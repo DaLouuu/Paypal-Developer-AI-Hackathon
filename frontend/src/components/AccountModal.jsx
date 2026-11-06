@@ -74,7 +74,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
                 <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
                   Alex Morgan
                 </h3>
-                <span style={{ fontSize: '10px', fontWeight: 700, color: '#158763', background: '#eaf8f2', padding: '1px 6px', borderRadius: '4px' }}>
+                <span className="badge-verified">
                   VERIFIED PRINCIPAL
                 </span>
               </div>
@@ -199,7 +199,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: 'var(--muted)' }}>Key Fingerprint:</span>
-                <code style={{ fontSize: '10px', background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: '4px' }}>
+                <code className="fingerprint-pill">
                   ed25519:e4a7...99b2
                 </code>
               </div>
