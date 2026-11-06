@@ -264,116 +264,231 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                         />
                       ))}
 
-                      {/* Trial Window Bar */}
-                      {isTrial && (
-                        <>
+                      {/* Gantt Bar & Label Renderer */}
+                      {(() => {
+                        const isNarrow = endPercent < 22;
+
+                        if (isTrial) {
+                          return (
+                            <>
+                              {/* Trial Duration Progress Fill */}
+                              <div
+                                className="timeline-bar timeline-bar-trial"
+                                style={{
+                                  width: `${Math.max(endPercent, 1.5)}%`,
+                                  minWidth: '8px',
+                                  zIndex: 2,
+                                  overflow: 'hidden'
+                                }}
+                              />
+
+                              {/* 48-Hour Cancellation Shield Trigger Pin */}
+                              <div
+                                onMouseEnter={() => setActiveTooltip(sub.id)}
+                                onMouseLeave={() => setActiveTooltip(null)}
+                                style={{
+                                  position: 'absolute',
+                                  left: `max(calc(${endPercent}% - 13px), 2px)`,
+                                  top: '5px',
+                                  width: '26px',
+                                  height: '26px',
+                                  borderRadius: '50%',
+                                  backgroundColor: '#2edcc4',
+                                  display: 'grid',
+                                  placeItems: 'center',
+                                  color: '#060723',
+                                  border: '1.5px solid #060723',
+                                  boxShadow: '0 2px 8px rgba(46, 220, 196, 0.45)',
+                                  cursor: 'pointer',
+                                  zIndex: 10
+                                }}
+                              >
+                                <SubGuardIcon name="shield" size={14} stroke={2.4} />
+
+                                {/* Tooltip */}
+                                {activeTooltip === sub.id && (
+                                  <div className="timeline-tooltip">
+                                    <div style={{ fontWeight: 700, color: '#2edcc4', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                      <SubGuardIcon name="shield" size={12} /> 48h Pre-Renewal Shield
+                                    </div>
+                                    <div>
+                                      Scheduled for {new Date(new Date(sub.next_billing_date).getTime() - 48 * 3600 * 1000).toLocaleDateString()}.
+                                      If no team confirmation is received, SubGuard automatically issues a PayPal cancellation request.
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Trial Label (Cleanly offset to the right of the shield pin) */}
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  left: `max(calc(${endPercent}% + 20px), 36px)`,
+                                  top: '8px',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '6px',
+                                  whiteSpace: 'nowrap',
+                                  fontSize: '11px',
+                                  fontWeight: 700,
+                                  color: 'var(--trial-label-color, #fbbf24)',
+                                  zIndex: 4,
+                                  pointerEvents: 'none'
+                                }}
+                              >
+                                <span>Trial Active ({daysFromNow.toFixed(0)}d remaining) · Safeguard armed for <strong>{dateFormatted}</strong></span>
+                              </div>
+                            </>
+                          );
+                        }
+
+                        if (isSuspended) {
+                          if (isNarrow) {
+                            return (
+                              <>
+                                {/* Narrow Suspended Progress Fill */}
+                                <div
+                                  className="timeline-bar timeline-bar-suspended"
+                                  style={{
+                                    width: `${Math.max(endPercent, 1.5)}%`,
+                                    minWidth: '8px',
+                                    zIndex: 2,
+                                    overflow: 'hidden'
+                                  }}
+                                />
+
+                                {/* Suspended Milestone Pin */}
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    left: `max(calc(${endPercent}% - 13px), 2px)`,
+                                    top: '5px',
+                                    width: '26px',
+                                    height: '26px',
+                                    borderRadius: '50%',
+                                    backgroundColor: 'rgba(255, 51, 92, 0.22)',
+                                    border: '1.5px solid #ff335c',
+                                    display: 'grid',
+                                    placeItems: 'center',
+                                    color: '#ff335c',
+                                    zIndex: 10
+                                  }}
+                                >
+                                  <SubGuardIcon name="alert" size={13} stroke={2.4} />
+                                </div>
+
+                                {/* External Suspended Label */}
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    left: `max(calc(${endPercent}% + 20px), 36px)`,
+                                    top: '8px',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    whiteSpace: 'nowrap',
+                                    fontSize: '11px',
+                                    fontWeight: 700,
+                                    color: 'var(--c-heart-red, #ff4d6d)',
+                                    zIndex: 4,
+                                    pointerEvents: 'none'
+                                  }}
+                                >
+                                  <span>Suspended: Awaiting Authorization · <strong>{dateFormatted}</strong></span>
+                                </div>
+                              </>
+                            );
+                          }
+
+                          return (
+                            <div
+                              className="timeline-bar timeline-bar-suspended"
+                              style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'hidden' }}
+                            >
+                              <SubGuardIcon name="alert" size={13} style={{ flexShrink: 0 }} />
+                              <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                Suspended: Awaiting Authorization
+                              </span>
+                              <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
+                                {dateFormatted}
+                              </span>
+                            </div>
+                          );
+                        }
+
+                        // Active recurring subscription
+                        if (isNarrow) {
+                          return (
+                            <>
+                              {/* Narrow Active Progress Fill */}
+                              <div
+                                className="timeline-bar timeline-bar-active"
+                                style={{
+                                  width: `${Math.max(endPercent, 1.5)}%`,
+                                  minWidth: '8px',
+                                  zIndex: 2,
+                                  overflow: 'hidden'
+                                }}
+                              />
+
+                              {/* Active Milestone Pin */}
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  left: `max(calc(${endPercent}% - 13px), 2px)`,
+                                  top: '5px',
+                                  width: '26px',
+                                  height: '26px',
+                                  borderRadius: '50%',
+                                  backgroundColor: 'rgba(46, 220, 196, 0.22)',
+                                  border: '1.5px solid #2edcc4',
+                                  display: 'grid',
+                                  placeItems: 'center',
+                                  color: '#2edcc4',
+                                  zIndex: 10
+                                }}
+                              >
+                                <SubGuardIcon name="check" size={13} stroke={2.4} />
+                              </div>
+
+                              {/* External Active Label */}
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  left: `max(calc(${endPercent}% + 20px), 36px)`,
+                                  top: '8px',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '6px',
+                                  whiteSpace: 'nowrap',
+                                  fontSize: '11px',
+                                  fontWeight: 700,
+                                  color: 'var(--navy)',
+                                  zIndex: 4,
+                                  pointerEvents: 'none'
+                                }}
+                              >
+                                <span>Current Cycle ({daysFromNow.toFixed(0)}d remaining) · Renews <strong>{dateFormatted}</strong></span>
+                              </div>
+                            </>
+                          );
+                        }
+
+                        return (
                           <div
-                            className="timeline-bar timeline-bar-trial"
-                            style={{
-                              width: `${endPercent}%`,
-                              minWidth: '48px',
-                              paddingRight: '6px',
-                              zIndex: 2
-                            }}
+                            className="timeline-bar timeline-bar-active"
+                            style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'hidden' }}
                           >
-                            <SubGuardIcon name="clock" size={13} style={{ flexShrink: 0 }} />
-                            <span style={{ fontSize: '10px', fontWeight: 800, whiteSpace: 'nowrap' }}>
-                              {daysFromNow.toFixed(0)}d
+                            <SubGuardIcon name="check" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
+                            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              Current Cycle ({daysFromNow.toFixed(0)}d)
+                            </span>
+                            <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
+                              {dateFormatted}
                             </span>
                           </div>
-
-                          {/* Uncompressed External Label aligned with milestone */}
-                          <div
-                            style={{
-                              position: 'absolute',
-                              left: `calc(${endPercent}% + 18px)`,
-                              top: '8px',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '6px',
-                              whiteSpace: 'nowrap',
-                              fontSize: '11px',
-                              fontWeight: 700,
-                              color: 'var(--trial-label-color, #fbbf24)',
-                              zIndex: 4,
-                              pointerEvents: 'none'
-                            }}
-                          >
-                            <span>Trial Active ({daysFromNow.toFixed(0)}d remaining) · Safeguard armed for <strong>{dateFormatted}</strong></span>
-                          </div>
-                        </>
-                      )}
-
-                      {/* Recurring Active Bar */}
-                      {!isTrial && !isSuspended && (
-                        <div
-                          className="timeline-bar timeline-bar-active"
-                          style={{ width: `${endPercent}%`, zIndex: 2 }}
-                        >
-                          <SubGuardIcon name="check" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
-                          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            Current Cycle ({daysFromNow.toFixed(0)}d)
-                          </span>
-                          <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
-                            {dateFormatted}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Suspended Bar */}
-                      {isSuspended && (
-                        <div
-                          className="timeline-bar timeline-bar-suspended"
-                          style={{ width: `${endPercent}%`, zIndex: 2 }}
-                        >
-                          <SubGuardIcon name="alert" size={13} style={{ flexShrink: 0 }} />
-                          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            Suspended: Awaiting Authorization
-                          </span>
-                          <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
-                            {dateFormatted}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* 48-Hour Cancellation Shield Trigger Indicator */}
-                      {isTrial && (
-                        <div
-                          onMouseEnter={() => setActiveTooltip(sub.id)}
-                          onMouseLeave={() => setActiveTooltip(null)}
-                          style={{
-                            position: 'absolute',
-                            left: `calc(${endPercent}% - 13px)`,
-                            top: '5px',
-                            width: '26px',
-                            height: '26px',
-                            borderRadius: '50%',
-                            backgroundColor: '#2edcc4',
-                            display: 'grid',
-                            placeItems: 'center',
-                            color: '#060723',
-                            border: '1.5px solid #060723',
-                            boxShadow: '0 2px 8px rgba(46, 220, 196, 0.45)',
-                            cursor: 'pointer',
-                            zIndex: 10
-                          }}
-                        >
-                          <SubGuardIcon name="shield" size={14} stroke={2.4} />
-
-                          {/* Tooltip */}
-                          {activeTooltip === sub.id && (
-                            <div className="timeline-tooltip">
-                              <div style={{ fontWeight: 700, color: '#2edcc4', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                <SubGuardIcon name="shield" size={12} /> 48h Pre-Renewal Shield
-                              </div>
-                              <div>
-                                Scheduled for {new Date(new Date(sub.next_billing_date).getTime() - 48 * 3600 * 1000).toLocaleDateString()}.
-                                If no team confirmation is received, SubGuard automatically issues a PayPal cancellation request.
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
+                        );
+                      })()}
                     </div>
                   </div>
                 );
