@@ -4062,11 +4062,13 @@ footer span {
 [data-theme="dark"] .home-shortcut-card {
   background: #1b1f9d;
   border-color: #1b1f9d;
+  box-shadow: 4px 4px 0px #060723;
 }
 
 [data-theme="dark"] .home-shortcut-card:hover {
   background: #1b1f9d;
   border-color: #2edcc4;
+  box-shadow: 6px 6px 0px #060723;
 }
 
 [data-theme="dark"] .shortcut-card-icon {
@@ -4076,6 +4078,12 @@ footer span {
 
 [data-theme="dark"] .shortcut-card-header h3 {
   color: #f9dec9;
+}
+
+[data-theme="dark"] .home-shortcut-card p {
+  color: #f9dec9;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 [data-theme="dark"] .governance-card {

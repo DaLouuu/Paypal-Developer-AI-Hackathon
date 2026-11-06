@@ -899,6 +899,27 @@ export default function App() {
                   Inspect Protection <SubGuardIcon name="arrow" size={14} />
                 </button>
               </div>
+
+              <div className="home-shortcut-card">
+                <div>
+                  <div className="shortcut-card-header">
+                    <span className="shortcut-card-icon">
+                      <SubGuardIcon name="card" size={20} />
+                    </span>
+                    <h3>Subscriptions Ledger</h3>
+                  </div>
+                  <p>
+                    Track monthly software spend (${totalBurn.toFixed(2)}/mo), seat allocations, and pending human-in-the-loop approvals.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="outline-button"
+                  onClick={() => navigateTo('subscriptions')}
+                >
+                  Manage Ledger <SubGuardIcon name="arrow" size={14} />
+                </button>
+              </div>
             </div>
 
             {/* SECTION: The SubGuard Promise */}
