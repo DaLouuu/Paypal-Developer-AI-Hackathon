@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import SubGuardIcon from './SubGuardIcon';
 import ProductDetailsModal from './ProductDetailsModal';
+import ProductCompareDrawer from './ProductCompareDrawer';
 
 const CURATED_PRODUCTS = [
   {
@@ -165,6 +166,7 @@ export default function DiscoverySearch({ onSelectTool }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [soc2Only, setSoc2Only] = useState(false);
   const [favorites, setFavorites] = useState(['prod_notion', 'prod_figma']);
+  const [compareList, setCompareList] = useState([]);
   const searchRef = useRef(null);
 
   const toggleFavorite = (productId, e) => {
@@ -172,6 +174,20 @@ export default function DiscoverySearch({ onSelectTool }) {
     setFavorites((prev) =>
       prev.includes(productId) ? prev.filter((id) => id !== productId) : [...prev, productId]
     );
+  };
+
+  const toggleCompare = (product, e) => {
+    e.stopPropagation();
+    setCompareList((prev) => {
+      const exists = prev.some((p) => p.product_id === product.product_id);
+      if (exists) {
+        return prev.filter((p) => p.product_id !== product.product_id);
+      }
+      if (prev.length >= 3) {
+        return [prev[1], prev[2], product];
+      }
+      return [...prev, product];
+    });
   };
 
   useEffect(() => {
@@ -361,18 +377,42 @@ export default function DiscoverySearch({ onSelectTool }) {
               onClick={() => handleCardClick(product)}
               style={{ cursor: 'pointer' }}
             >
-              {/* Card Topline: Tag + Wishlist Heart */}
+              {/* Card Topline: Tag + Compare + Wishlist Heart */}
               <div className="product-topline">
                 <span className="product-tag">{product.tag}</span>
-                <button
-                  className={`wishlist-btn ${isFav ? 'active' : ''}`}
-                  aria-label={isFav ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
-                  type="button"
-                  title={isFav ? 'In your wishlist' : 'Save to wishlist'}
-                  onClick={(e) => toggleFavorite(product.product_id, e)}
-                >
-                  <SubGuardIcon name="heart" size={14} />
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <button
+                    className={`compare-btn ${compareList.some(p => p.product_id === product.product_id) ? 'active' : ''}`}
+                    aria-label={compareList.some(p => p.product_id === product.product_id) ? `Remove ${product.name} from comparison` : `Add ${product.name} to comparison`}
+                    type="button"
+                    title={compareList.some(p => p.product_id === product.product_id) ? 'Comparing' : 'Compare tool'}
+                    onClick={(e) => toggleCompare(product, e)}
+                    style={{
+                      background: compareList.some(p => p.product_id === product.product_id) ? 'var(--blue)' : 'transparent',
+                      color: compareList.some(p => p.product_id === product.product_id) ? '#ffffff' : 'var(--muted)',
+                      border: '1px solid var(--line)',
+                      borderRadius: '8px',
+                      padding: '3px 8px',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <SubGuardIcon name="grid" size={11} /> {compareList.some(p => p.product_id === product.product_id) ? 'Comparing' : 'Compare'}
+                  </button>
+                  <button
+                    className={`wishlist-btn ${isFav ? 'active' : ''}`}
+                    aria-label={isFav ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+                    type="button"
+                    title={isFav ? 'In your wishlist' : 'Save to wishlist'}
+                    onClick={(e) => toggleFavorite(product.product_id, e)}
+                  >
+                    <SubGuardIcon name="heart" size={14} />
+                  </button>
+                </div>
               </div>
 
               {/* Product Identity */}
@@ -452,6 +492,23 @@ export default function DiscoverySearch({ onSelectTool }) {
         isOpen={Boolean(selectedProduct)}
         onClose={() => setSelectedProduct(null)}
         onProvision={handleConfirmProvision}
+      />
+
+      {/* Product Comparison & Shortlist Drawer */}
+      <ProductCompareDrawer
+        items={compareList}
+        onRemoveItem={(id) => setCompareList((prev) => prev.filter((p) => p.product_id !== id))}
+        onClearAll={() => setCompareList([])}
+        onProvision={(tool) => {
+          setCompareList([]);
+          onSelectTool({
+            product_name: tool.name || tool.product_name,
+            pricing_tier: tool.pricing_tier,
+            monthly_cost: tool.price || tool.monthly_cost,
+            vendor_domain: tool.vendor_domain,
+            tos_risk_score: tool.tos_risk_score
+          });
+        }}
       />
     </section>
   );
