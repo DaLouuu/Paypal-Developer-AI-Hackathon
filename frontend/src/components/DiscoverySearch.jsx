@@ -18,7 +18,8 @@ const CURATED_PRODUCTS = [
     pricing_tier: 'Team Plus',
     vendor_domain: 'notion.so',
     soc2_compliant: true,
-    tos_risk_score: 0.12
+    tos_risk_score: 0.12,
+    dark_pattern_warnings: []
   },
   {
     product_id: 'prod_figma',
@@ -35,7 +36,8 @@ const CURATED_PRODUCTS = [
     pricing_tier: 'Professional',
     vendor_domain: 'figma.com',
     soc2_compliant: true,
-    tos_risk_score: 0.14
+    tos_risk_score: 0.14,
+    dark_pattern_warnings: []
   },
   {
     product_id: 'prod_cursor',
@@ -52,7 +54,10 @@ const CURATED_PRODUCTS = [
     pricing_tier: 'Pro Individual',
     vendor_domain: 'cursor.sh',
     soc2_compliant: true,
-    tos_risk_score: 0.82
+    tos_risk_score: 0.82,
+    dark_pattern_warnings: [
+      'Seven (7) days advance written notice required prior to trial expiration'
+    ]
   },
   {
     product_id: 'prod_slack',
@@ -69,7 +74,8 @@ const CURATED_PRODUCTS = [
     pricing_tier: 'Pro',
     vendor_domain: 'slack.com',
     soc2_compliant: true,
-    tos_risk_score: 0.15
+    tos_risk_score: 0.15,
+    dark_pattern_warnings: []
   },
   {
     product_id: 'prod_pinecone',
@@ -86,7 +92,8 @@ const CURATED_PRODUCTS = [
     pricing_tier: 'Serverless Developer',
     vendor_domain: 'pinecone.io',
     soc2_compliant: true,
-    tos_risk_score: 0.12
+    tos_risk_score: 0.12,
+    dark_pattern_warnings: []
   },
   {
     product_id: 'prod_datadog',
@@ -103,11 +110,40 @@ const CURATED_PRODUCTS = [
     pricing_tier: 'Pro Infra',
     vendor_domain: 'datadoghq.com',
     soc2_compliant: true,
-    tos_risk_score: 0.42
+    tos_risk_score: 0.42,
+    dark_pattern_warnings: []
+  },
+  {
+    product_id: 'prod_autolog',
+    name: 'AutoLog Pro',
+    mark: 'A',
+    color: '#d9535d',
+    bg: '#fff0ef',
+    category: 'Development',
+    line: 'Distributed tracing with promotional trial that automatically converts to an annual contract.',
+    price: 49,
+    rating: '2.1',
+    risk: 'High risk (Trapped)',
+    tag: 'Contract Trap',
+    pricing_tier: 'Pro Trial',
+    vendor_domain: 'autolog-sys.dev',
+    soc2_compliant: false,
+    tos_risk_score: 0.88,
+    dark_pattern_warnings: [
+      'Mandatory phone call required for cancellation',
+      'Auto-converts to $588/yr without advance email reminder',
+      'Sixty (60) days advance notice required to prevent renewal'
+    ]
   }
 ];
 
 const CATEGORIES = ['For you', 'Productivity', 'Design', 'Development', 'Communication'];
+
+const SUGGESTIONS = [
+  'SOC-2 vector database under $50/mo',
+  'AI coding assistants',
+  'Predictable pricing without renewal traps'
+];
 
 export default function DiscoverySearch({ onSelectTool }) {
   const [category, setCategory] = useState('For you');
@@ -132,7 +168,7 @@ export default function DiscoverySearch({ onSelectTool }) {
     return CURATED_PRODUCTS.filter((product) => {
       const matchesCategory = category === 'For you' || product.category === category;
       const matchesSoc2 = !soc2Only || product.soc2_compliant;
-      const haystack = `${product.name} ${product.category} ${product.line}`.toLowerCase();
+      const haystack = `${product.name} ${product.category} ${product.line} ${product.tag}`.toLowerCase();
       return matchesCategory && matchesSoc2 && haystack.includes(query.toLowerCase());
     });
   }, [category, query, soc2Only]);
@@ -170,70 +206,98 @@ export default function DiscoverySearch({ onSelectTool }) {
       </div>
 
       {/* Toolbar: Categories & Search Bar */}
-      <div className="market-toolbar">
-        <div className="categories" role="tablist" aria-label="Software categories">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              role="tab"
-              aria-selected={category === cat}
-              className={category === cat ? 'active' : ''}
-              onClick={() => setCategory(cat)}
+      <div className="market-toolbar" style={{ flexDirection: 'column', gap: '14px', alignItems: 'stretch' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+          {/* Categories Tablist */}
+          <div className="categories" role="tablist" aria-label="Software categories">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                role="tab"
+                aria-selected={category === cat}
+                className={category === cat ? 'active' : ''}
+                onClick={() => setCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* SOC-2 Toggle & Search Bar */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <label
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '11px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                color: soc2Only ? 'var(--blue)' : 'var(--muted)',
+                background: soc2Only ? 'rgba(63, 100, 255, 0.1)' : 'transparent',
+                border: '1px solid',
+                borderColor: soc2Only ? 'var(--blue)' : 'var(--line)',
+                padding: '8px 12px',
+                borderRadius: '9px',
+                transition: 'all 0.15s ease'
+              }}
             >
-              {cat}
-            </button>
-          ))}
+              <input
+                type="checkbox"
+                checked={soc2Only}
+                onChange={(e) => setSoc2Only(e.target.checked)}
+                style={{ display: 'none' }}
+              />
+              <SubGuardIcon name="shield" size={13} />
+              <span>SOC-2 Only</span>
+            </label>
+
+            <label className="search-box">
+              <SubGuardIcon name="search" size={18} />
+              <input
+                ref={searchRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder='Try “vector database” or “coding”'
+                aria-label="Search the software marketplace"
+              />
+              {query && (
+                <button
+                  className="search-clear"
+                  onClick={() => setQuery('')}
+                  aria-label="Clear search"
+                  type="button"
+                >
+                  ×
+                </button>
+              )}
+              <span>⌘ K</span>
+            </label>
+          </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-          <label
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '11px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              color: soc2Only ? 'var(--blue)' : 'var(--muted)',
-              background: soc2Only ? 'rgba(63, 100, 255, 0.1)' : 'transparent',
-              border: '1px solid',
-              borderColor: soc2Only ? 'var(--blue)' : 'var(--line)',
-              padding: '8px 12px',
-              borderRadius: '9px',
-              transition: 'all 0.15s ease'
-            }}
-          >
-            <input
-              type="checkbox"
-              checked={soc2Only}
-              onChange={(e) => setSoc2Only(e.target.checked)}
-              style={{ display: 'none' }}
-            />
-            <SubGuardIcon name="shield" size={13} />
-            <span>SOC-2 Only</span>
-          </label>
-
-          <label className="search-box">
-            <SubGuardIcon name="search" size={18} />
-            <input
-              ref={searchRef}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder='Try “a design tool under $20”'
-              aria-label="Search the software marketplace"
-            />
-            {query && (
-              <button
-                className="search-clear"
-                onClick={() => setQuery('')}
-                aria-label="Clear search"
-                type="button"
-              >
-                ×
-              </button>
-            )}
-            <span>⌘ K</span>
-          </label>
+        {/* Suggested Query Chips */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '11px' }}>
+          <span style={{ color: 'var(--muted)', fontWeight: 600 }}>Suggested:</span>
+          {SUGGESTIONS.map((s, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setQuery(s)}
+              style={{
+                background: 'var(--surface-soft, #f1f3f5)',
+                border: '1px solid var(--line, #dedbd3)',
+                color: 'var(--text-muted, #687387)',
+                padding: '3px 9px',
+                borderRadius: '100px',
+                fontSize: '11px',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              {s}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -282,7 +346,7 @@ export default function DiscoverySearch({ onSelectTool }) {
             <p>{product.line}</p>
 
             <div className="trust-row">
-              <span>
+              <span style={{ color: product.tos_risk_score > 0.6 ? '#c24e49' : undefined }}>
                 <SubGuardIcon name="shield" size={14} /> {product.risk}
               </span>
               <span className="guard-score">SG {product.rating}</span>
@@ -311,8 +375,8 @@ export default function DiscoverySearch({ onSelectTool }) {
         {filtered.length === 0 && (
           <div className="empty-state">
             <SubGuardIcon name="search" size={24} />
-            <strong>No matches yet</strong>
-            <span>Try another name, category, or clear filters.</span>
+            <strong>No matches found</strong>
+            <span>Try another search term or click a suggested query above.</span>
           </div>
         )}
       </div>

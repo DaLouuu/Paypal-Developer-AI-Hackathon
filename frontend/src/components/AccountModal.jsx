@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SubGuardIcon from './SubGuardIcon';
 
-export default function AccountModal({ isOpen, onClose }) {
+export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpdateSpendingCap }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempCap, setTempCap] = useState(spendingCap);
+
   if (!isOpen) return null;
+
+  const handleSave = () => {
+    if (onUpdateSpendingCap) {
+      onUpdateSpendingCap(Number(tempCap));
+    }
+    setIsEditing(false);
+  };
 
   return (
     <div
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(19, 35, 62, 0.5)',
-        backdropFilter: 'blur(5px)',
+        backgroundColor: 'rgba(19, 35, 62, 0.55)',
+        backdropFilter: 'blur(6px)',
         zIndex: 1000,
         display: 'grid',
         placeItems: 'center',
@@ -24,7 +34,7 @@ export default function AccountModal({ isOpen, onClose }) {
           color: 'var(--navy, #13233e)',
           borderRadius: '20px',
           width: '100%',
-          maxWidth: '500px',
+          maxWidth: '520px',
           boxShadow: '0 24px 60px rgba(19, 35, 62, 0.22)',
           border: '1px solid var(--line, #dedbd3)',
           overflow: 'hidden',
@@ -46,8 +56,8 @@ export default function AccountModal({ isOpen, onClose }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span
               style={{
-                width: '38px',
-                height: '38px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
                 background: 'var(--navy, #13233e)',
                 color: 'white',
@@ -60,17 +70,23 @@ export default function AccountModal({ isOpen, onClose }) {
               AM
             </span>
             <div>
-              <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
-                Alex Morgan
-              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
+                  Alex Morgan
+                </h3>
+                <span style={{ fontSize: '10px', fontWeight: 700, color: '#158763', background: '#eaf8f2', padding: '1px 6px', borderRadius: '4px' }}>
+                  VERIFIED PRINCIPAL
+                </span>
+              </div>
               <small style={{ color: 'var(--muted)', fontSize: '11px' }}>
-                Founder Admin · PayPal Dev Sandbox
+                Founder Admin · PayPal Dev Sandbox Organization
               </small>
             </div>
           </div>
           <button
             onClick={onClose}
             className="icon-button"
+            aria-label="Close modal"
             style={{ fontSize: '20px', color: 'var(--muted)' }}
           >
             ×
@@ -78,50 +94,118 @@ export default function AccountModal({ isOpen, onClose }) {
         </div>
 
         {/* Content */}
-        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          {/* Section 1: Active Autonomous Spending Guardrails */}
           <div>
-            <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, color: 'var(--muted)' }}>
-              Active Autonomous Spending Policy
-            </span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, color: 'var(--muted)' }}>
+                Autonomous Spending Guardrails
+              </span>
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => setIsEditing(!isEditing)}
+                style={{ fontSize: '11px', color: 'var(--blue)' }}
+              >
+                {isEditing ? 'Cancel Edit' : 'Adjust Ceilings'}
+              </button>
+            </div>
+
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
-                gap: '10px',
-                marginTop: '8px'
+                gap: '12px'
               }}
             >
-              <div style={{ padding: '12px', background: 'var(--surface-soft)', borderRadius: '10px', border: '1px solid var(--line)' }}>
-                <small style={{ fontSize: '9px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>Single Transaction Ceiling</small>
-                <div style={{ fontSize: '16px', fontWeight: 800, marginTop: '2px' }}>$50.00</div>
-                <small style={{ fontSize: '10px', color: 'var(--muted)' }}>Transactions above require HITL approval</small>
+              {/* Single Transaction Ceiling Card */}
+              <div style={{ padding: '14px', background: 'var(--surface-soft)', borderRadius: '12px', border: '1px solid var(--line)' }}>
+                <small style={{ fontSize: '9px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>
+                  Single Transaction Ceiling
+                </small>
+                {isEditing ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
+                    <span style={{ fontWeight: 700, fontSize: '16px' }}>$</span>
+                    <input
+                      type="number"
+                      min="10"
+                      max="200"
+                      value={tempCap}
+                      onChange={(e) => setTempCap(Number(e.target.value))}
+                      style={{
+                        width: '60px',
+                        padding: '3px 6px',
+                        borderRadius: '6px',
+                        border: '1.5px solid var(--blue)',
+                        background: 'var(--surface)',
+                        color: 'var(--navy)',
+                        fontWeight: 700,
+                        fontSize: '14px'
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleSave}
+                      style={{
+                        border: 0,
+                        background: 'var(--blue)',
+                        color: 'white',
+                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Save
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'Manrope', marginTop: '2px' }}>
+                    ${spendingCap.toFixed(2)}
+                  </div>
+                )}
+                <small style={{ fontSize: '10px', color: 'var(--muted)', display: 'block', marginTop: '3px' }}>
+                  Transactions above trigger human sign-off
+                </small>
               </div>
-              <div style={{ padding: '12px', background: 'var(--surface-soft)', borderRadius: '10px', border: '1px solid var(--line)' }}>
-                <small style={{ fontSize: '9px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>Monthly Budget Hard Cap</small>
-                <div style={{ fontSize: '16px', fontWeight: 800, marginTop: '2px' }}>$500.00</div>
-                <small style={{ fontSize: '10px', color: 'var(--muted)' }}>Hard deterministic rejection ceiling</small>
+
+              {/* Monthly Budget Hard Cap Card */}
+              <div style={{ padding: '14px', background: 'var(--surface-soft)', borderRadius: '12px', border: '1px solid var(--line)' }}>
+                <small style={{ fontSize: '9px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>
+                  Monthly Budget Hard Cap
+                </small>
+                <div style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'Manrope', marginTop: '2px' }}>
+                  $500.00
+                </div>
+                <small style={{ fontSize: '10px', color: 'var(--muted)', display: 'block', marginTop: '3px' }}>
+                  Hard deterministic rejection ceiling
+                </small>
               </div>
             </div>
           </div>
 
+          {/* Section 2: Cryptographic Identity & Protocol Binding */}
           <div>
             <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, color: 'var(--muted)' }}>
-              Cryptographic Key & Protocol Binding
+              Cryptographic Verification & Gateway
             </span>
-            <div style={{ padding: '12px', background: 'var(--surface-soft)', borderRadius: '10px', border: '1px solid var(--line)', marginTop: '8px', fontSize: '11px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+            <div style={{ padding: '14px', background: 'var(--surface-soft)', borderRadius: '12px', border: '1px solid var(--line)', marginTop: '8px', fontSize: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: 'var(--muted)' }}>AP2 Protocol Verifier:</span>
-                <strong style={{ color: '#1aa978' }}>Ed25519 ENFORCED</strong>
+                <span style={{ color: '#158763', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <SubGuardIcon name="check" size={13} /> Ed25519 Enforced
+                </span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: 'var(--muted)' }}>Key Fingerprint:</span>
-                <code style={{ fontSize: '10px', background: 'rgba(0,0,0,0.06)', padding: '1px 4px', borderRadius: '4px' }}>
+                <code style={{ fontSize: '10px', background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: '4px' }}>
                   ed25519:e4a7...99b2
                 </code>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: 'var(--muted)' }}>FastMCP Proxy Gateway:</span>
-                <span>http://localhost:8000</span>
+                <span style={{ fontWeight: 600, color: 'var(--navy)' }}>ONLINE (Port 8000)</span>
               </div>
             </div>
           </div>
@@ -133,21 +217,24 @@ export default function AccountModal({ isOpen, onClose }) {
             padding: '16px 24px',
             borderTop: '1px solid var(--line, #dedbd3)',
             display: 'flex',
-            justifyContent: 'flex-end',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             background: 'var(--surface-soft, #f1f3f5)'
           }}
         >
+          <small style={{ fontSize: '11px', color: 'var(--muted)' }}>
+            Governed by PayPal Developer Platform AP2 Mandates
+          </small>
           <button
             type="button"
             className="primary-button"
             onClick={onClose}
-            style={{ padding: '8px 16px', fontSize: '12px' }}
+            style={{ padding: '8px 18px', fontSize: '12px' }}
           >
-            Close Settings
+            Done
           </button>
         </div>
       </div>
     </div>
   );
 }
-

@@ -58,6 +58,7 @@ const INITIAL_SUBSCRIPTIONS = [
 export default function App() {
   const [subscriptions, setSubscriptions] = useState(INITIAL_SUBSCRIPTIONS);
   const [shieldOn, setShieldOn] = useState(true);
+  const [spendingCap, setSpendingCap] = useState(50);
   const [notice, setNotice] = useState('');
   const [activeNav, setActiveNav] = useState('home');
   const [showTimeline, setShowTimeline] = useState(false);
@@ -138,8 +139,13 @@ export default function App() {
       tos_risk_score: tool.tos_risk_score
     };
     setSubscriptions(prev => [newSub, ...prev]);
-    showNotice(`${tool.product_name} added to your active subscriptions!`);
+    showNotice(`${tool.product_name} provisioned under SubGuard protection!`);
     navigateTo('subscriptions');
+  };
+
+  const handleUpdateSpendingCap = (newCap) => {
+    setSpendingCap(newCap);
+    showNotice(`Autonomous ceiling updated to $${newCap.toFixed(2)}/mo`);
   };
 
   return (
@@ -228,6 +234,24 @@ export default function App() {
 
         {/* Header Actions */}
         <div className="header-actions">
+          {/* FastMCP Live Beacon */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '11px',
+              color: 'var(--muted)',
+              background: 'var(--surface-soft)',
+              padding: '5px 10px',
+              borderRadius: '8px',
+              border: '1px solid var(--line)'
+            }}
+          >
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#25b985' }} />
+            <span>FastMCP:8000</span>
+          </div>
+
           {/* Theme Switcher */}
           <button
             className="theme-button"
@@ -249,17 +273,17 @@ export default function App() {
             <span />
           </button>
 
-          {/* User Profile */}
+          {/* User Profile / Governance Passport */}
           <button
             className="profile"
             onClick={() => setIsAccountOpen(true)}
-            aria-label="User Account Settings"
+            aria-label="Open Governance & Security Passport"
             type="button"
           >
             <span>AM</span>
             <span className="profile-copy">
               <strong>Alex Morgan</strong>
-              <small>Personal account</small>
+              <small>Founder Admin · Passport</small>
             </span>
             <SubGuardIcon name="chevron" size={14} />
           </button>
@@ -344,6 +368,32 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            {/* Actionable Upcoming Renewal Alert Banner (Anchored inside hero) */}
+            <div
+              className="renewal-ribbon"
+              style={{ marginTop: '24px' }}
+            >
+              <span className="renewal-icon">
+                <SubGuardIcon name="calendar" size={20} />
+              </span>
+              <div>
+                <small>UPCOMING RENEWAL</small>
+                <p>
+                  <strong>Notion Plus</strong> renews in 12 days for $80.00
+                </p>
+              </div>
+              <span className="date-pill">NOV 18</span>
+              <button
+                onClick={() => {
+                  showNotice('Notion Plus renewal: monitored under $50.00 spending policy');
+                  navigateTo('subscriptions');
+                }}
+                type="button"
+              >
+                Review renewal <SubGuardIcon name="arrow" size={16} />
+              </button>
+            </div>
           </div>
 
           {/* Autopilot Cancellation Shield Panel */}
@@ -422,33 +472,10 @@ export default function App() {
           </div>
         )}
 
-        {/* SECTION 2: Upcoming Renewal Ribbon */}
-        <section className="renewal-ribbon">
-          <span className="renewal-icon">
-            <SubGuardIcon name="calendar" size={20} />
-          </span>
-          <div>
-            <small>UPCOMING RENEWAL</small>
-            <p>
-              <strong>Notion Plus</strong> renews in 12 days for $80.00
-            </p>
-          </div>
-          <span className="date-pill">NOV 18</span>
-          <button
-            onClick={() => {
-              showNotice('Notion Plus renewal: monitored under $50.00 spending policy');
-              navigateTo('subscriptions');
-            }}
-            type="button"
-          >
-            Review renewal <SubGuardIcon name="arrow" size={16} />
-          </button>
-        </section>
-
-        {/* SECTION 3: The SubGuard Edit SaaS Marketplace */}
+        {/* SECTION 2: The SubGuard Edit SaaS Marketplace */}
         <DiscoverySearch onSelectTool={handleSelectTool} />
 
-        {/* SECTION 4: Subscriptions Management */}
+        {/* SECTION 3: Subscriptions Management */}
         <section className="subscriptions-section" id="subscriptions">
           <SubscriptionTable
             subscriptions={subscriptions}
@@ -458,7 +485,7 @@ export default function App() {
           />
         </section>
 
-        {/* SECTION 5: The SubGuard Promise */}
+        {/* SECTION 4: The SubGuard Promise */}
         <section className="promise">
           <div className="promise-mark">
             <SubGuardIcon name="bag" size={32} />
@@ -523,10 +550,12 @@ export default function App() {
         onApproveDatadog={handleApproveDatadog}
       />
 
-      {/* Account & Policies Modal */}
+      {/* Governance & Security Passport Modal */}
       <AccountModal
         isOpen={isAccountOpen}
         onClose={() => setIsAccountOpen(false)}
+        spendingCap={spendingCap}
+        onUpdateSpendingCap={handleUpdateSpendingCap}
       />
     </div>
   );

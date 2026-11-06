@@ -79,7 +79,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         </div>
 
         {/* Modal Body */}
-        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px', maxHeight: '70vh', overflowY: 'auto' }}>
           <div>
             <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, color: 'var(--muted)' }}>
               Overview
@@ -131,6 +131,31 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             </div>
             <RiskMeter score={product.tos_risk_score || 0.15} />
           </div>
+
+          {/* Dark Pattern Warnings (if detected by ToS Analyzer) */}
+          {product.dark_pattern_warnings && product.dark_pattern_warnings.length > 0 && (
+            <div
+              style={{
+                backgroundColor: '#fff0ef',
+                border: '1px solid #ffd4d1',
+                borderRadius: '10px',
+                padding: '12px 14px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '6px'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 700, color: '#c24e49' }}>
+                <SubGuardIcon name="shield" size={13} stroke={2.4} />
+                <span>ToS Clause Warnings Detected:</span>
+              </div>
+              {product.dark_pattern_warnings.map((w, idx) => (
+                <div key={idx} style={{ fontSize: '11px', color: '#c24e49', lineHeight: 1.4 }}>
+                  • {w}
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Compliance & Safeguards */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
@@ -185,4 +210,3 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
     </div>
   );
 }
-
