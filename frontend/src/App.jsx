@@ -813,20 +813,29 @@ export default function App() {
                     </small>
                   </div>
 
-                  <div className="mini-chart" aria-label="Spending trend over six months">
-                    {[55, 68, 49, 72, 62, 44, 51, 36, 42, 29, 34, 25].map((height, index) => (
-                      <i key={index} style={{ height }} />
-                    ))}
+                  <div className="spend-chart-col">
+                    <div className="mini-chart" aria-label="Spending trend over six months">
+                      {[38, 48, 35, 52, 44, 32, 38, 26, 30, 22, 26, 18].map((height, index) => (
+                        <i key={index} style={{ height }} />
+                      ))}
+                    </div>
+                    <div className="chart-timeline-labels">
+                      <span>6 mos ago</span>
+                      <span>3 mos ago</span>
+                      <span className="current-label">Nov (Current)</span>
+                    </div>
                   </div>
 
                   <div className="spend-meta">
-                    <div>
+                    <div className="spend-meta-item">
                       <strong data-testid="active-count">{activeCount}</strong>
                       <span>Active plans</span>
+                      <small>100% Governed</small>
                     </div>
-                    <div>
+                    <div className="spend-meta-item">
                       <strong>{trialsCount}</strong>
                       <span>Protected trial</span>
+                      <small>Auto-cancel armed</small>
                     </div>
                   </div>
                 </div>
