@@ -1332,7 +1332,7 @@ main {
 }
 
 .shield-off .live-label {
-  color: #b45309;
+  color: #92400e;
 }
 
 .shield-off .live-label i {
@@ -1341,11 +1341,11 @@ main {
 }
 
 .shield-off .shield-status span {
-  color: #b45309;
+  color: #92400e;
 }
 
 .shield-off .shield-status strong {
-  color: #b45309;
+  color: #92400e;
 }
 
 .shield-off .next-step {
@@ -1354,12 +1354,12 @@ main {
 }
 
 .shield-off .next-step small {
-  color: #b45309;
+  color: #92400e;
 }
 
 .shield-off .next-step .step-icon {
   background: #fef3c7;
-  color: #b45309;
+  color: #92400e;
 }
 
 .shield-heading {
@@ -1586,7 +1586,7 @@ main {
   margin-top: 12px;
   border: 0;
   background: transparent;
-  color: #2edcc4;
+  color: var(--green, #216e65);
   font-weight: 700;
   font-size: 11px;
   cursor: pointer;
@@ -1599,12 +1599,36 @@ main {
 }
 
 .shield-link:hover {
-  color: #f9dec9;
+  color: var(--navy, #060723);
   transform: translateX(4px);
 }
 
 .shield-link:hover svg {
   transform: translateX(4px);
+}
+
+.shield-off .shield-link {
+  color: #92400e;
+}
+
+.shield-off .shield-link:hover {
+  color: #78350f;
+}
+
+[data-theme="dark"] .shield-link {
+  color: #2edcc4;
+}
+
+[data-theme="dark"] .shield-link:hover {
+  color: #f9dec9;
+}
+
+[data-theme="dark"] .shield-off .shield-link {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .shield-off .shield-link:hover {
+  color: #fef3c7;
 }
 
 .renewal-ribbon {
