@@ -202,7 +202,7 @@ export default function App() {
             }}
           >
             <SubGuardIcon name="home" size={16} />
-            Home
+            Dashboard
           </a>
           <a
             className={activeNav === 'discover' ? 'active' : ''}
@@ -213,7 +213,7 @@ export default function App() {
             }}
           >
             <SubGuardIcon name="compass" size={16} />
-            Discover
+            Catalog
           </a>
           <a
             className={activeNav === 'subscriptions' ? 'active' : ''}
@@ -224,7 +224,7 @@ export default function App() {
             }}
           >
             <SubGuardIcon name="card" size={16} />
-            My subscriptions
+            Subscriptions
           </a>
           <a
             className={activeNav === 'protection' ? 'active' : ''}
@@ -273,35 +273,6 @@ export default function App() {
             <span />
           </button>
 
-          {/* Subscriptions Cart / Bag */}
-          <button
-            className="notification"
-            aria-label="Guarded Subscriptions Bag"
-            onClick={() => navigateTo('subscriptions')}
-            title={`${activeCount} Active Plans Guarded`}
-            type="button"
-          >
-            <SubGuardIcon name="cart" size={18} />
-            <span
-              style={{
-                background: '#f9dec9',
-                color: '#060723',
-                fontWeight: 800,
-                fontSize: '9px',
-                width: '14px',
-                height: '14px',
-                display: 'grid',
-                placeItems: 'center',
-                borderRadius: '50%',
-                border: 'none',
-                top: '-3px',
-                right: '-3px'
-              }}
-            >
-              {activeCount}
-            </span>
-          </button>
-
           {/* User Profile / Governance Passport */}
           <button
             className="profile"
@@ -309,10 +280,10 @@ export default function App() {
             aria-label="Open Governance & Security Passport"
             type="button"
           >
-            <span>AM</span>
+            <span className="profile-avatar">AM</span>
             <span className="profile-copy">
               <strong>Alex Morgan</strong>
-              <small>Founder Admin · Passport</small>
+              <small>Admin · Passport</small>
             </span>
             <SubGuardIcon name="chevron" size={14} />
           </button>

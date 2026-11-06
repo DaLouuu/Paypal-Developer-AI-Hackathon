@@ -222,17 +222,39 @@ export default function SubscriptionTable({
           );
         }
         if (sub.status === 'PENDING_CANCELLATION') {
-          return <span style={{ fontSize: '10px', color: 'var(--muted)' }}>Armed</span>;
+          return (
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 600,
+                color: '#216e65',
+                padding: '3px 8px',
+                background: 'rgba(33, 110, 101, 0.12)',
+                borderRadius: '4px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
+            >
+              <SubGuardIcon name="shield" size={12} /> Shielded
+            </span>
+          );
         }
         return (
           <button
             type="button"
-            className="icon-button"
+            className="outline-button"
             onClick={() => promptCancel(sub)}
-            style={{ fontSize: '11px', color: '#1b1f9d' }}
+            style={{
+              fontSize: '11px',
+              padding: '4px 8px',
+              fontWeight: 600,
+              borderRadius: '4px',
+              whiteSpace: 'nowrap'
+            }}
             title="Arm Cancellation Shield"
           >
-            <SubGuardIcon name="shield" size={14} />
+            Arm Shield
           </button>
         );
       }
@@ -267,14 +289,67 @@ export default function SubscriptionTable({
         {activeCount}
       </span>
 
-      {/* Header with Title and Toggle for detailed grid */}
-      <div className="section-heading compact" style={{ flexWrap: 'wrap', gap: '14px' }}>
-        <div>
-          <span className="section-kicker">YOUR SOFTWARE</span>
-          <h2>Everything you pay for, in one place.</h2>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--muted)' }}>
-            Monitor active licenses, authorize autonomous spending requests, and manage cancellation shields.
-          </p>
+      {/* Table Controls: Filter Tabs + View Switcher */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '12px',
+          flexWrap: 'wrap',
+          marginBottom: '18px',
+          paddingBottom: '4px'
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            overflowX: 'auto'
+          }}
+        >
+          <button
+            type="button"
+            className={`filter-tab ${filterState === 'ALL' ? 'active' : ''}`}
+            onClick={() => setFilterState('ALL')}
+          >
+            All ({subscriptions.length})
+          </button>
+
+          <button
+            type="button"
+            className={`filter-tab ${filterState === 'ACTIVE' ? 'active' : ''}`}
+            onClick={() => setFilterState('ACTIVE')}
+          >
+            Active Plans ({activeCount - trialsCount})
+          </button>
+
+          <button
+            type="button"
+            className={`filter-tab ${filterState === 'TRIAL' ? 'active' : ''}`}
+            onClick={() => setFilterState('TRIAL')}
+          >
+            Protected Trials ({trialsCount})
+          </button>
+
+          <button
+            type="button"
+            className={`filter-tab ${filterState === 'SUSPENDED' ? 'active' : ''}`}
+            onClick={() => setFilterState('SUSPENDED')}
+          >
+            Needs Approval ({suspendedCount})
+          </button>
+
+          {cancelledCount > 0 && (
+            <button
+              type="button"
+              className={`filter-tab ${filterState === 'CANCELLED' ? 'active' : ''}`}
+              onClick={() => setFilterState('CANCELLED')}
+            >
+              Shield Armed ({cancelledCount})
+            </button>
+          )}
         </div>
 
         <button
@@ -283,63 +358,9 @@ export default function SubscriptionTable({
           aria-expanded={showGrid}
           type="button"
         >
-          <SubGuardIcon name="grid" size={16} />
+          <SubGuardIcon name="grid" size={15} />
           {showGrid ? 'Compact list view' : 'Detailed data grid'}
         </button>
-      </div>
-
-      {/* State Filter Pills */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          overflowX: 'auto',
-          paddingBottom: '12px',
-          marginBottom: '10px'
-        }}
-      >
-        <button
-          type="button"
-          className={`filter-tab ${filterState === 'ALL' ? 'active' : ''}`}
-          onClick={() => setFilterState('ALL')}
-        >
-          All ({subscriptions.length})
-        </button>
-
-        <button
-          type="button"
-          className={`filter-tab ${filterState === 'ACTIVE' ? 'active' : ''}`}
-          onClick={() => setFilterState('ACTIVE')}
-        >
-          Active Plans ({activeCount - trialsCount})
-        </button>
-
-        <button
-          type="button"
-          className={`filter-tab ${filterState === 'TRIAL' ? 'active' : ''}`}
-          onClick={() => setFilterState('TRIAL')}
-        >
-          Protected Trials ({trialsCount})
-        </button>
-
-        <button
-          type="button"
-          className={`filter-tab ${filterState === 'SUSPENDED' ? 'active' : ''}`}
-          onClick={() => setFilterState('SUSPENDED')}
-        >
-          Needs Approval ({suspendedCount})
-        </button>
-
-        {cancelledCount > 0 && (
-          <button
-            type="button"
-            className={`filter-tab ${filterState === 'CANCELLED' ? 'active' : ''}`}
-            onClick={() => setFilterState('CANCELLED')}
-          >
-            Shield Armed ({cancelledCount})
-          </button>
-        )}
       </div>
 
       {/* Redesign Subscriptions List (Default View) */}
@@ -422,13 +443,23 @@ export default function SubscriptionTable({
                 </span>
               ) : (
                 <button
-                  className="icon-button"
+                  className="outline-button"
                   onClick={() => promptCancel(sub)}
                   aria-label={`Arm cancel shield for ${sub.product_name}`}
                   title="Arm 48-Hour Cancellation Shield"
                   type="button"
+                  style={{
+                    fontSize: '11px',
+                    padding: '5px 10px',
+                    borderRadius: '6px',
+                    fontWeight: 600,
+                    whiteSpace: 'nowrap',
+                    gap: '5px',
+                    alignSelf: 'center'
+                  }}
                 >
-                  <SubGuardIcon name="more" />
+                  <SubGuardIcon name="shield" size={12} />
+                  Arm Shield
                 </button>
               )}
             </article>
