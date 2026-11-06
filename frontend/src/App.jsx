@@ -477,7 +477,7 @@ export default function App() {
                   <div className="orbit orbit-one" />
                   <div className="orbit orbit-two" />
                   <div className="shield-core">
-                    <SubGuardIcon name="shield" size={26} stroke={1.8} />
+                    <SubGuardIcon name="shield" size={26} stroke={2.2} />
                   </div>
                   <span className="orbit-dot dot-one" />
                   <span className="orbit-dot dot-two" />
@@ -755,7 +755,7 @@ export default function App() {
                     <div className="orbit orbit-one" />
                     <div className="orbit orbit-two" />
                     <div className="shield-core">
-                      <SubGuardIcon name="shield" size={26} stroke={1.8} />
+                      <SubGuardIcon name="shield" size={26} stroke={2.2} />
                     </div>
                     <span className="orbit-dot dot-one" />
                     <span className="orbit-dot dot-two" />
