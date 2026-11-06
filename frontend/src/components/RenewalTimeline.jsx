@@ -202,7 +202,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                 // Calculate date offsets relative to horizon
                 let targetDate = sub.next_billing_date ? new Date(sub.next_billing_date) : new Date(now.getTime() + 15 * 86400000);
                 const daysFromNow = Math.max(1, Math.min(horizonDays, (targetDate.getTime() - now.getTime()) / (1000 * 3600 * 24)));
-                const endPercent = Math.min(100, Math.max(10, (daysFromNow / horizonDays) * 100));
+                const endPercent = Math.min(100, Math.max(22, (daysFromNow / horizonDays) * 100));
 
                 return (
                   <div
@@ -231,10 +231,12 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       {isTrial && (
                         <div
                           className="timeline-bar timeline-bar-trial"
-                          style={{ width: `${endPercent}%` }}
+                          style={{ width: `${endPercent}%`, paddingRight: '32px' }}
                         >
-                          <SubGuardIcon name="clock" size={13} />
-                          <span>Trial Active ({daysFromNow.toFixed(0)}d remaining)</span>
+                          <SubGuardIcon name="clock" size={13} style={{ flexShrink: 0 }} />
+                          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {endPercent < 28 ? `${daysFromNow.toFixed(0)}d trial` : `Trial Active (${daysFromNow.toFixed(0)}d remaining)`}
+                          </span>
                         </div>
                       )}
 
@@ -244,8 +246,10 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                           className="timeline-bar timeline-bar-active"
                           style={{ width: `${endPercent}%` }}
                         >
-                          <SubGuardIcon name="check" size={13} stroke={2.4} />
-                          <span>Current Cycle ({daysFromNow.toFixed(0)}d to renewal)</span>
+                          <SubGuardIcon name="check" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
+                          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {endPercent < 28 ? `${daysFromNow.toFixed(0)}d renewal` : `Current Cycle (${daysFromNow.toFixed(0)}d to renewal)`}
+                          </span>
                         </div>
                       )}
 
@@ -255,8 +259,10 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                           className="timeline-bar timeline-bar-suspended"
                           style={{ width: `${endPercent}%` }}
                         >
-                          <SubGuardIcon name="shield" size={13} />
-                          <span>Suspended: Awaiting Human Authorization</span>
+                          <SubGuardIcon name="shield" size={13} style={{ flexShrink: 0 }} />
+                          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {endPercent < 30 ? 'Suspended (HITL)' : 'Suspended: Awaiting Human Authorization'}
+                          </span>
                         </div>
                       )}
 
