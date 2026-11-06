@@ -2565,10 +2565,12 @@ main {
   align-items: center;
   padding: 0 10px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   gap: 6px;
-  overflow: hidden;
+  overflow: visible;
   white-space: nowrap;
+  flex-wrap: nowrap;
   box-sizing: border-box;
   transition: all 0.2s ease;
 }
@@ -2578,24 +2580,29 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .timeline-bar-trial {
-  background-color: #f9dec9;
-  border: 1.5px solid #1b1f9d;
-  color: #060723;
+  background-color: rgba(245, 158, 11, 0.14);
+  border: 1.5px solid #d97706;
+  color: #92400e;
+  font-weight: 700;
 }
 
 .timeline-bar-active {
-  background-color: #2edcc4;
-  border: 1.5px solid #060723;
-  color: #060723;
+  background-color: rgba(46, 220, 196, 0.16);
+  border: 1.5px solid #0d9488;
+  color: #065f46;
+  font-weight: 700;
 }
 
 .timeline-bar-suspended {
-  background-color: #f9dec9;
-  border: 1.5px solid #1b1f9d;
-  color: #060723;
+  background-color: rgba(239, 68, 68, 0.14);
+  border: 1.5px solid #ef4444;
+  color: #b91c1c;
+  font-weight: 700;
 }
 
 .timeline-tooltip {
@@ -2759,13 +2766,13 @@ main {
 }
 
 .sub-status.trial {
-  background: #f9dec9;
-  color: #060723;
-  border: 1.5px solid #1b1f9d;
+  background: rgba(245, 158, 11, 0.14);
+  color: #92400e;
+  border: 1.5px solid #d97706;
 }
 
 .sub-status.trial i {
-  background: #1b1f9d;
+  background: #d97706;
 }
 
 .sub-status.attention {
@@ -3893,27 +3900,27 @@ footer span {
 }
 
 [data-theme="dark"] .timeline-bar-trial {
-  background-color: #f9dec9;
-  border: 1.5px solid #ffffff;
-  color: #060723;
+  background-color: rgba(245, 158, 11, 0.18);
+  border: 1.5px solid #f59e0b;
+  color: #fbbf24;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(249, 222, 201, 0.3);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.25);
 }
 
 [data-theme="dark"] .timeline-bar-active {
-  background-color: #2edcc4;
-  border: 1.5px solid #060723;
-  color: #060723;
+  background-color: rgba(46, 220, 196, 0.18);
+  border: 1.5px solid #2edcc4;
+  color: #2edcc4;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(46, 220, 196, 0.35);
+  box-shadow: 0 2px 10px rgba(46, 220, 196, 0.25);
 }
 
 [data-theme="dark"] .timeline-bar-suspended {
-  background-color: #f9dec9;
-  border: 1.5px solid #060723;
-  color: #060723;
+  background-color: rgba(255, 51, 92, 0.22);
+  border: 1.5px solid #ff335c;
+  color: #ff859d;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(249, 222, 201, 0.3);
+  box-shadow: 0 2px 10px rgba(255, 51, 92, 0.3);
 }
 
 .timeline-track {
@@ -3989,9 +3996,9 @@ footer span {
 }
 
 [data-theme="dark"] .sub-status.trial {
-  color: #f9dec9;
-  background: rgba(249, 222, 201, 0.16);
-  border: 1px solid rgba(249, 222, 201, 0.35);
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid rgba(245, 158, 11, 0.45);
 }
 
 [data-theme="dark"] .sub-status.attention {

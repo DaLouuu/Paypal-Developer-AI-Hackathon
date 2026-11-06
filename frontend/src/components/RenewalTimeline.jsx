@@ -151,9 +151,9 @@ export default function RenewalTimeline({ subscriptions = [] }) {
         </div>
 
         {/* Legend */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '18px', fontSize: '11px', color: 'var(--muted)', marginBottom: '16px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '11px', color: 'var(--muted)', marginBottom: '16px', flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#f9dec9', border: '1px solid #f9dec9' }} />
+            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#f59e0b', border: '1px solid #f59e0b' }} />
             Active Trial (Pre-conversion)
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
@@ -161,11 +161,11 @@ export default function RenewalTimeline({ subscriptions = [] }) {
             Governed Recurring Term
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#f9dec9', border: '1px solid #f9dec9' }} />
+            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#ff335c', border: '1px solid #ff335c' }} />
             Suspended Mandate (HITL)
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <SubGuardIcon name="shield" size={13} />
+            <SubGuardIcon name="shield" size={13} style={{ color: '#2edcc4' }} />
             48h Cancellation Shield Trigger
           </span>
         </div>
@@ -202,7 +202,12 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                 // Calculate date offsets relative to horizon
                 let targetDate = sub.next_billing_date ? new Date(sub.next_billing_date) : new Date(now.getTime() + 15 * 86400000);
                 const daysFromNow = Math.max(1, Math.min(horizonDays, (targetDate.getTime() - now.getTime()) / (1000 * 3600 * 24)));
-                const endPercent = Math.min(100, Math.max(22, (daysFromNow / horizonDays) * 100));
+                const endPercent = Math.min(100, (daysFromNow / horizonDays) * 100);
+
+                // Compute responsive, uncompressed pill widths ensuring single-line text clearance
+                const trialBarWidth = `max(225px, ${endPercent}%)`;
+                const activeBarWidth = `max(215px, ${endPercent}%)`;
+                const suspendedBarWidth = `max(275px, ${endPercent}%)`;
 
                 return (
                   <div
@@ -231,11 +236,11 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       {isTrial && (
                         <div
                           className="timeline-bar timeline-bar-trial"
-                          style={{ width: `${endPercent}%`, paddingRight: '32px' }}
+                          style={{ width: trialBarWidth, paddingRight: '36px' }}
                         >
                           <SubGuardIcon name="clock" size={13} style={{ flexShrink: 0 }} />
                           <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {endPercent < 28 ? `${daysFromNow.toFixed(0)}d trial` : `Trial Active (${daysFromNow.toFixed(0)}d remaining)`}
+                            Trial Active ({daysFromNow.toFixed(0)}d remaining)
                           </span>
                         </div>
                       )}
@@ -244,11 +249,11 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       {!isTrial && !isSuspended && (
                         <div
                           className="timeline-bar timeline-bar-active"
-                          style={{ width: `${endPercent}%` }}
+                          style={{ width: activeBarWidth }}
                         >
                           <SubGuardIcon name="check" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
                           <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {endPercent < 28 ? `${daysFromNow.toFixed(0)}d renewal` : `Current Cycle (${daysFromNow.toFixed(0)}d to renewal)`}
+                            Current Cycle ({daysFromNow.toFixed(0)}d to renewal)
                           </span>
                         </div>
                       )}
@@ -257,11 +262,11 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       {isSuspended && (
                         <div
                           className="timeline-bar timeline-bar-suspended"
-                          style={{ width: `${endPercent}%` }}
+                          style={{ width: suspendedBarWidth }}
                         >
-                          <SubGuardIcon name="shield" size={13} style={{ flexShrink: 0 }} />
+                          <SubGuardIcon name="alert" size={13} style={{ flexShrink: 0 }} />
                           <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {endPercent < 30 ? 'Suspended (HITL)' : 'Suspended: Awaiting Human Authorization'}
+                            Suspended: Awaiting Human Authorization
                           </span>
                         </div>
                       )}
@@ -273,7 +278,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                           onMouseLeave={() => setActiveTooltip(null)}
                           style={{
                             position: 'absolute',
-                            left: `calc(${endPercent}% - 14px)`,
+                            left: `calc(${trialBarWidth} - 13px)`,
                             top: '5px',
                             width: '26px',
                             height: '26px',
