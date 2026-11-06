@@ -37,7 +37,15 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
         </div>
 
         {/* Comparison Column Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${items.length}, minmax(280px, 1fr))`, gap: '16px' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${items.length}, minmax(min(100%, 280px), 1fr))`,
+            gap: '16px',
+            overflowX: 'auto',
+            paddingBottom: '6px'
+          }}
+        >
           {items.map((tool) => (
             <div
               key={tool.product_id}

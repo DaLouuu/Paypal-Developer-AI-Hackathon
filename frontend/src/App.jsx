@@ -247,21 +247,9 @@ export default function App() {
             className="fastmcp-badge outline-button"
             onClick={() => setIsLoading(true)}
             title="FastMCP Gateway Online · Click to re-verify handshake"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              fontSize: '11px',
-              color: 'var(--muted)',
-              background: 'var(--surface-soft)',
-              padding: '5px 10px',
-              borderRadius: '8px',
-              border: '1px solid var(--line)',
-              cursor: 'pointer'
-            }}
           >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5dfdcb', boxShadow: '0 0 6px #5dfdcb' }} />
-            <span>FastMCP:8000</span>
+            <span className="fastmcp-badge-dot" />
+            <span className="fastmcp-badge-text">FastMCP:8000</span>
           </button>
 
           {/* Theme Switcher */}

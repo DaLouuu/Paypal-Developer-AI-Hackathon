@@ -28,6 +28,8 @@ export default function ConfirmationModal({
           boxShadow: '0 24px 60px rgba(10, 17, 40, 0.22)',
           border: '1px solid var(--line, #001f54)',
           padding: '26px',
+          maxHeight: '90vh',
+          overflowY: 'auto',
           position: 'relative',
           animation: 'toast-in 0.2s ease'
         }}

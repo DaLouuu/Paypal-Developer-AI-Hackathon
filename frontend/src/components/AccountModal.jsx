@@ -38,6 +38,9 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
           boxShadow: '0 24px 60px rgba(10, 17, 40, 0.22)',
           border: '1px solid var(--line, #001f54)',
           overflow: 'hidden',
+          maxHeight: '90vh',
+          display: 'flex',
+          flexDirection: 'column',
           animation: 'toast-in 0.2s ease'
         }}
         onClick={(e) => e.stopPropagation()}
@@ -50,7 +53,8 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'var(--surface-soft, #ffffff)'
+            background: 'var(--surface-soft, #ffffff)',
+            flexShrink: 0
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -94,7 +98,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
         </div>
 
         {/* Content */}
-        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px', overflowY: 'auto' }}>
           {/* Section 1: Active Autonomous Spending Guardrails */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>

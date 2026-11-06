@@ -21,6 +21,9 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
           boxShadow: '0 24px 60px rgba(10, 17, 40, 0.22)',
           border: '1px solid var(--line, #001f54)',
           overflow: 'hidden',
+          maxHeight: '90vh',
+          display: 'flex',
+          flexDirection: 'column',
           animation: 'toast-in 0.2s ease'
         }}
         onClick={(e) => e.stopPropagation()}
