@@ -14,12 +14,12 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         className="modal-card"
         style={{
           backgroundColor: 'var(--surface, #ffffff)',
-          color: 'var(--navy, #13233e)',
+          color: 'var(--navy, #0a1128)',
           borderRadius: '20px',
           width: '100%',
           maxWidth: '540px',
-          boxShadow: '0 24px 60px rgba(19, 35, 62, 0.22)',
-          border: '1px solid var(--line, #dedbd3)',
+          boxShadow: '0 24px 60px rgba(10, 17, 40, 0.22)',
+          border: '1px solid var(--line, #001f54)',
           overflow: 'hidden',
           animation: 'toast-in 0.2s ease'
         }}
@@ -29,11 +29,11 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         <div
           style={{
             padding: '22px 26px',
-            borderBottom: '1px solid var(--line, #dedbd3)',
+            borderBottom: '1px solid var(--line, #001f54)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'var(--surface-soft, #f1f3f5)'
+            background: 'var(--surface-soft, #ffffff)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -43,8 +43,8 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
                 width: '46px',
                 height: '46px',
                 borderRadius: '13px',
-                background: product.bg || '#f1f1ef',
-                color: product.color || '#13233e',
+                background: product.bg || '#ffffff',
+                color: product.color || '#0a1128',
                 fontSize: '20px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
               }}
@@ -55,7 +55,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <h3 style={{ margin: 0, fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
                 {product.name}
               </h3>
-              <div style={{ fontSize: '12px', color: 'var(--muted, #687387)', marginTop: '2px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--muted, #001f54)', marginTop: '2px' }}>
                 {product.vendor_domain || `${product.name.toLowerCase()}.com`} · {product.category}
               </div>
             </div>
@@ -65,7 +65,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             onClick={onClose}
             className="icon-button modal-close"
             aria-label="Close modal"
-            style={{ fontSize: '20px', color: 'var(--muted, #687387)' }}
+            style={{ fontSize: '20px', color: 'var(--muted, #001f54)' }}
           >
             ×
           </button>
@@ -88,10 +88,10 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '14px',
-              backgroundColor: 'var(--surface-soft, #f1f3f5)',
+              backgroundColor: 'var(--surface-soft, #ffffff)',
               padding: '16px 18px',
               borderRadius: '14px',
-              border: '1px solid var(--line, #dedbd3)'
+              border: '1px solid var(--line, #001f54)'
             }}
           >
             <div>
@@ -119,7 +119,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, color: 'var(--muted)' }}>
                 Contract & Dark-Pattern Inspection
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#b45309', background: '#fef3c7', padding: '3px 8px', borderRadius: '6px', border: '1px solid #fde68a', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 800, color: '#fee1c7', background: '#fee1c7', padding: '3px 8px', borderRadius: '6px', border: '1px solid #fee1c7', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                 <SubGuardIcon name="star" size={12} /> SubGuard Trust {product.rating || '4.8'}
               </span>
             </div>
@@ -162,12 +162,12 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         <div
           style={{
             padding: '18px 26px',
-            borderTop: '1px solid var(--line, #dedbd3)',
+            borderTop: '1px solid var(--line, #001f54)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
             gap: '14px',
-            background: 'var(--surface-soft, #f1f3f5)'
+            background: 'var(--surface-soft, #ffffff)'
           }}
         >
           <button

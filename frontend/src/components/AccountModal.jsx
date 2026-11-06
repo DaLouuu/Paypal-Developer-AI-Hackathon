@@ -19,7 +19,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(19, 35, 62, 0.55)',
+        backgroundColor: 'rgba(10, 17, 40, 0.55)',
         backdropFilter: 'blur(6px)',
         zIndex: 1000,
         display: 'grid',
@@ -31,12 +31,12 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
       <div
         style={{
           backgroundColor: 'var(--surface, #ffffff)',
-          color: 'var(--navy, #13233e)',
+          color: 'var(--navy, #0a1128)',
           borderRadius: '20px',
           width: '100%',
           maxWidth: '520px',
-          boxShadow: '0 24px 60px rgba(19, 35, 62, 0.22)',
-          border: '1px solid var(--line, #dedbd3)',
+          boxShadow: '0 24px 60px rgba(10, 17, 40, 0.22)',
+          border: '1px solid var(--line, #001f54)',
           overflow: 'hidden',
           animation: 'toast-in 0.2s ease'
         }}
@@ -46,11 +46,11 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
         <div
           style={{
             padding: '20px 24px',
-            borderBottom: '1px solid var(--line, #dedbd3)',
+            borderBottom: '1px solid var(--line, #001f54)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'var(--surface-soft, #f1f3f5)'
+            background: 'var(--surface-soft, #ffffff)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -59,7 +59,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
                 width: '40px',
                 height: '40px',
                 borderRadius: '50%',
-                background: 'var(--navy, #13233e)',
+                background: 'var(--navy, #0a1128)',
                 color: 'white',
                 display: 'grid',
                 placeItems: 'center',
@@ -193,7 +193,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
             <div style={{ padding: '14px', background: 'var(--surface-soft)', borderRadius: '12px', border: '1px solid var(--line)', marginTop: '8px', fontSize: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: 'var(--muted)' }}>AP2 Protocol Verifier:</span>
-                <span style={{ color: '#158763', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ color: '#5dfdcb', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                   <SubGuardIcon name="check" size={13} /> Ed25519 Enforced
                 </span>
               </div>
@@ -215,11 +215,11 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
         <div
           style={{
             padding: '16px 24px',
-            borderTop: '1px solid var(--line, #dedbd3)',
+            borderTop: '1px solid var(--line, #001f54)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'var(--surface-soft, #f1f3f5)'
+            background: 'var(--surface-soft, #ffffff)'
           }}
         >
           <small style={{ fontSize: '11px', color: 'var(--muted)' }}>

@@ -67,7 +67,7 @@ export default function LoadingScreen({ onComplete }) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: 'var(--cream, #f6f2ea)',
+        background: 'var(--cream, #ffffff)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -86,7 +86,7 @@ export default function LoadingScreen({ onComplete }) {
           width: '500px',
           height: '500px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(63, 100, 255, 0.14) 0%, rgba(43, 191, 136, 0.06) 50%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(105, 221, 255, 0.14) 0%, rgba(93, 253, 203, 0.06) 50%, transparent 70%)',
           pointerEvents: 'none',
           filter: 'blur(40px)',
           animation: 'pulse-glow 4s ease-in-out infinite'
@@ -119,7 +119,7 @@ export default function LoadingScreen({ onComplete }) {
               width: '64px',
               height: '64px',
               borderRadius: '20px',
-              boxShadow: '0 16px 36px rgba(19, 35, 62, 0.22)',
+              boxShadow: '0 16px 36px rgba(10, 17, 40, 0.22)',
               fontSize: '28px'
             }}
           >
@@ -131,7 +131,7 @@ export default function LoadingScreen({ onComplete }) {
                 height: '24px',
                 right: '-6px',
                 bottom: '-4px',
-                boxShadow: '0 0 10px rgba(43, 191, 136, 0.6)'
+                boxShadow: '0 0 10px rgba(93, 253, 203, 0.6)'
               }}
             >
               <SubGuardIcon name="shield" size={14} stroke={2.4} />
@@ -151,14 +151,14 @@ export default function LoadingScreen({ onComplete }) {
               letterSpacing: '-1px'
             }}
           >
-            Sub<span style={{ color: 'var(--blue, #3f64ff)' }}>Guard</span>
+            Sub<span style={{ color: 'var(--blue, #69ddff)' }}>Guard</span>
           </h1>
           <span
             style={{
               fontSize: '9px',
               fontWeight: 800,
               letterSpacing: '0.18em',
-              color: 'var(--muted, #687387)',
+              color: 'var(--muted, #001f54)',
               textTransform: 'uppercase'
             }}
           >
@@ -171,7 +171,7 @@ export default function LoadingScreen({ onComplete }) {
           style={{
             width: '100%',
             height: '6px',
-            background: 'rgba(19, 35, 62, 0.08)',
+            background: 'rgba(10, 17, 40, 0.08)',
             borderRadius: '100px',
             overflow: 'hidden',
             position: 'relative',
@@ -182,10 +182,10 @@ export default function LoadingScreen({ onComplete }) {
             style={{
               height: '100%',
               width: `${progress}%`,
-              background: 'linear-gradient(90deg, #16a34a 0%, #f59e0b 100%)',
+              background: 'linear-gradient(90deg, #5dfdcb 0%, #fee1c7 100%)',
               borderRadius: '100px',
               transition: 'width 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-              boxShadow: '0 0 12px rgba(22, 163, 74, 0.45)'
+              boxShadow: '0 0 12px rgba(93, 253, 203, 0.45)'
             }}
           />
         </div>
@@ -201,8 +201,8 @@ export default function LoadingScreen({ onComplete }) {
             background: 'var(--surface, #ffffff)',
             padding: '14px 16px',
             borderRadius: '14px',
-            border: '1px solid var(--line, #dedbd3)',
-            boxShadow: '0 8px 24px rgba(19, 35, 62, 0.05)'
+            border: '1px solid var(--line, #001f54)',
+            boxShadow: '0 8px 24px rgba(10, 17, 40, 0.05)'
           }}
         >
           {STEPS.map((step, idx) => {
@@ -216,7 +216,7 @@ export default function LoadingScreen({ onComplete }) {
                   alignItems: 'center',
                   gap: '10px',
                   fontSize: '11px',
-                  color: isDone ? 'var(--navy, #13233e)' : (isCurrent ? 'var(--blue, #3f64ff)' : 'var(--muted, #8992a0)'),
+                  color: isDone ? 'var(--navy, #0a1128)' : (isCurrent ? 'var(--blue, #69ddff)' : 'var(--muted, #001f54)'),
                   fontWeight: isCurrent || isDone ? 600 : 500,
                   transition: 'all 0.2s ease',
                   opacity: currentStep >= idx ? 1 : 0.5
@@ -267,7 +267,7 @@ export default function LoadingScreen({ onComplete }) {
           style={{
             marginTop: '18px',
             fontSize: '11px',
-            color: 'var(--muted, #687387)'
+            color: 'var(--muted, #001f54)'
           }}
         >
           Skip initialization →

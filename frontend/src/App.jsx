@@ -260,7 +260,7 @@ export default function App() {
               cursor: 'pointer'
             }}
           >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#25b985', boxShadow: '0 0 6px #25b985' }} />
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5dfdcb', boxShadow: '0 0 6px #5dfdcb' }} />
             <span>FastMCP:8000</span>
           </button>
 
@@ -296,8 +296,8 @@ export default function App() {
             <SubGuardIcon name="cart" size={18} />
             <span
               style={{
-                background: '#f59e0b',
-                color: '#1a1400',
+                background: '#fee1c7',
+                color: '#0a1128',
                 fontWeight: 800,
                 fontSize: '9px',
                 width: '14px',
@@ -494,7 +494,7 @@ export default function App() {
                   <div className="protocol-spec-list">
                     <div className="protocol-spec-item">
                       <span>AP2 Protocol Verifier</span>
-                      <strong style={{ color: '#25b985' }}>Ed25519 ENFORCED</strong>
+                      <strong style={{ color: '#5dfdcb' }}>Ed25519 ENFORCED</strong>
                     </div>
                     <div className="protocol-spec-item">
                       <span>Key Fingerprint</span>
@@ -506,7 +506,7 @@ export default function App() {
                     </div>
                     <div className="protocol-spec-item">
                       <span>Handshake Latency</span>
-                      <strong style={{ color: '#25b985' }}>0.42 ms (SLO &lt; 50ms)</strong>
+                      <strong style={{ color: '#5dfdcb' }}>0.42 ms (SLO &lt; 50ms)</strong>
                     </div>
                   </div>
                 </div>

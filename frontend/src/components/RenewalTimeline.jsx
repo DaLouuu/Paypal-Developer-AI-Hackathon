@@ -38,9 +38,9 @@ export default function RenewalTimeline({ subscriptions = [] }) {
         style={{
           padding: '24px 28px',
           background: 'var(--surface, #ffffff)',
-          border: '1px solid var(--line, #dedbd3)',
+          border: '1px solid var(--line, #001f54)',
           borderRadius: '18px',
-          boxShadow: '0 4px 18px rgba(19, 35, 62, 0.04)'
+          boxShadow: '0 4px 18px rgba(10, 17, 40, 0.04)'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
@@ -51,7 +51,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                   width: '34px',
                   height: '34px',
                   borderRadius: '10px',
-                  backgroundColor: 'rgba(63, 100, 255, 0.12)',
+                  backgroundColor: 'rgba(105, 221, 255, 0.12)',
                   display: 'grid',
                   placeItems: 'center',
                   color: 'var(--blue)'
@@ -95,12 +95,12 @@ export default function RenewalTimeline({ subscriptions = [] }) {
           </div>
           <div>
             <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cryptographic Protocol</div>
-            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', color: 'var(--green, #158763)', marginTop: '3px' }}>AP2 Ed25519 Enforced</div>
+            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', color: 'var(--green, #5dfdcb)', marginTop: '3px' }}>AP2 Ed25519 Enforced</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Strict mandate verification</div>
           </div>
           <div>
             <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cancellation Protection</div>
-            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', color: 'var(--blue, #3f64ff)', marginTop: '3px' }}>48-Hour Auto-Shield</div>
+            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', color: 'var(--blue, #69ddff)', marginTop: '3px' }}>48-Hour Auto-Shield</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Deterministic execution</div>
           </div>
         </div>
@@ -111,9 +111,9 @@ export default function RenewalTimeline({ subscriptions = [] }) {
         style={{
           padding: '24px 28px',
           background: 'var(--surface, #ffffff)',
-          border: '1px solid var(--line, #dedbd3)',
+          border: '1px solid var(--line, #001f54)',
           borderRadius: '18px',
-          boxShadow: '0 4px 18px rgba(19, 35, 62, 0.04)'
+          boxShadow: '0 4px 18px rgba(10, 17, 40, 0.04)'
         }}
       >
         {/* Header & Horizon Controls */}
@@ -131,7 +131,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
           </div>
 
           {/* Horizon Tabs */}
-          <div style={{ display: 'flex', backgroundColor: 'var(--surface-soft, #f1f3f5)', padding: '4px', borderRadius: '10px', border: '1px solid var(--line)' }}>
+          <div style={{ display: 'flex', backgroundColor: 'var(--surface-soft, #ffffff)', padding: '4px', borderRadius: '10px', border: '1px solid var(--line)' }}>
             {[
               { id: '30d', label: '30 Days' },
               { id: '60d', label: '60 Days' },
@@ -153,15 +153,15 @@ export default function RenewalTimeline({ subscriptions = [] }) {
         {/* Legend */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '18px', fontSize: '11px', color: 'var(--muted)', marginBottom: '16px', flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#f6d5a2', border: '1px solid #d49f50' }} />
+            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#fee1c7', border: '1px solid #fee1c7' }} />
             Active Trial (Pre-conversion)
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#b6edd9', border: '1px solid #1ba579' }} />
+            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#5dfdcb', border: '1px solid #5dfdcb' }} />
             Governed Recurring Term
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#ffd4d1', border: '1px solid #e06057' }} />
+            <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#fee1c7', border: '1px solid #fee1c7' }} />
             Suspended Mandate (HITL)
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
@@ -211,7 +211,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       display: 'grid',
                       gridTemplateColumns: '190px 1fr',
                       alignItems: 'center',
-                      backgroundColor: 'var(--surface-soft, #f1f3f5)',
+                      backgroundColor: 'var(--surface-soft, #ffffff)',
                       border: '1px solid var(--line)',
                       borderRadius: '12px',
                       padding: '10px 14px'
@@ -272,11 +272,11 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                             width: '26px',
                             height: '26px',
                             borderRadius: '50%',
-                            backgroundColor: '#2bbf88',
+                            backgroundColor: '#5dfdcb',
                             display: 'grid',
                             placeItems: 'center',
                             color: '#ffffff',
-                            boxShadow: '0 2px 8px rgba(43, 191, 136, 0.45)',
+                            boxShadow: '0 2px 8px rgba(93, 253, 203, 0.45)',
                             cursor: 'pointer',
                             zIndex: 10
                           }}
@@ -286,7 +286,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                           {/* Tooltip */}
                           {activeTooltip === sub.id && (
                             <div className="timeline-tooltip">
-                              <div style={{ fontWeight: 800, color: '#2bbf88', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <div style={{ fontWeight: 800, color: '#5dfdcb', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                                 <SubGuardIcon name="shield" size={12} /> 48h Pre-Renewal Shield
                               </div>
                               <div>

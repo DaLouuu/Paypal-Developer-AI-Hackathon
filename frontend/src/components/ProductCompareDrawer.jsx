@@ -47,7 +47,7 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
                 borderRadius: '12px',
                 padding: '14px 16px',
                 position: 'relative',
-                boxShadow: '0 4px 12px rgba(19, 35, 62, 0.05)'
+                boxShadow: '0 4px 12px rgba(10, 17, 40, 0.05)'
               }}
             >
               <button
@@ -84,7 +84,7 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
 
                 <div>
                   <div style={{ fontSize: '10px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>Compliance</div>
-                  <div style={{ fontSize: '12px', fontWeight: 600, color: tool.soc2_compliant ? '#158763' : 'var(--muted)', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: tool.soc2_compliant ? '#5dfdcb' : 'var(--muted)', display: 'flex', alignItems: 'center', gap: '3px' }}>
                     {tool.soc2_compliant ? <Check size={13} strokeWidth={3} /> : null}
                     {tool.soc2_compliant ? 'SOC-2 Verified' : 'Standard'}
                   </div>

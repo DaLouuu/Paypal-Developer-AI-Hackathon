@@ -6,50 +6,50 @@ export default function StatusBadge({ status }) {
     ACTIVE_RECURRING: {
       label: 'ACTIVE',
       dotClass: 'bg-emerald-500',
-      bg: '#ecfdf5',
-      border: '#a7f3d0',
-      text: '#065f46',
+      bg: '#5dfdcb',
+      border: '#5dfdcb',
+      text: '#0a1128',
       icon: CheckCircle2,
     },
     TRIAL_ACTIVE: {
       label: 'TRIAL ACTIVE',
       dotClass: 'bg-amber-500',
-      bg: '#fffbeb',
-      border: '#fde68a',
-      text: '#92400e',
+      bg: '#fee1c7',
+      border: '#fee1c7',
+      text: '#0a1128',
       icon: Clock,
     },
     SUSPENDED_AWAITING_HUMAN: {
       label: 'SUSPENDED (HITL)',
       dotClass: 'bg-rose-500',
-      bg: '#fef2f2',
-      border: '#fecaca',
-      text: '#991b1b',
+      bg: '#fee1c7',
+      border: '#001f54',
+      text: '#0a1128',
       icon: ShieldAlert,
     },
     PENDING_CANCELLATION: {
       label: 'CANCEL PENDING',
       dotClass: 'bg-sky-500',
-      bg: '#f0f9ff',
-      border: '#bae6fd',
-      text: '#0369a1',
+      bg: '#69ddff',
+      border: '#69ddff',
+      text: '#0a1128',
       icon: ArrowDownCircle,
     },
     CANCELLED: {
       label: 'CANCELLED',
       dotClass: 'bg-slate-400',
-      bg: '#f1f5f9',
-      border: '#e2e8f0',
-      text: '#475569',
+      bg: '#001f54',
+      border: '#001f54',
+      text: '#fee1c7',
       icon: XCircle,
     }
   };
 
   const config = configs[status] || {
     label: status,
-    bg: '#f8fafc',
-    border: '#e2e8f0',
-    text: '#64748b',
+    bg: '#ffffff',
+    border: '#001f54',
+    text: '#0a1128',
     icon: Clock
   };
 

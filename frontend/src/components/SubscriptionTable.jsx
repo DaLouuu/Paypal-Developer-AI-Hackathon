@@ -229,7 +229,7 @@ export default function SubscriptionTable({
             type="button"
             className="icon-button"
             onClick={() => promptCancel(sub)}
-            style={{ fontSize: '11px', color: '#ff6e63' }}
+            style={{ fontSize: '11px', color: '#fee1c7' }}
             title="Arm Cancellation Shield"
           >
             <SubGuardIcon name="shield" size={14} />
