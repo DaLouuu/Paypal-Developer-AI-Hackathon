@@ -65,12 +65,7 @@ export default function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window !== 'undefined' && window.__VITEST__) {
-      return false;
-    }
-    return true;
-  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState(() => {
     try {
@@ -440,7 +435,7 @@ export default function App() {
               <strong>Software Catalog</strong>
             </div>
             <div className="page-header" style={{ marginBottom: '16px' }}>
-              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)' }}>
+              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
                 Software Catalog
               </h1>
             </div>
@@ -456,7 +451,7 @@ export default function App() {
               <strong>Subscription Ledger</strong>
             </div>
             <div className="page-header" style={{ marginBottom: '16px' }}>
-              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)' }}>
+              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
                 Subscription Ledger
               </h1>
             </div>
@@ -480,7 +475,7 @@ export default function App() {
               <strong>Protection Center</strong>
             </div>
             <div className="page-header" style={{ marginBottom: '16px' }}>
-              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)' }}>
+              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
                 Protection & Autopilot
               </h1>
             </div>

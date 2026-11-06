@@ -14,34 +14,34 @@ export default function LoadingScreen({ onComplete }) {
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    // Step-by-step cryptographic handshake animation
+    // Fast cryptographic handshake animation (~850ms total)
     const t1 = setTimeout(() => {
       setCurrentStep(1);
       setProgress(40);
-    }, 280);
+    }, 150);
 
     const t2 = setTimeout(() => {
       setCurrentStep(2);
       setProgress(70);
-    }, 620);
+    }, 350);
 
     const t3 = setTimeout(() => {
       setCurrentStep(3);
       setProgress(90);
-    }, 980);
+    }, 550);
 
     const t4 = setTimeout(() => {
       setCurrentStep(4);
       setProgress(100);
-    }, 1300);
+    }, 700);
 
     const t5 = setTimeout(() => {
       setIsFadingOut(true);
-    }, 1550);
+    }, 850);
 
     const t6 = setTimeout(() => {
       if (onComplete) onComplete();
-    }, 1950);
+    }, 1050);
 
     return () => {
       clearTimeout(t1);
