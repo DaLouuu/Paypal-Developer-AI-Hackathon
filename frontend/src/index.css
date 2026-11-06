@@ -2390,12 +2390,6 @@ main {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.notice-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(6, 7, 35, 0.08);
 }
 
 .notice-card-amber {
