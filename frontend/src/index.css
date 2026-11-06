@@ -2241,33 +2241,42 @@ main {
 }
 
 .outline-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  border: 1px solid #1b1f9d;
-  background: white;
-  padding: 11px 14px;
+  border: 1.5px solid #060723;
+  background: #ffffff;
+  color: #060723;
+  padding: 10px 16px;
   border-radius: 10px;
-  font-size: 11px;
+  font-family: var(--font-sans);
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 2px 2px 0px #060723;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .outline-button svg {
-  transition: transform 0.2s ease;
+  transition: transform 0.15s ease, color 0.15s ease;
 }
 
 .outline-button:hover {
-  transform: translateY(-2px);
-  border-color: var(--blue);
-  color: var(--blue);
-  background: rgba(33, 110, 101, 0.04);
-  box-shadow: 0 8px 18px rgba(33, 110, 101, 0.12);
+  transform: translate(-1px, -1px);
+  background: #f9dec9;
+  border-color: #060723;
+  color: #060723;
+  box-shadow: 3px 3px 0px #060723;
 }
 
 .outline-button:hover svg {
-  color: var(--blue);
+  color: #060723;
+}
+
+.outline-button:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0px 0px 0px transparent;
 }
 
 .filter-tab {
@@ -3470,12 +3479,67 @@ footer span {
 }
 
 [data-theme="dark"] .search-box,
-[data-theme="dark"] .product-card,
-[data-theme="dark"] .outline-button,
-[data-theme="dark"] .approve-button {
+[data-theme="dark"] .product-card {
   color: #ffffff;
   background: #1b1f9d;
   border-color: #1b1f9d;
+}
+
+[data-theme="dark"] .approve-button {
+  background: #2edcc4 !important;
+  color: #060723 !important;
+  border: 1.5px solid #2edcc4 !important;
+  box-shadow: 2px 2px 0px #060723 !important;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .approve-button svg {
+  color: #060723 !important;
+  stroke: #060723 !important;
+}
+
+[data-theme="dark"] .approve-button:hover {
+  background: #f9dec9 !important;
+  border-color: #f9dec9 !important;
+  color: #060723 !important;
+  box-shadow: 3px 3px 0px #060723 !important;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme="dark"] .approve-button:hover svg {
+  color: #060723 !important;
+  stroke: #060723 !important;
+}
+
+[data-theme="dark"] .outline-button {
+  background: #060723 !important;
+  color: #ffffff !important;
+  border: 1.5px solid #2edcc4 !important;
+  box-shadow: 2px 2px 0px #060723 !important;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .outline-button svg {
+  color: #2edcc4 !important;
+}
+
+[data-theme="dark"] .outline-button:hover {
+  background: #2edcc4 !important;
+  color: #060723 !important;
+  border-color: #2edcc4 !important;
+  box-shadow: 3px 3px 0px #060723 !important;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme="dark"] .outline-button:hover svg {
+  color: #060723 !important;
+  stroke: #060723 !important;
+}
+
+[data-theme="dark"] .outline-button:active,
+[data-theme="dark"] .approve-button:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0px 0px 0px transparent !important;
 }
 
 [data-theme="dark"] .search-box input {
@@ -3506,12 +3570,6 @@ footer span {
   border-color: #1b1f9d;
 }
 
-[data-theme="dark"] .outline-button:hover {
-  border-color: #2edcc4;
-  color: #2edcc4;
-  background: #060723;
-  box-shadow: 0 8px 18px rgba(46, 220, 196, 0.2);
-}
 
 [data-theme="dark"] .profile:hover {
   background: rgba(255, 255, 255, 0.08);

@@ -587,9 +587,10 @@ export default function App() {
                   type="button"
                   className="outline-button"
                   onClick={() => setIsAccountOpen(true)}
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  style={{ width: '100%', justifyContent: 'center', gap: '8px' }}
                 >
-                  Configure Policy Ceilings in Passport
+                  <SubGuardIcon name="bolt" size={15} />
+                  <span>Configure Policy Ceilings in Passport</span>
                 </button>
               </div>
 
@@ -628,17 +629,19 @@ export default function App() {
                       handleApproveDatadog();
                       showNotice('Datadog APM approved via FastMCP Proxy');
                     }}
-                    style={{ fontSize: '12px', padding: '9px 12px', width: '100%', justifyContent: 'center' }}
+                    style={{ fontSize: '12px', padding: '9px 12px', width: '100%', justifyContent: 'center', gap: '6px' }}
                   >
-                    Approve Mandate
+                    <SubGuardIcon name="check" size={15} stroke={2.5} />
+                    <span>Approve Mandate</span>
                   </button>
                   <button
                     type="button"
                     className="outline-button"
                     onClick={() => navigateTo('subscriptions')}
-                    style={{ fontSize: '12px', padding: '9px 12px', width: '100%', justifyContent: 'center' }}
+                    style={{ fontSize: '12px', padding: '9px 12px', width: '100%', justifyContent: 'center', gap: '6px' }}
                   >
-                    View in Ledger
+                    <SubGuardIcon name="arrow" size={14} />
+                    <span>View in Ledger</span>
                   </button>
                 </div>
               </div>
