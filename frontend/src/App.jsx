@@ -337,51 +337,124 @@ export default function App() {
       {/* Main Content Area */}
       <main id="home">
         {/* SECTION 1: Welcome Grid */}
-        <section className="welcome-grid">
-          <div className="welcome-copy">
-            <span className="eyebrow">
-              <SubGuardIcon name="shield" size={15} /> Guarded by SubGuard
-            </span>
-
-            <h1>
-              Good morning, Alex.
-              <br />
-              Your subscriptions look <em>healthy.</em>
-            </h1>
-
-            <p className="intro">
-              Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.
-            </p>
-
-            <div className="brand-proof" aria-label="SubGuard benefits">
-              <span>
-                <SubGuardIcon name="check" size={13} /> Contract checked
+        <section className="welcome-section">
+          <div className="welcome-grid">
+            <div className="welcome-copy">
+              <span className="eyebrow">
+                <SubGuardIcon name="shield" size={15} /> Guarded by SubGuard
               </span>
-              <span>
-                <SubGuardIcon name="check" size={13} /> Renewal watched
-              </span>
-              <span>
-                <SubGuardIcon name="check" size={13} /> Cancellation ready
-              </span>
+
+              <h1>
+                Good morning, Alex.
+                <br />
+                Your subscriptions look <em>healthy.</em>
+              </h1>
+
+              <p className="intro">
+                Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.
+              </p>
+
+              <div className="brand-proof" aria-label="SubGuard benefits">
+                <span>
+                  <SubGuardIcon name="check" size={13} /> Contract checked
+                </span>
+                <span>
+                  <SubGuardIcon name="check" size={13} /> Renewal watched
+                </span>
+                <span>
+                  <SubGuardIcon name="check" size={13} /> Cancellation ready
+                </span>
+              </div>
+
+              <div className="hero-actions">
+                <button
+                  type="button"
+                  className="primary-button"
+                  onClick={() => navigateTo('discover')}
+                >
+                  Discover software <SubGuardIcon name="arrow" size={17} />
+                </button>
+                <button
+                  type="button"
+                  className="text-button"
+                  onClick={() => navigateTo('subscriptions')}
+                >
+                  Review my subscriptions <SubGuardIcon name="chevron" size={15} />
+                </button>
+              </div>
             </div>
 
-            <div className="hero-actions">
-              <button
-                type="button"
-                className="primary-button"
-                onClick={() => navigateTo('discover')}
-              >
-                Discover software <SubGuardIcon name="arrow" size={17} />
-              </button>
-              <button
-                type="button"
-                className="text-button"
-                onClick={() => navigateTo('subscriptions')}
-              >
-                Review my subscriptions <SubGuardIcon name="chevron" size={15} />
-              </button>
-            </div>
+            {/* Autopilot Cancellation Shield Panel */}
+            <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`} id="protection">
+              <div className="shield-heading">
+                <div>
+                  <span className="live-label">
+                    <i /> SUBGUARD AUTOPILOT
+                  </span>
+                  <h2>Cancellation Shield</h2>
+                </div>
+                <button
+                  className={`toggle ${shieldOn ? 'on' : ''}`}
+                  aria-pressed={shieldOn}
+                  onClick={() => {
+                    setShieldOn(!shieldOn);
+                    showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
+                  }}
+                  type="button"
+                >
+                  <span />
+                </button>
+              </div>
 
+              <div className="shield-visual">
+                <div className="orbit orbit-one" />
+                <div className="orbit orbit-two" />
+                <div className="shield-core">
+                  <SubGuardIcon name="shield" size={26} stroke={1.8} />
+                </div>
+                <span className="orbit-dot dot-one" />
+                <span className="orbit-dot dot-two" />
+              </div>
+
+              <div className="shield-status">
+                <span>CURSOR PRO TRIAL</span>
+                <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
+                <p>
+                  {shieldOn
+                    ? 'Until SubGuard steps in before renewal'
+                    : 'Turn protection back on to avoid an unwanted renewal.'}
+                </p>
+              </div>
+
+              <div className="next-step">
+                <span className="step-icon">
+                  <SubGuardIcon name="wand" size={17} />
+                </span>
+                <div>
+                  <small>WHAT HAPPENS NEXT</small>
+                  <p>
+                    {shieldOn
+                      ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
+                      : 'Automated cancellation is currently disabled.'}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                className="shield-link"
+                onClick={() => {
+                  setShowTimeline(!showTimeline);
+                  showNotice(showTimeline ? 'Protection timeline collapsed' : 'Protection timeline expanded');
+                }}
+                type="button"
+              >
+                {showTimeline ? 'Hide protection timeline' : 'View protection timeline'} <SubGuardIcon name="arrow" size={16} />
+              </button>
+            </aside>
+          </div>
+
+          {/* Full-Width Overview Metrics & Actionable Renewal Alert */}
+          <div className="hero-bottom-band">
             {/* Spend Story Card */}
             <div className="spend-story">
               <div className="spend-main">
@@ -414,10 +487,7 @@ export default function App() {
             </div>
 
             {/* Actionable Upcoming Renewal Alert Banner (Anchored inside hero) */}
-            <div
-              className="renewal-ribbon"
-              style={{ marginTop: '24px' }}
-            >
+            <div className="renewal-ribbon">
               <span className="renewal-icon">
                 <SubGuardIcon name="calendar" size={20} />
               </span>
@@ -439,74 +509,6 @@ export default function App() {
               </button>
             </div>
           </div>
-
-          {/* Autopilot Cancellation Shield Panel */}
-          <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`} id="protection">
-            <div className="shield-heading">
-              <div>
-                <span className="live-label">
-                  <i /> SUBGUARD AUTOPILOT
-                </span>
-                <h2>Cancellation Shield</h2>
-              </div>
-              <button
-                className={`toggle ${shieldOn ? 'on' : ''}`}
-                aria-pressed={shieldOn}
-                onClick={() => {
-                  setShieldOn(!shieldOn);
-                  showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
-                }}
-                type="button"
-              >
-                <span />
-              </button>
-            </div>
-
-            <div className="shield-visual">
-              <div className="orbit orbit-one" />
-              <div className="orbit orbit-two" />
-              <div className="shield-core">
-                <SubGuardIcon name="shield" size={26} stroke={1.8} />
-              </div>
-              <span className="orbit-dot dot-one" />
-              <span className="orbit-dot dot-two" />
-            </div>
-
-            <div className="shield-status">
-              <span>CURSOR PRO TRIAL</span>
-              <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
-              <p>
-                {shieldOn
-                  ? 'Until SubGuard steps in before renewal'
-                  : 'Turn protection back on to avoid an unwanted renewal.'}
-              </p>
-            </div>
-
-            <div className="next-step">
-              <span className="step-icon">
-                <SubGuardIcon name="wand" size={17} />
-              </span>
-              <div>
-                <small>WHAT HAPPENS NEXT</small>
-                <p>
-                  {shieldOn
-                    ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
-                    : 'Automated cancellation is currently disabled.'}
-                </p>
-              </div>
-            </div>
-
-            <button
-              className="shield-link"
-              onClick={() => {
-                setShowTimeline(!showTimeline);
-                showNotice(showTimeline ? 'Protection timeline collapsed' : 'Protection timeline expanded');
-              }}
-              type="button"
-            >
-              {showTimeline ? 'Hide protection timeline' : 'View protection timeline'} <SubGuardIcon name="arrow" size={16} />
-            </button>
-          </aside>
         </section>
 
         {/* Collapsible Protection Gantt Timeline */}

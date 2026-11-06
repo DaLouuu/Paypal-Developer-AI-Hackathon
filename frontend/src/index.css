@@ -357,12 +357,23 @@ main {
   width: min(1240px, calc(100% - 48px));
   margin: 0 auto;
 }
+.welcome-section {
+  padding-bottom: 24px;
+  width: 100%;
+}
 .welcome-grid {
-  padding: 56px 0 28px;
+  padding: 52px 0 24px;
   display: grid;
-  grid-template-columns: 1.35fr 0.85fr;
+  grid-template-columns: 1.3fr 0.9fr;
   gap: 40px;
-  align-items: start;
+  align-items: center;
+}
+.hero-bottom-band {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  margin-top: 14px;
 }
 .welcome-copy {
   padding: 17px 0 0 4px;
@@ -493,15 +504,16 @@ main {
   transform: translateX(4px);
 }
 .spend-story {
-  margin-top: 48px;
+  margin-top: 0;
+  width: 100%;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 18px;
-  padding: 24px 28px;
+  padding: 24px 32px;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: end;
-  gap: 25px;
+  align-items: center;
+  gap: 36px;
   box-shadow: 0 10px 30px rgba(19, 35, 62, 0.05);
   position: relative;
   overflow: hidden;
@@ -543,10 +555,13 @@ main {
 .mini-chart {
   height: 77px;
   display: flex;
-  gap: 4px;
+  gap: 6px;
   align-items: end;
   padding-bottom: 4px;
   border-bottom: 1px solid #d7d8d5;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
 }
 .mini-chart i {
   flex: 1;
@@ -803,14 +818,15 @@ main {
   transform: translateX(4px);
 }
 .renewal-ribbon {
-  min-height: 78px;
+  width: 100%;
+  min-height: 74px;
   background: #fffbf2;
   border: 1px solid #e5d9be;
   border-radius: 16px;
-  padding: 15px 18px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   box-shadow: 0 8px 24px rgba(71, 54, 24, 0.04);
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.2s ease;
 }
