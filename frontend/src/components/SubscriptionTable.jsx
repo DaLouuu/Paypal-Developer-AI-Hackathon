@@ -161,7 +161,7 @@ export default function SubscriptionTable({
       field: 'next_billing_date',
       width: 140,
       cellRenderer: (params) => {
-        if (!params.value) return <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>—</div>;
+        if (!params.value) return <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>-</div>;
         return (
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
             <span style={{ fontSize: '12px', color: 'var(--navy)' }}>

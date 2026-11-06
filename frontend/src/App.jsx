@@ -941,7 +941,7 @@ export default function App() {
                 <span>THE SUBGUARD PROMISE</span>
                 <h2>Great software should never come with a catch.</h2>
                 <p>
-                  We read the terms, watch the dates, and protect every purchase—so you can focus on choosing tools you love.
+                  We read the terms, watch the dates, and protect every purchase, so you can focus on choosing tools you love.
                 </p>
               </div>
               <button
