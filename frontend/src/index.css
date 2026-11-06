@@ -3012,7 +3012,19 @@ footer {
   align-items: center;
   justify-content: space-between;
   color: #1b1f9d;
-  font-size: 11px;
+  font-size: 12px;
+}
+
+footer p {
+  color: #216e65;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+footer span {
+  color: #1b1f9d;
+  font-weight: 600;
 }
 
 .footer-brand .brand-mark {
@@ -3565,9 +3577,24 @@ footer {
 [data-theme="dark"] .product-card,
 [data-theme="dark"] .trust-row,
 [data-theme="dark"] .subscription-list,
-[data-theme="dark"] .subscription-list article,
-[data-theme="dark"] footer {
+[data-theme="dark"] .subscription-list article {
   border-color: #1b1f9d;
+}
+
+[data-theme="dark"] footer {
+  border-top-color: rgba(46, 220, 196, 0.25);
+  color: #f9dec9;
+}
+
+[data-theme="dark"] footer p {
+  color: #f9dec9;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] footer span {
+  color: rgba(249, 222, 201, 0.75);
+  font-weight: 600;
 }
 
 [data-theme="dark"] .product-tag {
