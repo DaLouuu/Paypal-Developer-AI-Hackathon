@@ -72,6 +72,56 @@ export default function App() {
     return true;
   });
 
+  const [user, setUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('subguard-user');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    return {
+      fullName: 'Alex Morgan',
+      firstName: 'Alex',
+      role: 'Admin',
+      initials: 'AM',
+      organization: 'PayPal Dev Sandbox Organization'
+    };
+  });
+
+  const handleUpdateUser = (updated) => {
+    setUser(prev => {
+      const next = { ...prev, ...updated };
+      if (updated.fullName) {
+        const parts = updated.fullName.trim().split(/\s+/);
+        next.firstName = parts[0] || 'Alex';
+        next.initials = (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+      }
+      try {
+        localStorage.setItem('subguard-user', JSON.stringify(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  };
+
+  const getTimeGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return 'Good morning';
+    if (hour >= 12 && hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
+
+  const [greeting, setGreeting] = useState(getTimeGreeting);
+
+  useEffect(() => {
+    setGreeting(getTimeGreeting());
+    const timer = setInterval(() => {
+      setGreeting(getTimeGreeting());
+    }, 60000);
+    return () => clearInterval(timer);
+  }, []);
+
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('subguard-theme');
     if (saved === 'light' || saved === 'dark') return saved;
@@ -94,6 +144,70 @@ export default function App() {
   const trialsCount = useMemo(() => {
     return subscriptions.filter(item => item.status === 'TRIAL_ACTIVE' || item.is_trial).length;
   }, [subscriptions]);
+
+  const subscriptionHealth = useMemo(() => {
+    const suspended = subscriptions.filter(s => s.status === 'SUSPENDED_AWAITING_HUMAN');
+    const trials = subscriptions.filter(s => s.status === 'TRIAL_ACTIVE' || s.is_trial);
+
+    // Case 1: Suspended subscriptions needing human approval
+    if (suspended.length > 0) {
+      const sName = suspended[0].product_name || '1 subscription';
+      return {
+        prefix: suspended.length === 1 ? '1 subscription needs ' : `${suspended.length} subscriptions need `,
+        highlight: 'attention.',
+        statusType: 'attention',
+        badgeIcon: 'alert',
+        badgeText: `${suspended.length} ACTION NEEDED`,
+        description: `${sName} triggered policy limits and is awaiting your founder authorization.`
+      };
+    }
+
+    // Case 2: Spending near or reaching monthly cap
+    if (spendingCap > 0 && totalBurn >= spendingCap) {
+      return {
+        prefix: 'Your spending reached the ',
+        highlight: 'limit.',
+        statusType: 'warning',
+        badgeIcon: 'shield',
+        badgeText: 'CEILING REACHED',
+        description: `Total monthly burn ($${totalBurn.toFixed(2)}) is at your $${spendingCap.toFixed(2)} transaction limit.`
+      };
+    }
+
+    // Case 3: Protected trials active
+    if (trials.length > 0) {
+      return {
+        prefix: 'Your subscriptions are ',
+        highlight: 'protected.',
+        statusType: 'protected',
+        badgeIcon: 'shield',
+        badgeText: `${trials.length} TRIAL${trials.length > 1 ? 'S' : ''} GUARDED`,
+        description: `All software contracts are monitored, with ${trials.length} trial armed for auto-cancellation.`
+      };
+    }
+
+    // Case 4: No active subscriptions
+    if (subscriptions.length === 0) {
+      return {
+        prefix: 'Your subscription ledger is ',
+        highlight: 'clear.',
+        statusType: 'clear',
+        badgeIcon: 'shield',
+        badgeText: '0 ACTIVE CHARGES',
+        description: 'No recurring charges active. Discover contract-checked software in the catalog.'
+      };
+    }
+
+    // Case 5: All healthy
+    return {
+      prefix: 'Your subscriptions look ',
+      highlight: 'healthy.',
+      statusType: 'healthy',
+      badgeIcon: 'shield',
+      badgeText: 'GUARDED BY SUBGUARD',
+      description: 'Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.'
+    };
+  }, [subscriptions, spendingCap, totalBurn]);
 
   const showNotice = (msg) => {
     setNotice(msg);
@@ -280,10 +394,10 @@ export default function App() {
             aria-label="Open Governance & Security Passport"
             type="button"
           >
-            <span className="profile-avatar">AM</span>
+            <span className="profile-avatar">{user.initials || 'AM'}</span>
             <span className="profile-copy">
-              <strong>Alex Morgan</strong>
-              <small>Admin · Passport</small>
+              <strong>{user.fullName || 'Alex Morgan'}</strong>
+              <small>{user.role || 'Admin'} · Passport</small>
             </span>
             <SubGuardIcon name="chevron" size={14} />
           </button>
@@ -518,17 +632,20 @@ export default function App() {
               <div className="welcome-grid">
                 <div className="welcome-copy">
                   <span className="eyebrow">
-                    <SubGuardIcon name="shield" size={15} /> Guarded by SubGuard
+                    <SubGuardIcon name={subscriptionHealth.badgeIcon || "shield"} size={15} /> {subscriptionHealth.badgeText}
                   </span>
 
                   <h1>
-                    Good morning, Alex.
+                    {greeting}, {user.firstName || 'Alex'}.
                     <br />
-                    Your subscriptions look <em>healthy.</em>
+                    {subscriptionHealth.prefix}
+                    <em className={`health-highlight ${subscriptionHealth.statusType}`}>
+                      {subscriptionHealth.highlight}
+                    </em>
                   </h1>
 
                   <p className="intro">
-                    Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.
+                    {subscriptionHealth.description}
                   </p>
 
                   <div className="brand-proof" aria-label="SubGuard benefits">
@@ -801,6 +918,8 @@ export default function App() {
         onClose={() => setIsAccountOpen(false)}
         spendingCap={spendingCap}
         onUpdateSpendingCap={handleUpdateSpendingCap}
+        user={user}
+        onUpdateUser={handleUpdateUser}
       />
     </div>
   );

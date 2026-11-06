@@ -1,15 +1,34 @@
 import React, { useState } from 'react';
 import SubGuardIcon from './SubGuardIcon';
 
-export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpdateSpendingCap }) {
+export default function AccountModal({
+  isOpen,
+  onClose,
+  spendingCap = 50,
+  onUpdateSpendingCap,
+  user = { fullName: 'Alex Morgan', firstName: 'Alex', initials: 'AM', role: 'Admin', organization: 'PayPal Dev Sandbox Organization' },
+  onUpdateUser
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempCap, setTempCap] = useState(spendingCap);
+  const [tempName, setTempName] = useState(user?.fullName || 'Alex Morgan');
+
+  React.useEffect(() => {
+    setTempCap(spendingCap);
+  }, [spendingCap]);
+
+  React.useEffect(() => {
+    setTempName(user?.fullName || 'Alex Morgan');
+  }, [user]);
 
   if (!isOpen) return null;
 
   const handleSave = () => {
     if (onUpdateSpendingCap) {
       onUpdateSpendingCap(Number(tempCap));
+    }
+    if (onUpdateUser && tempName.trim()) {
+      onUpdateUser({ fullName: tempName.trim() });
     }
     setIsEditing(false);
   };
@@ -63,27 +82,46 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
                 width: '40px',
                 height: '40px',
                 borderRadius: '50%',
-                background: 'var(--navy, #060723)',
-                color: 'white',
+                background: '#2edcc4',
+                color: '#060723',
                 display: 'grid',
                 placeItems: 'center',
-                fontWeight: 700,
-                fontSize: '13px'
+                fontWeight: 800,
+                fontSize: '13px',
+                flexShrink: 0
               }}
             >
-              AM
+              {user?.initials || 'AM'}
             </span>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
-                  Alex Morgan
-                </h3>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={tempName}
+                    onChange={(e) => setTempName(e.target.value)}
+                    placeholder="Full Name"
+                    style={{
+                      fontSize: '15px',
+                      fontWeight: 700,
+                      padding: '2px 8px',
+                      borderRadius: '4px',
+                      border: '1.5px solid var(--blue)',
+                      background: 'var(--surface)',
+                      color: 'var(--navy)'
+                    }}
+                  />
+                ) : (
+                  <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
+                    {user?.fullName || 'Alex Morgan'}
+                  </h3>
+                )}
                 <span className="badge-verified">
                   VERIFIED PRINCIPAL
                 </span>
               </div>
               <small style={{ color: 'var(--muted)', fontSize: '11px' }}>
-                Founder Admin · PayPal Dev Sandbox Organization
+                {user?.role || 'Founder Admin'} · {user?.organization || 'PayPal Dev Sandbox Organization'}
               </small>
             </div>
           </div>
