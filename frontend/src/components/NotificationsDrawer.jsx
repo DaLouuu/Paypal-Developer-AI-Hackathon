@@ -10,7 +10,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(10, 17, 40, 0.45)',
+        backgroundColor: 'rgba(6, 7, 35, 0.45)',
         backdropFilter: 'blur(4px)',
         zIndex: 1000,
         display: 'flex',
@@ -25,11 +25,11 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
           maxWidth: '430px',
           height: '100%',
           backgroundColor: 'var(--surface, #ffffff)',
-          color: 'var(--navy, #0a1128)',
-          boxShadow: '-10px 0 36px rgba(10, 17, 40, 0.2)',
+          color: 'var(--navy, #060723)',
+          boxShadow: '-10px 0 36px rgba(6, 7, 35, 0.2)',
           display: 'flex',
           flexDirection: 'column',
-          borderLeft: '1px solid var(--line, #001f54)',
+          borderLeft: '1px solid var(--line, #1b1f9d)',
           animation: 'toast-in 0.25s ease'
         }}
         onClick={(e) => e.stopPropagation()}
@@ -38,7 +38,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
         <div
           style={{
             padding: '22px 24px',
-            borderBottom: '1px solid var(--line, #001f54)',
+            borderBottom: '1px solid var(--line, #1b1f9d)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -53,7 +53,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
                 borderRadius: '8px',
                 display: 'grid',
                 placeItems: 'center',
-                background: 'rgba(105, 221, 255, 0.1)',
+                background: 'rgba(33, 110, 101, 0.1)',
                 color: 'var(--blue)'
               }}
             >

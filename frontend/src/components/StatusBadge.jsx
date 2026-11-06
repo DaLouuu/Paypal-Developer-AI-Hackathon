@@ -6,41 +6,41 @@ export default function StatusBadge({ status }) {
     ACTIVE_RECURRING: {
       label: 'ACTIVE',
       dotClass: 'bg-emerald-500',
-      bg: '#5dfdcb',
-      border: '#5dfdcb',
-      text: '#0a1128',
+      bg: '#2edcc4',
+      border: '#2edcc4',
+      text: '#060723',
       icon: CheckCircle2,
     },
     TRIAL_ACTIVE: {
       label: 'TRIAL ACTIVE',
       dotClass: 'bg-amber-500',
-      bg: '#fee1c7',
-      border: '#fee1c7',
-      text: '#0a1128',
+      bg: '#f9dec9',
+      border: '#f9dec9',
+      text: '#060723',
       icon: Clock,
     },
     SUSPENDED_AWAITING_HUMAN: {
       label: 'SUSPENDED (HITL)',
       dotClass: 'bg-rose-500',
-      bg: '#fee1c7',
-      border: '#001f54',
-      text: '#0a1128',
+      bg: '#f9dec9',
+      border: '#1b1f9d',
+      text: '#060723',
       icon: ShieldAlert,
     },
     PENDING_CANCELLATION: {
       label: 'CANCEL PENDING',
       dotClass: 'bg-sky-500',
-      bg: '#69ddff',
-      border: '#69ddff',
-      text: '#0a1128',
+      bg: '#216e65',
+      border: '#216e65',
+      text: '#060723',
       icon: ArrowDownCircle,
     },
     CANCELLED: {
       label: 'CANCELLED',
       dotClass: 'bg-slate-400',
-      bg: '#001f54',
-      border: '#001f54',
-      text: '#fee1c7',
+      bg: '#1b1f9d',
+      border: '#1b1f9d',
+      text: '#f9dec9',
       icon: XCircle,
     }
   };
@@ -48,8 +48,8 @@ export default function StatusBadge({ status }) {
   const config = configs[status] || {
     label: status,
     bg: '#ffffff',
-    border: '#001f54',
-    text: '#0a1128',
+    border: '#1b1f9d',
+    text: '#060723',
     icon: Clock
   };
 

@@ -6,22 +6,22 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
   const percent = Math.round(normalized * 100);
 
   let category = 'Low Risk';
-  let color = '#5dfdcb';
-  let bgColor = '#5dfdcb';
-  let borderColor = '#5dfdcb';
+  let color = '#2edcc4';
+  let bgColor = '#2edcc4';
+  let borderColor = '#2edcc4';
   let Icon = ShieldCheck;
 
   if (normalized > 0.6) {
     category = 'High Risk';
-    color = '#fee1c7';
-    bgColor = '#fee1c7';
-    borderColor = '#fee1c7';
+    color = '#f9dec9';
+    bgColor = '#f9dec9';
+    borderColor = '#f9dec9';
     Icon = ShieldAlert;
   } else if (normalized > 0.3) {
     category = 'Moderate';
-    color = '#fee1c7';
-    bgColor = '#fee1c7';
-    borderColor = '#fee1c7';
+    color = '#f9dec9';
+    bgColor = '#f9dec9';
+    borderColor = '#f9dec9';
     Icon = AlertTriangle;
   }
 
@@ -30,15 +30,15 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
   const seg2Active = normalized > 0.3;
   const seg3Active = normalized > 0.6;
 
-  const inactiveBg = 'var(--line, #001f54)';
+  const inactiveBg = 'var(--line, #1b1f9d)';
 
   if (size === 'compact') {
     return (
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
         <div style={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#fee1c7' : '#fee1c7') : '#5dfdcb') : inactiveBg }} />
-          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg2Active ? (seg3Active ? '#fee1c7' : '#fee1c7') : inactiveBg }} />
-          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg3Active ? '#fee1c7' : inactiveBg }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#f9dec9' : '#f9dec9') : '#2edcc4') : inactiveBg }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg2Active ? (seg3Active ? '#f9dec9' : '#f9dec9') : inactiveBg }} />
+          <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg3Active ? '#f9dec9' : inactiveBg }} />
         </div>
         <span style={{ fontSize: '11px', fontWeight: 600, color, fontVariantNumeric: 'tabular-nums' }}>
           {percent}%
@@ -61,9 +61,9 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
 
       {/* Segmented bar */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3px', height: '4px', borderRadius: '2px', overflow: 'hidden' }}>
-        <div style={{ backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#fee1c7' : '#fee1c7') : '#5dfdcb') : inactiveBg, borderRadius: '1px' }} />
-        <div style={{ backgroundColor: seg2Active ? (seg3Active ? '#fee1c7' : '#fee1c7') : inactiveBg, borderRadius: '1px' }} />
-        <div style={{ backgroundColor: seg3Active ? '#fee1c7' : inactiveBg, borderRadius: '1px' }} />
+        <div style={{ backgroundColor: seg1Active ? (seg2Active ? (seg3Active ? '#f9dec9' : '#f9dec9') : '#2edcc4') : inactiveBg, borderRadius: '1px' }} />
+        <div style={{ backgroundColor: seg2Active ? (seg3Active ? '#f9dec9' : '#f9dec9') : inactiveBg, borderRadius: '1px' }} />
+        <div style={{ backgroundColor: seg3Active ? '#f9dec9' : inactiveBg, borderRadius: '1px' }} />
       </div>
     </div>
   );

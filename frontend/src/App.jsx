@@ -284,8 +284,8 @@ export default function App() {
             <SubGuardIcon name="cart" size={18} />
             <span
               style={{
-                background: '#fee1c7',
-                color: '#0a1128',
+                background: '#f9dec9',
+                color: '#060723',
                 fontWeight: 800,
                 fontSize: '9px',
                 width: '14px',
@@ -482,7 +482,7 @@ export default function App() {
                   <div className="protocol-spec-list">
                     <div className="protocol-spec-item">
                       <span>AP2 Protocol Verifier</span>
-                      <strong style={{ color: '#5dfdcb' }}>Ed25519 ENFORCED</strong>
+                      <strong style={{ color: '#2edcc4' }}>Ed25519 ENFORCED</strong>
                     </div>
                     <div className="protocol-spec-item">
                       <span>Key Fingerprint</span>
@@ -494,7 +494,7 @@ export default function App() {
                     </div>
                     <div className="protocol-spec-item">
                       <span>Handshake Latency</span>
-                      <strong style={{ color: '#5dfdcb' }}>0.42 ms (SLO &lt; 50ms)</strong>
+                      <strong style={{ color: '#2edcc4' }}>0.42 ms (SLO &lt; 50ms)</strong>
                     </div>
                   </div>
                 </div>

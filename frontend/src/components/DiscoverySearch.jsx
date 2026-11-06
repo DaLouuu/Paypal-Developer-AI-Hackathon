@@ -8,7 +8,7 @@ const CURATED_PRODUCTS = [
     product_id: 'prod_notion',
     name: 'Notion',
     mark: 'N',
-    color: '#0a1128',
+    color: '#060723',
     bg: '#ffffff',
     category: 'Productivity',
     line: 'One calm place for your team to think, write, and plan.',
@@ -28,7 +28,7 @@ const CURATED_PRODUCTS = [
     product_id: 'prod_figma',
     name: 'Figma',
     mark: 'F',
-    color: '#fee1c7',
+    color: '#f9dec9',
     bg: '#ffffff',
     category: 'Design',
     line: 'Design, prototype, and bring your best ideas to life.',
@@ -48,8 +48,8 @@ const CURATED_PRODUCTS = [
     product_id: 'prod_cursor',
     name: 'Cursor',
     mark: 'C',
-    color: '#69ddff',
-    bg: '#69ddff',
+    color: '#216e65',
+    bg: '#216e65',
     category: 'Development',
     line: 'The AI code editor built to help you move faster.',
     price: 20,
@@ -70,7 +70,7 @@ const CURATED_PRODUCTS = [
     product_id: 'prod_slack',
     name: 'Slack',
     mark: 'S',
-    color: '#5dfdcb',
+    color: '#2edcc4',
     bg: '#ffffff',
     category: 'Communication',
     line: 'A smarter, simpler way to keep your team in sync.',
@@ -90,7 +90,7 @@ const CURATED_PRODUCTS = [
     product_id: 'prod_pinecone',
     name: 'Pinecone',
     mark: 'P',
-    color: '#001f54',
+    color: '#1b1f9d',
     bg: '#ffffff',
     category: 'Development',
     line: 'Managed vector database with serverless indexing and sub-millisecond retrieval.',
@@ -110,7 +110,7 @@ const CURATED_PRODUCTS = [
     product_id: 'prod_datadog',
     name: 'Datadog',
     mark: 'D',
-    color: '#001f54',
+    color: '#1b1f9d',
     bg: '#ffffff',
     category: 'Development',
     line: 'End-to-end distributed tracing, infrastructure telemetry, and synthetic monitors.',
@@ -130,8 +130,8 @@ const CURATED_PRODUCTS = [
     product_id: 'prod_autolog',
     name: 'AutoLog Pro',
     mark: 'A',
-    color: '#fee1c7',
-    bg: '#fee1c7',
+    color: '#f9dec9',
+    bg: '#f9dec9',
     category: 'Development',
     line: 'Distributed tracing with promotional trial that automatically converts to an annual contract.',
     price: 49,
@@ -297,10 +297,10 @@ export default function DiscoverySearch({ onSelectTool }) {
                 fontSize: '11px',
                 fontWeight: 600,
                 cursor: 'pointer',
-                color: soc2Only ? '#5dfdcb' : 'var(--muted)',
-                background: soc2Only ? '#5dfdcb' : 'transparent',
+                color: soc2Only ? '#2edcc4' : 'var(--muted)',
+                background: soc2Only ? '#2edcc4' : 'transparent',
                 border: '1px solid',
-                borderColor: soc2Only ? '#5dfdcb' : 'var(--line)',
+                borderColor: soc2Only ? '#2edcc4' : 'var(--line)',
                 padding: '8px 12px',
                 borderRadius: '9px',
                 transition: 'all 0.15s ease'
@@ -437,7 +437,7 @@ export default function DiscoverySearch({ onSelectTool }) {
 
               {/* Contract Risk & Trust Row */}
               <div className="trust-row">
-                <span style={{ color: product.tos_risk_score > 0.6 ? '#fee1c7' : undefined }}>
+                <span style={{ color: product.tos_risk_score > 0.6 ? '#f9dec9' : undefined }}>
                   <SubGuardIcon name="shield" size={14} /> {product.risk}
                 </span>
                 <span className="guard-score">SG {product.rating}</span>

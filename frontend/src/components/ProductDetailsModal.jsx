@@ -14,12 +14,12 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         className="modal-card"
         style={{
           backgroundColor: 'var(--surface, #ffffff)',
-          color: 'var(--navy, #0a1128)',
+          color: 'var(--navy, #060723)',
           borderRadius: '20px',
           width: '100%',
           maxWidth: '540px',
-          boxShadow: '0 24px 60px rgba(10, 17, 40, 0.22)',
-          border: '1px solid var(--line, #001f54)',
+          boxShadow: '0 24px 60px rgba(6, 7, 35, 0.22)',
+          border: '1px solid var(--line, #1b1f9d)',
           overflow: 'hidden',
           maxHeight: '90vh',
           display: 'flex',
@@ -32,7 +32,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         <div
           style={{
             padding: '22px 26px',
-            borderBottom: '1px solid var(--line, #001f54)',
+            borderBottom: '1px solid var(--line, #1b1f9d)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -47,7 +47,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
                 height: '46px',
                 borderRadius: '13px',
                 background: product.bg || '#ffffff',
-                color: product.color || '#0a1128',
+                color: product.color || '#060723',
                 fontSize: '20px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
               }}
@@ -58,7 +58,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <h3 style={{ margin: 0, fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
                 {product.name}
               </h3>
-              <div style={{ fontSize: '12px', color: 'var(--muted, #001f54)', marginTop: '2px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--muted, #1b1f9d)', marginTop: '2px' }}>
                 {product.vendor_domain || `${product.name.toLowerCase()}.com`} · {product.category}
               </div>
             </div>
@@ -68,7 +68,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             onClick={onClose}
             className="icon-button modal-close"
             aria-label="Close modal"
-            style={{ fontSize: '20px', color: 'var(--muted, #001f54)' }}
+            style={{ fontSize: '20px', color: 'var(--muted, #1b1f9d)' }}
           >
             ×
           </button>
@@ -94,7 +94,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               backgroundColor: 'var(--surface-soft, #ffffff)',
               padding: '16px 18px',
               borderRadius: '14px',
-              border: '1px solid var(--line, #001f54)'
+              border: '1px solid var(--line, #1b1f9d)'
             }}
           >
             <div>
@@ -122,7 +122,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, color: 'var(--muted)' }}>
                 Contract & Dark-Pattern Inspection
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 800, color: '#fee1c7', background: '#fee1c7', padding: '3px 8px', borderRadius: '6px', border: '1px solid #fee1c7', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 800, color: '#f9dec9', background: '#f9dec9', padding: '3px 8px', borderRadius: '6px', border: '1px solid #f9dec9', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                 <SubGuardIcon name="star" size={12} /> SubGuard Trust {product.rating || '4.8'}
               </span>
             </div>
@@ -165,7 +165,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         <div
           style={{
             padding: '18px 26px',
-            borderTop: '1px solid var(--line, #001f54)',
+            borderTop: '1px solid var(--line, #1b1f9d)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',

@@ -21,12 +21,12 @@ export default function ConfirmationModal({
         onClick={(e) => e.stopPropagation()}
         style={{
           backgroundColor: 'var(--surface, #ffffff)',
-          color: 'var(--navy, #0a1128)',
+          color: 'var(--navy, #060723)',
           borderRadius: '18px',
           width: '100%',
           maxWidth: '460px',
-          boxShadow: '0 24px 60px rgba(10, 17, 40, 0.22)',
-          border: '1px solid var(--line, #001f54)',
+          boxShadow: '0 24px 60px rgba(6, 7, 35, 0.22)',
+          border: '1px solid var(--line, #1b1f9d)',
           padding: '26px',
           maxHeight: '90vh',
           overflowY: 'auto',
@@ -98,14 +98,14 @@ export default function ConfirmationModal({
                 onClick={onConfirm}
                 style={{
                   border: 'none',
-                  backgroundColor: isDanger ? '#fee1c7' : 'var(--blue, #69ddff)',
+                  backgroundColor: isDanger ? '#f9dec9' : 'var(--blue, #216e65)',
                   color: '#ffffff',
                   borderRadius: '9px',
                   padding: '9px 18px',
                   fontSize: '12px',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  boxShadow: isDanger ? '0 4px 14px rgba(254, 225, 199, 0.25)' : '0 4px 14px rgba(105, 221, 255, 0.25)'
+                  boxShadow: isDanger ? '0 4px 14px rgba(249, 222, 201, 0.25)' : '0 4px 14px rgba(33, 110, 101, 0.25)'
                 }}
               >
                 {confirmText}
