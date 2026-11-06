@@ -172,25 +172,44 @@ export default function RenewalTimeline({ subscriptions = [] }) {
 
         {/* Responsive Horizontal Scroll Container */}
         <div style={{ overflowX: 'auto', paddingBottom: '6px' }}>
-          <div style={{ minWidth: '600px', position: 'relative', marginTop: '10px' }}>
-            {/* Date Axis Bar */}
-            <div style={{ position: 'relative', height: '28px', borderBottom: '1px solid var(--line)', marginLeft: '190px', marginBottom: '12px' }}>
-              {axisTicks.map((tick, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    position: 'absolute',
-                    left: `${tick.percent}%`,
-                    transform: idx === axisTicks.length - 1 ? 'translateX(-100%)' : (idx === 0 ? 'none' : 'translateX(-50%)'),
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: 'var(--muted)',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  {tick.label}
-                </div>
-              ))}
+          <div style={{ minWidth: '700px', position: 'relative', marginTop: '10px' }}>
+            {/* Date Axis Bar: Exactly mirrors the lane card layout (padding 0 14px, grid 190px 1fr) */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '190px 1fr',
+                alignItems: 'center',
+                padding: '0 14px',
+                marginBottom: '10px'
+              }}
+            >
+              <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                Service Mandate
+              </div>
+
+              {/* Exact Track-matching Axis Ruler */}
+              <div style={{ position: 'relative', height: '28px', borderBottom: '1.5px solid var(--line)' }}>
+                {axisTicks.map((tick, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      position: 'absolute',
+                      left: `${tick.percent}%`,
+                      transform: idx === axisTicks.length - 1 ? 'translateX(-100%)' : (idx === 0 ? 'none' : 'translateX(-50%)'),
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      color: 'var(--muted)',
+                      whiteSpace: 'nowrap',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: idx === axisTicks.length - 1 ? 'flex-end' : (idx === 0 ? 'flex-start' : 'center')
+                    }}
+                  >
+                    <span>{tick.label}</span>
+                    <span style={{ width: '1px', height: '5px', backgroundColor: 'var(--line)', marginTop: '3px' }} />
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Timeline Lanes */}
@@ -199,15 +218,11 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                 const isTrial = sub.status === 'TRIAL_ACTIVE' || sub.is_trial;
                 const isSuspended = sub.status === 'SUSPENDED_AWAITING_HUMAN';
 
-                // Calculate date offsets relative to horizon
+                // Calculate date offsets relative to horizon with mathematical precision
                 let targetDate = sub.next_billing_date ? new Date(sub.next_billing_date) : new Date(now.getTime() + 15 * 86400000);
                 const daysFromNow = Math.max(1, Math.min(horizonDays, (targetDate.getTime() - now.getTime()) / (1000 * 3600 * 24)));
-                const endPercent = Math.min(100, (daysFromNow / horizonDays) * 100);
-
-                // Compute responsive, uncompressed pill widths ensuring single-line text clearance
-                const trialBarWidth = `max(225px, ${endPercent}%)`;
-                const activeBarWidth = `max(215px, ${endPercent}%)`;
-                const suspendedBarWidth = `max(275px, ${endPercent}%)`;
+                const endPercent = Math.min(100, Math.max(2, (daysFromNow / horizonDays) * 100));
+                const dateFormatted = targetDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 
                 return (
                   <div
@@ -230,30 +245,77 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       </span>
                     </div>
 
-                    {/* Lane Track */}
+                    {/* Lane Track with Vertical Date Guidelines */}
                     <div className="timeline-track" style={{ position: 'relative', height: '36px', borderRadius: '8px', overflow: 'visible', border: '1px solid var(--line)' }}>
+                      {/* Vertical Date Gridlines aligned with Axis Ticks */}
+                      {axisTicks.map((tick, idx) => (
+                        <div
+                          key={`grid-${idx}`}
+                          style={{
+                            position: 'absolute',
+                            left: `${tick.percent}%`,
+                            top: 0,
+                            bottom: 0,
+                            width: '1px',
+                            borderLeft: idx === 0 ? 'none' : '1px dashed var(--timeline-grid-line, rgba(255, 255, 255, 0.12))',
+                            pointerEvents: 'none',
+                            zIndex: 1
+                          }}
+                        />
+                      ))}
+
                       {/* Trial Window Bar */}
                       {isTrial && (
-                        <div
-                          className="timeline-bar timeline-bar-trial"
-                          style={{ width: trialBarWidth, paddingRight: '36px' }}
-                        >
-                          <SubGuardIcon name="clock" size={13} style={{ flexShrink: 0 }} />
-                          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            Trial Active ({daysFromNow.toFixed(0)}d remaining)
-                          </span>
-                        </div>
+                        <>
+                          <div
+                            className="timeline-bar timeline-bar-trial"
+                            style={{
+                              width: `${endPercent}%`,
+                              minWidth: '48px',
+                              paddingRight: '6px',
+                              zIndex: 2
+                            }}
+                          >
+                            <SubGuardIcon name="clock" size={13} style={{ flexShrink: 0 }} />
+                            <span style={{ fontSize: '10px', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                              {daysFromNow.toFixed(0)}d
+                            </span>
+                          </div>
+
+                          {/* Uncompressed External Label aligned with milestone */}
+                          <div
+                            style={{
+                              position: 'absolute',
+                              left: `calc(${endPercent}% + 18px)`,
+                              top: '8px',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              whiteSpace: 'nowrap',
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              color: 'var(--trial-label-color, #fbbf24)',
+                              zIndex: 4,
+                              pointerEvents: 'none'
+                            }}
+                          >
+                            <span>Trial Active ({daysFromNow.toFixed(0)}d remaining) · Safeguard armed for <strong>{dateFormatted}</strong></span>
+                          </div>
+                        </>
                       )}
 
                       {/* Recurring Active Bar */}
                       {!isTrial && !isSuspended && (
                         <div
                           className="timeline-bar timeline-bar-active"
-                          style={{ width: activeBarWidth }}
+                          style={{ width: `${endPercent}%`, zIndex: 2 }}
                         >
                           <SubGuardIcon name="check" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
                           <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            Current Cycle ({daysFromNow.toFixed(0)}d to renewal)
+                            Current Cycle ({daysFromNow.toFixed(0)}d)
+                          </span>
+                          <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
+                            {dateFormatted}
                           </span>
                         </div>
                       )}
@@ -262,11 +324,14 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       {isSuspended && (
                         <div
                           className="timeline-bar timeline-bar-suspended"
-                          style={{ width: suspendedBarWidth }}
+                          style={{ width: `${endPercent}%`, zIndex: 2 }}
                         >
                           <SubGuardIcon name="alert" size={13} style={{ flexShrink: 0 }} />
                           <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            Suspended: Awaiting Human Authorization
+                            Suspended: Awaiting Authorization
+                          </span>
+                          <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
+                            {dateFormatted}
                           </span>
                         </div>
                       )}
@@ -278,7 +343,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                           onMouseLeave={() => setActiveTooltip(null)}
                           style={{
                             position: 'absolute',
-                            left: `calc(${trialBarWidth} - 13px)`,
+                            left: `calc(${endPercent}% - 13px)`,
                             top: '5px',
                             width: '26px',
                             height: '26px',

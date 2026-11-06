@@ -51,6 +51,8 @@
   --text: #060723;
   --text-muted: #1b1f9d;
   --meter-inactive: rgba(6, 7, 35, 0.15);
+  --timeline-grid-line: rgba(6, 7, 35, 0.12);
+  --trial-label-color: #92400e;
 }
 
 * {
@@ -3146,6 +3148,8 @@ footer span {
   --c-heart-red: #ff4d6d;
   --c-heart-red-soft: rgba(255, 77, 109, 0.2);
   --c-heart-red-glow: rgba(255, 77, 109, 0.45);
+  --timeline-grid-line: rgba(255, 255, 255, 0.12);
+  --trial-label-color: #fbbf24;
 }
 
 [data-theme="dark"] body {
