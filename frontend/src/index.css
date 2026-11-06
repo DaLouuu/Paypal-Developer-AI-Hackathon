@@ -1589,7 +1589,8 @@ main {
   justify-content: space-between;
   align-items: center;
   color: #1b1f9d;
-  font-size: 9px;
+  font-size: 11px;
+  font-weight: 600;
 }
 .result-summary span {
   display: flex;
@@ -1597,10 +1598,12 @@ main {
   gap: 6px;
 }
 .result-summary svg {
-  color: var(--green);
+  color: var(--c-spruce, #216e65);
 }
 .result-summary small {
-  font-size: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1b1f9d;
 }
 .product-grid {
   display: grid;
@@ -2830,10 +2833,20 @@ footer {
   box-shadow: 0 6px 14px rgba(46, 220, 196, 0.35);
 }
 [data-theme="dark"] .suggested-chip:hover {
-  background: rgba(33, 110, 101, 0.15);
-  border-color: #216e65;
-  color: #216e65;
-  box-shadow: 0 4px 12px rgba(33, 110, 101, 0.25);
+  background: rgba(46, 220, 196, 0.15);
+  border-color: #2edcc4;
+  color: #2edcc4;
+  box-shadow: 0 4px 12px rgba(46, 220, 196, 0.25);
+}
+[data-theme="dark"] .result-summary {
+  color: #f9dec9;
+}
+[data-theme="dark"] .result-summary svg {
+  color: #2edcc4;
+}
+[data-theme="dark"] .result-summary small {
+  color: #2edcc4;
+  font-weight: 600;
 }
 [data-theme="dark"] .filter-tab:hover:not(.active) {
   background: rgba(46, 220, 196, 0.12) !important;
