@@ -375,6 +375,211 @@ main {
   width: 100%;
   margin-top: 14px;
 }
+
+/* Multi-Page Route Transitions & Headers */
+.page-container {
+  animation: page-fade-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 30px 0 60px;
+  width: 100%;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.page-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+.page-breadcrumb a:hover {
+  color: var(--blue);
+}
+.page-breadcrumb strong {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.page-header {
+  margin-bottom: 36px;
+}
+.page-header h1 {
+  font-family: Manrope, sans-serif;
+  font-size: clamp(32px, 3.4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin: 14px 0 10px;
+  color: var(--navy);
+}
+.page-header p {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 720px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Home Destinations Shortcuts Grid */
+.home-shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin: 36px 0 44px;
+}
+.home-shortcut-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(19, 35, 62, 0.04);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.home-shortcut-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(19, 35, 62, 0.09);
+  border-color: rgba(93, 253, 203, 0.5);
+}
+.shortcut-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.shortcut-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(93, 253, 203, 0.16);
+  color: #05845c;
+}
+.shortcut-card-header h3 {
+  font-family: Manrope, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0;
+  color: var(--navy);
+}
+.home-shortcut-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+.home-shortcut-card button {
+  align-self: flex-start;
+}
+
+/* Protection Page Layout Grid */
+.protection-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  margin-bottom: 36px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .protection-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.governance-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px 26px;
+  box-shadow: 0 8px 24px rgba(19, 35, 62, 0.04);
+  margin-bottom: 24px;
+}
+.governance-card h3 {
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--navy);
+}
+.governance-metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.governance-metric-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.governance-metric-box span {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.governance-metric-box strong {
+  font-family: Manrope, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+}
+.governance-metric-box small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.protocol-spec-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+}
+.protocol-spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.protocol-spec-item:last-child {
+  border-bottom: none;
+}
+.protocol-spec-item span {
+  color: var(--muted);
+}
+.protocol-spec-item strong {
+  font-family: monospace;
+  font-size: 11px;
+}
 .welcome-copy {
   padding: 17px 0 0 4px;
 }
@@ -2341,6 +2546,44 @@ footer {
 [data-theme="dark"] .spend-story {
   background: #001f54;
   border-color: #162f62;
+}
+[data-theme="dark"] .page-breadcrumb strong {
+  color: #fee1c7;
+}
+[data-theme="dark"] .page-header h1 {
+  color: #fee1c7;
+}
+[data-theme="dark"] .home-shortcut-card {
+  background: #001f54;
+  border-color: #162f62;
+}
+[data-theme="dark"] .home-shortcut-card:hover {
+  background: #00266b;
+  border-color: #5dfdcb;
+}
+[data-theme="dark"] .shortcut-card-icon {
+  background: rgba(93, 253, 203, 0.15);
+  color: #5dfdcb;
+}
+[data-theme="dark"] .shortcut-card-header h3 {
+  color: #fee1c7;
+}
+[data-theme="dark"] .governance-card {
+  background: #001f54;
+  border-color: #162f62;
+}
+[data-theme="dark"] .governance-card h3 {
+  color: #fee1c7;
+}
+[data-theme="dark"] .governance-metric-box {
+  background: #0a1128;
+  border-color: #162b55;
+}
+[data-theme="dark"] .governance-metric-box strong {
+  color: #fee1c7;
+}
+[data-theme="dark"] .protocol-spec-item {
+  border-color: #162b55;
 }
 @keyframes toast-in {
   from {

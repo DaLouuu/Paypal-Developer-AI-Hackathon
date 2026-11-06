@@ -100,12 +100,9 @@ export default function App() {
     setTimeout(() => setNotice(''), 3000);
   };
 
-  const navigateTo = (sectionId) => {
-    setActiveNav(sectionId);
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+  const navigateTo = (pageId) => {
+    setActiveNav(pageId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCancel = (id) => {
@@ -334,240 +331,494 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main id="home">
-        {/* SECTION 1: Welcome Grid */}
-        <section className="welcome-section">
-          <div className="welcome-grid">
-            <div className="welcome-copy">
+      {/* Main Multi-Page Routed Views */}
+      <main>
+        {activeNav === 'discover' && (
+          <div className="page-container" id="discover">
+            <div className="page-breadcrumb">
+              <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
+              <span>/</span>
+              <strong>Discover Software</strong>
+            </div>
+            <div className="page-header">
               <span className="eyebrow">
-                <SubGuardIcon name="shield" size={15} /> Guarded by SubGuard
+                <SubGuardIcon name="compass" size={14} /> SaaS DISCOVERY MARKETPLACE
               </span>
-
-              <h1>
-                Good morning, Alex.
-                <br />
-                Your subscriptions look <em>healthy.</em>
-              </h1>
-
-              <p className="intro">
-                Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.
+              <h1>Find vetted software without hidden traps.</h1>
+              <p>
+                Every SaaS product is pre-analyzed for dark pattern traps, auto-renewal contracts, and compliant spending limits before provisioning.
               </p>
-
-              <div className="brand-proof" aria-label="SubGuard benefits">
-                <span>
-                  <SubGuardIcon name="check" size={13} /> Contract checked
-                </span>
-                <span>
-                  <SubGuardIcon name="check" size={13} /> Renewal watched
-                </span>
-                <span>
-                  <SubGuardIcon name="check" size={13} /> Cancellation ready
-                </span>
-              </div>
-
-              <div className="hero-actions">
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={() => navigateTo('discover')}
-                >
-                  Discover software <SubGuardIcon name="arrow" size={17} />
-                </button>
-                <button
-                  type="button"
-                  className="text-button"
-                  onClick={() => navigateTo('subscriptions')}
-                >
-                  Review my subscriptions <SubGuardIcon name="chevron" size={15} />
-                </button>
-              </div>
             </div>
-
-            {/* Autopilot Cancellation Shield Panel */}
-            <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`} id="protection">
-              <div className="shield-heading">
-                <div>
-                  <span className="live-label">
-                    <i /> SUBGUARD AUTOPILOT
-                  </span>
-                  <h2>Cancellation Shield</h2>
-                </div>
-                <button
-                  className={`toggle ${shieldOn ? 'on' : ''}`}
-                  aria-pressed={shieldOn}
-                  onClick={() => {
-                    setShieldOn(!shieldOn);
-                    showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
-                  }}
-                  type="button"
-                >
-                  <span />
-                </button>
-              </div>
-
-              <div className="shield-visual">
-                <div className="orbit orbit-one" />
-                <div className="orbit orbit-two" />
-                <div className="shield-core">
-                  <SubGuardIcon name="shield" size={26} stroke={1.8} />
-                </div>
-                <span className="orbit-dot dot-one" />
-                <span className="orbit-dot dot-two" />
-              </div>
-
-              <div className="shield-status">
-                <span>CURSOR PRO TRIAL</span>
-                <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
-                <p>
-                  {shieldOn
-                    ? 'Until SubGuard steps in before renewal'
-                    : 'Turn protection back on to avoid an unwanted renewal.'}
-                </p>
-              </div>
-
-              <div className="next-step">
-                <span className="step-icon">
-                  <SubGuardIcon name="wand" size={17} />
-                </span>
-                <div>
-                  <small>WHAT HAPPENS NEXT</small>
-                  <p>
-                    {shieldOn
-                      ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
-                      : 'Automated cancellation is currently disabled.'}
-                  </p>
-                </div>
-              </div>
-
-              <button
-                className="shield-link"
-                onClick={() => {
-                  setShowTimeline(!showTimeline);
-                  showNotice(showTimeline ? 'Protection timeline collapsed' : 'Protection timeline expanded');
-                }}
-                type="button"
-              >
-                {showTimeline ? 'Hide protection timeline' : 'View protection timeline'} <SubGuardIcon name="arrow" size={16} />
-              </button>
-            </aside>
-          </div>
-
-          {/* Full-Width Overview Metrics & Actionable Renewal Alert */}
-          <div className="hero-bottom-band">
-            {/* Spend Story Card */}
-            <div className="spend-story">
-              <div className="spend-main">
-                <span>Monthly software spend</span>
-                <strong data-testid="total-burn">${totalBurn.toFixed(2)}</strong>
-                <small>
-                  <span className="positive">
-                    <SubGuardIcon name="trend" size={13} /> 8% lower
-                  </span>{' '}
-                  than last month
-                </small>
-              </div>
-
-              <div className="mini-chart" aria-label="Spending trend over six months">
-                {[55, 68, 49, 72, 62, 44, 51, 36, 42, 29, 34, 25].map((height, index) => (
-                  <i key={index} style={{ height }} />
-                ))}
-              </div>
-
-              <div className="spend-meta">
-                <div>
-                  <strong data-testid="active-count">{activeCount}</strong>
-                  <span>Active plans</span>
-                </div>
-                <div>
-                  <strong>{trialsCount}</strong>
-                  <span>Protected trial</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Actionable Upcoming Renewal Alert Banner (Anchored inside hero) */}
-            <div className="renewal-ribbon">
-              <span className="renewal-icon">
-                <SubGuardIcon name="calendar" size={20} />
-              </span>
-              <div>
-                <small>UPCOMING RENEWAL</small>
-                <p>
-                  <strong>Notion Plus</strong> renews in 12 days for $80.00
-                </p>
-              </div>
-              <span className="date-pill">NOV 18</span>
-              <button
-                onClick={() => {
-                  showNotice('Notion Plus renewal: monitored under $50.00 spending policy');
-                  navigateTo('subscriptions');
-                }}
-                type="button"
-              >
-                Review renewal <SubGuardIcon name="arrow" size={16} />
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* Collapsible Protection Gantt Timeline */}
-        {showTimeline && (
-          <div style={{ margin: '24px 0' }}>
-            <RenewalTimeline subscriptions={subscriptions} />
+            <DiscoverySearch onSelectTool={handleSelectTool} />
           </div>
         )}
 
-        {/* SECTION 2: The SubGuard Edit SaaS Marketplace */}
-        <DiscoverySearch onSelectTool={handleSelectTool} />
+        {activeNav === 'subscriptions' && (
+          <div className="page-container" id="subscriptions">
+            <div className="page-breadcrumb">
+              <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
+              <span>/</span>
+              <strong>My Subscriptions</strong>
+            </div>
+            <div className="page-header">
+              <span className="eyebrow">
+                <SubGuardIcon name="card" size={14} /> SUBSCRIPTION MANAGEMENT CENTER
+              </span>
+              <h1>My Subscriptions</h1>
+              <p>
+                Review active software subscriptions, monitor upcoming trial expirations, and approve autonomous agent spending requests.
+              </p>
+            </div>
 
-        {/* SECTION 3: Subscriptions Management */}
-        <section className="subscriptions-section" id="subscriptions">
-          <SubscriptionTable
-            subscriptions={subscriptions}
-            onCancelSubscription={handleCancel}
-            onApproveSuspension={handleApprove}
-            onNavigate={navigateTo}
-          />
-        </section>
+            <section className="subscriptions-section">
+              <SubscriptionTable
+                subscriptions={subscriptions}
+                onCancelSubscription={handleCancel}
+                onApproveSuspension={handleApprove}
+                onNavigate={navigateTo}
+              />
+            </section>
+          </div>
+        )}
 
-        {/* SECTION 4: The SubGuard Promise */}
-        <section className="promise">
-          <div className="promise-mark">
-            <SubGuardIcon name="bag" size={32} />
-            <SubGuardIcon name="shield" size={18} />
+        {activeNav === 'protection' && (
+          <div className="page-container" id="protection">
+            <div className="page-breadcrumb">
+              <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
+              <span>/</span>
+              <strong>Protection Center</strong>
+            </div>
+            <div className="page-header">
+              <span className="eyebrow">
+                <SubGuardIcon name="shield" size={14} /> AUTOPILOT GOVERNANCE & PROTOCOLS
+              </span>
+              <h1>SubGuard Protection Center</h1>
+              <p>
+                Deterministic spending ceilings, 48-hour trial cancellation safeguards, and Ed25519 cryptographic protocol verification.
+              </p>
+            </div>
+
+            <div className="protection-grid">
+              <div>
+                {/* Autopilot Cancellation Shield Panel */}
+                <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`} style={{ marginBottom: '24px' }}>
+                  <div className="shield-heading">
+                    <div>
+                      <span className="live-label">
+                        <i /> SUBGUARD AUTOPILOT
+                      </span>
+                      <h2>Cancellation Shield</h2>
+                    </div>
+                    <button
+                      className={`toggle ${shieldOn ? 'on' : ''}`}
+                      aria-pressed={shieldOn}
+                      onClick={() => {
+                        setShieldOn(!shieldOn);
+                        showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
+                      }}
+                      type="button"
+                    >
+                      <span />
+                    </button>
+                  </div>
+
+                  <div className="shield-visual">
+                    <div className="orbit orbit-one" />
+                    <div className="orbit orbit-two" />
+                    <div className="shield-core">
+                      <SubGuardIcon name="shield" size={26} stroke={1.8} />
+                    </div>
+                    <span className="orbit-dot dot-one" />
+                    <span className="orbit-dot dot-two" />
+                  </div>
+
+                  <div className="shield-status">
+                    <span>CURSOR PRO TRIAL</span>
+                    <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
+                    <p>
+                      {shieldOn
+                        ? 'Until SubGuard steps in before renewal'
+                        : 'Turn protection back on to avoid an unwanted renewal.'}
+                    </p>
+                  </div>
+
+                  <div className="next-step">
+                    <span className="step-icon">
+                      <SubGuardIcon name="wand" size={17} />
+                    </span>
+                    <div>
+                      <small>WHAT HAPPENS NEXT</small>
+                      <p>
+                        {shieldOn
+                          ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
+                          : 'Automated cancellation is currently disabled.'}
+                      </p>
+                    </div>
+                  </div>
+                </aside>
+
+                {/* Autonomous Spending Policy Card */}
+                <div className="governance-card">
+                  <h3>
+                    <SubGuardIcon name="shield" size={18} /> Active Autonomous Spending Policy
+                  </h3>
+                  <div className="governance-metric-row">
+                    <div className="governance-metric-box">
+                      <span>Single Transaction Ceiling</span>
+                      <strong>${spendingCap.toFixed(2)}</strong>
+                      <small>Transactions above require HITL</small>
+                    </div>
+                    <div className="governance-metric-box">
+                      <span>Monthly Hard Cap</span>
+                      <strong>$500.00</strong>
+                      <small>Hard deterministic rejection</small>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="outline-button"
+                    onClick={() => setIsAccountOpen(true)}
+                    style={{ width: '100%', justifyContent: 'center' }}
+                  >
+                    Configure Policy Ceilings in Passport
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                {/* Cryptographic Key & Protocol Binding */}
+                <div className="governance-card">
+                  <h3>
+                    <SubGuardIcon name="lock" size={18} /> Cryptographic Key & Protocol Binding
+                  </h3>
+                  <div className="protocol-spec-list">
+                    <div className="protocol-spec-item">
+                      <span>AP2 Protocol Verifier</span>
+                      <strong style={{ color: '#25b985' }}>Ed25519 ENFORCED</strong>
+                    </div>
+                    <div className="protocol-spec-item">
+                      <span>Key Fingerprint</span>
+                      <strong>ed25519:e4a7...99b2</strong>
+                    </div>
+                    <div className="protocol-spec-item">
+                      <span>FastMCP Proxy Gateway</span>
+                      <strong>http://localhost:8000</strong>
+                    </div>
+                    <div className="protocol-spec-item">
+                      <span>Handshake Latency</span>
+                      <strong style={{ color: '#25b985' }}>0.42 ms (SLO &lt; 50ms)</strong>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pending Human Approval Card */}
+                <div className="governance-card">
+                  <h3>
+                    <SubGuardIcon name="alert" size={18} /> Awaiting Human Approval
+                  </h3>
+                  <div className="notice-card notice-card-crimson" style={{ margin: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="notice-tag tag-crimson">Limit Exceeded</span>
+                      <span className="notice-time">Action Needed</span>
+                    </div>
+                    <strong className="notice-title">Datadog APM ($75.00/mo)</strong>
+                    <p className="notice-body">
+                      Autonomous agent spend exceeds $50.00 ceiling. Requires founder sign-off to proceed.
+                    </p>
+                    <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                      <button
+                        type="button"
+                        className="approve-button"
+                        onClick={() => {
+                          handleApproveDatadog();
+                          showNotice('Datadog APM approved via FastMCP Proxy');
+                        }}
+                        style={{ fontSize: '11px', padding: '7px 12px' }}
+                      >
+                        Approve Mandate
+                      </button>
+                      <button
+                        type="button"
+                        className="outline-button"
+                        onClick={() => navigateTo('subscriptions')}
+                        style={{ fontSize: '11px', padding: '7px 12px' }}
+                      >
+                        View in Subscriptions
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Full-Width Protection Gantt Timeline */}
+            <div style={{ marginTop: '28px' }}>
+              <div className="section-heading" style={{ marginBottom: '16px' }}>
+                <div>
+                  <span className="eyebrow"><SubGuardIcon name="calendar" size={13} /> PROTECTION TIMELINE</span>
+                  <h2>Visual Cancellation Safeguard Schedule</h2>
+                </div>
+              </div>
+              <RenewalTimeline subscriptions={subscriptions} />
+            </div>
           </div>
-          <div>
-            <span>THE SUBGUARD PROMISE</span>
-            <h2>Great software should never come with a catch.</h2>
-            <p>
-              We read the terms, watch the dates, and protect every purchase—so you can focus on choosing tools you love.
-            </p>
+        )}
+
+        {(activeNav === 'home' || !activeNav) && (
+          <div className="page-container" id="home">
+            {/* SECTION 1: Welcome Grid */}
+            <section className="welcome-section">
+              <div className="welcome-grid">
+                <div className="welcome-copy">
+                  <span className="eyebrow">
+                    <SubGuardIcon name="shield" size={15} /> Guarded by SubGuard
+                  </span>
+
+                  <h1>
+                    Good morning, Alex.
+                    <br />
+                    Your subscriptions look <em>healthy.</em>
+                  </h1>
+
+                  <p className="intro">
+                    Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.
+                  </p>
+
+                  <div className="brand-proof" aria-label="SubGuard benefits">
+                    <span>
+                      <SubGuardIcon name="check" size={13} /> Contract checked
+                    </span>
+                    <span>
+                      <SubGuardIcon name="check" size={13} /> Renewal watched
+                    </span>
+                    <span>
+                      <SubGuardIcon name="check" size={13} /> Cancellation ready
+                    </span>
+                  </div>
+
+                  <div className="hero-actions">
+                    <button
+                      type="button"
+                      className="primary-button"
+                      onClick={() => navigateTo('discover')}
+                    >
+                      Discover software <SubGuardIcon name="arrow" size={17} />
+                    </button>
+                    <button
+                      type="button"
+                      className="text-button"
+                      onClick={() => navigateTo('subscriptions')}
+                    >
+                      Review my subscriptions <SubGuardIcon name="chevron" size={15} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Autopilot Cancellation Shield Panel */}
+                <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`} id="protection">
+                  <div className="shield-heading">
+                    <div>
+                      <span className="live-label">
+                        <i /> SUBGUARD AUTOPILOT
+                      </span>
+                      <h2>Cancellation Shield</h2>
+                    </div>
+                    <button
+                      className={`toggle ${shieldOn ? 'on' : ''}`}
+                      aria-pressed={shieldOn}
+                      onClick={() => {
+                        setShieldOn(!shieldOn);
+                        showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
+                      }}
+                      type="button"
+                    >
+                      <span />
+                    </button>
+                  </div>
+
+                  <div className="shield-visual">
+                    <div className="orbit orbit-one" />
+                    <div className="orbit orbit-two" />
+                    <div className="shield-core">
+                      <SubGuardIcon name="shield" size={26} stroke={1.8} />
+                    </div>
+                    <span className="orbit-dot dot-one" />
+                    <span className="orbit-dot dot-two" />
+                  </div>
+
+                  <div className="shield-status">
+                    <span>CURSOR PRO TRIAL</span>
+                    <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
+                    <p>
+                      {shieldOn
+                        ? 'Until SubGuard steps in before renewal'
+                        : 'Turn protection back on to avoid an unwanted renewal.'}
+                    </p>
+                  </div>
+
+                  <div className="next-step">
+                    <span className="step-icon">
+                      <SubGuardIcon name="wand" size={17} />
+                    </span>
+                    <div>
+                      <small>WHAT HAPPENS NEXT</small>
+                      <p>
+                        {shieldOn
+                          ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
+                          : 'Automated cancellation is currently disabled.'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    className="shield-link"
+                    onClick={() => navigateTo('protection')}
+                    type="button"
+                  >
+                    Open Protection Center <SubGuardIcon name="arrow" size={16} />
+                  </button>
+                </aside>
+              </div>
+
+              {/* Full-Width Overview Metrics & Actionable Renewal Alert */}
+              <div className="hero-bottom-band">
+                {/* Spend Story Card */}
+                <div className="spend-story">
+                  <div className="spend-main">
+                    <span>Monthly software spend</span>
+                    <strong data-testid="total-burn">${totalBurn.toFixed(2)}</strong>
+                    <small>
+                      <span className="positive">
+                        <SubGuardIcon name="trend" size={13} /> 8% lower
+                      </span>{' '}
+                      than last month
+                    </small>
+                  </div>
+
+                  <div className="mini-chart" aria-label="Spending trend over six months">
+                    {[55, 68, 49, 72, 62, 44, 51, 36, 42, 29, 34, 25].map((height, index) => (
+                      <i key={index} style={{ height }} />
+                    ))}
+                  </div>
+
+                  <div className="spend-meta">
+                    <div>
+                      <strong data-testid="active-count">{activeCount}</strong>
+                      <span>Active plans</span>
+                    </div>
+                    <div>
+                      <strong>{trialsCount}</strong>
+                      <span>Protected trial</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actionable Upcoming Renewal Alert Banner */}
+                <div className="renewal-ribbon">
+                  <span className="renewal-icon">
+                    <SubGuardIcon name="calendar" size={20} />
+                  </span>
+                  <div>
+                    <small>UPCOMING RENEWAL</small>
+                    <p>
+                      <strong>Notion Plus</strong> renews in 12 days for $80.00
+                    </p>
+                  </div>
+                  <span className="date-pill">NOV 18</span>
+                  <button
+                    onClick={() => {
+                      showNotice('Notion Plus renewal: monitored under $50.00 spending policy');
+                      navigateTo('subscriptions');
+                    }}
+                    type="button"
+                  >
+                    Review renewal <SubGuardIcon name="arrow" size={16} />
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            {/* Quick Destinations Shortcuts Grid */}
+            <div className="home-shortcuts-grid">
+              <div className="home-shortcut-card">
+                <div>
+                  <div className="shortcut-card-header">
+                    <span className="shortcut-card-icon">
+                      <SubGuardIcon name="compass" size={20} />
+                    </span>
+                    <h3>SaaS Marketplace</h3>
+                  </div>
+                  <p>
+                    Browse verified developer tools with transparent pricing, star ratings, and pre-negotiated cancel-ready mandates.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="outline-button"
+                  onClick={() => navigateTo('discover')}
+                >
+                  Browse Software <SubGuardIcon name="arrow" size={14} />
+                </button>
+              </div>
+
+              <div className="home-shortcut-card">
+                <div>
+                  <div className="shortcut-card-header">
+                    <span className="shortcut-card-icon">
+                      <SubGuardIcon name="shield" size={20} />
+                    </span>
+                    <h3>Autopilot Protection</h3>
+                  </div>
+                  <p>
+                    Cursor Pro trial cancellation armed for Nov 10. Autonomous spending ceiling enforced at $50.00/mo.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="outline-button"
+                  onClick={() => navigateTo('protection')}
+                >
+                  Inspect Protection <SubGuardIcon name="arrow" size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* SECTION: The SubGuard Promise */}
+            <section className="promise">
+              <div className="promise-mark">
+                <SubGuardIcon name="bag" size={32} />
+                <SubGuardIcon name="shield" size={18} />
+              </div>
+              <div>
+                <span>THE SUBGUARD PROMISE</span>
+                <h2>Great software should never come with a catch.</h2>
+                <p>
+                  We read the terms, watch the dates, and protect every purchase—so you can focus on choosing tools you love.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="outline-button promise-cta"
+                onClick={() => navigateTo('protection')}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  padding: '12px 15px',
+                  borderRadius: '9px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: 'white',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px'
+                }}
+              >
+                How protection works <SubGuardIcon name="arrow" size={17} />
+              </button>
+            </section>
           </div>
-          <button
-            type="button"
-            className="outline-button promise-cta"
-            onClick={() => {
-              setShowTimeline(true);
-              navigateTo('protection');
-            }}
-            style={{
-              background: 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              padding: '12px 15px',
-              borderRadius: '9px',
-              fontSize: '11px',
-              fontWeight: 700,
-              color: 'white',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px'
-            }}
-          >
-            How protection works <SubGuardIcon name="arrow" size={17} />
-          </button>
-        </section>
+        )}
       </main>
 
       {/* Footer */}
