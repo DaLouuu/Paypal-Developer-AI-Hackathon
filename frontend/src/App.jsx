@@ -5,6 +5,7 @@ import SubscriptionTable from './components/SubscriptionTable';
 import RenewalTimeline from './components/RenewalTimeline';
 import NotificationsDrawer from './components/NotificationsDrawer';
 import AccountModal from './components/AccountModal';
+import LoadingScreen from './components/LoadingScreen';
 
 const INITIAL_SUBSCRIPTIONS = [
   {
@@ -64,6 +65,12 @@ export default function App() {
   const [showTimeline, setShowTimeline] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window !== 'undefined' && window.__VITEST__) {
+      return false;
+    }
+    return true;
+  });
 
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('subguard-theme');
@@ -150,6 +157,9 @@ export default function App() {
 
   return (
     <div className="app-shell" style={{ paddingBottom: '90px' }}>
+      {/* Loading Screen Overlay */}
+      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+
       {/* Toast Notification */}
       {notice && (
         <div className="toast">
@@ -235,7 +245,11 @@ export default function App() {
         {/* Header Actions */}
         <div className="header-actions">
           {/* FastMCP Live Beacon */}
-          <div
+          <button
+            type="button"
+            className="fastmcp-badge outline-button"
+            onClick={() => setIsLoading(true)}
+            title="FastMCP Gateway Online · Click to re-verify handshake"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -245,12 +259,13 @@ export default function App() {
               background: 'var(--surface-soft)',
               padding: '5px 10px',
               borderRadius: '8px',
-              border: '1px solid var(--line)'
+              border: '1px solid var(--line)',
+              cursor: 'pointer'
             }}
           >
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#25b985' }} />
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#25b985', boxShadow: '0 0 6px #25b985' }} />
             <span>FastMCP:8000</span>
-          </div>
+          </button>
 
           {/* Theme Switcher */}
           <button

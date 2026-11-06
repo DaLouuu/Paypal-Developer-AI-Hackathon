@@ -1453,6 +1453,29 @@ footer {
   animation: toast-in 0.25s ease;
 }
 
+/* Loading Screen Component */
+.loading-screen {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.loading-screen.fade-out {
+  opacity: 0 !important;
+  transform: scale(1.02) !important;
+  pointer-events: none !important;
+}
+[data-theme="dark"] .loading-screen {
+  background: #0c111b !important;
+  color: #eef3ff !important;
+}
+
+.fastmcp-badge {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.fastmcp-badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue) !important;
+  box-shadow: 0 4px 12px rgba(63, 100, 255, 0.16);
+}
+
 [data-theme="dark"] {
   color-scheme: dark;
   --navy: #eef3ff;
