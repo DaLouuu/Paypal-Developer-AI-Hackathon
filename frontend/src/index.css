@@ -1020,10 +1020,10 @@ main {
   z-index: 1;
 }
 .live-label {
-  color: #216e65;
+  color: var(--blue, #1b1f9d);
   font-family: var(--font-mono);
   letter-spacing: 0.12em;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   display: flex;
@@ -1133,62 +1133,66 @@ main {
   z-index: 1;
 }
 .shield-status span {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.12em;
-  color: #216e65;
+  color: var(--blue, #1b1f9d);
   font-weight: 700;
+  text-transform: uppercase;
 }
 .shield-status strong {
   display: block;
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--navy);
-  margin: 3px 0;
+  margin: 4px 0;
   letter-spacing: -0.5px;
 }
 .shield-status p {
   margin: 0;
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.4;
+  font-size: 13px;
+  color: var(--navy);
+  font-weight: 500;
+  line-height: 1.5;
 }
 .next-step {
   display: flex;
   gap: 12px;
   align-items: center;
-  margin-top: 14px;
+  margin-top: 16px;
   background: var(--surface-soft);
   border: 1.5px solid var(--line);
-  padding: 11px 14px;
+  padding: 13px 16px;
   border-radius: 10px;
   box-shadow: 2px 2px 0px var(--line);
   position: relative;
   z-index: 1;
 }
 .step-icon {
-  min-width: 28px;
-  height: 28px;
+  min-width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   border-radius: 8px;
   color: var(--navy);
   background: #f9dec9;
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--line);
+  flex-shrink: 0;
 }
 .next-step small {
   display: block;
-  font-size: 9px;
-  color: var(--blue);
-  letter-spacing: 0.12em;
+  font-size: 11px;
+  color: var(--blue, #1b1f9d);
+  letter-spacing: 0.1em;
   font-weight: 700;
   text-transform: uppercase;
 }
 .next-step p {
-  margin: 2px 0 0;
-  font-size: 11px;
-  line-height: 1.4;
+  margin: 3px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
   color: var(--navy);
+  font-weight: 500;
 }
 .shield-link {
   display: flex;
@@ -2609,31 +2613,37 @@ footer {
   background: linear-gradient(145deg, #1b1f9d, #060723);
   border: 1px solid rgba(33, 110, 101, 0.2);
 }
-[data-theme="dark"] .shield-status span {
+[data-theme="dark"] .live-label {
   color: #2edcc4;
 }
+[data-theme="dark"] .shield-status span {
+  color: #2edcc4;
+  font-weight: 700;
+}
 [data-theme="dark"] .shield-status strong {
-  color: #f9dec9;
+  color: #ffffff;
 }
 [data-theme="dark"] .shield-status p {
   color: #f9dec9;
-  opacity: 0.85;
+  font-weight: 500;
 }
 [data-theme="dark"] .next-step {
   background: #060723;
-  border-color: #1b1f9d;
+  border: 1.5px solid #2edcc4;
   box-shadow: 2px 2px 0px #060723;
 }
 [data-theme="dark"] .next-step small {
   color: #2edcc4;
+  font-weight: 700;
 }
 [data-theme="dark"] .next-step p {
-  color: #f9dec9;
+  color: #ffffff;
+  font-weight: 500;
 }
 [data-theme="dark"] .next-step .step-icon {
-  background: #1b1f9d;
-  color: #2edcc4;
-  border: 1px solid #2edcc4;
+  background: #2edcc4;
+  color: #060723;
+  border: 1.5px solid #2edcc4;
 }
 [data-theme="dark"] .renewal-ribbon {
   color: #f9dec9;
