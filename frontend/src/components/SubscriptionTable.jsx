@@ -4,9 +4,15 @@ import SubGuardIcon from './SubGuardIcon';
 import ConfirmationModal from './ConfirmationModal';
 import RiskMeter from './RiskMeter';
 
-export default function SubscriptionTable({ subscriptions = [], onCancelSubscription, onApproveSuspension }) {
+export default function SubscriptionTable({
+  subscriptions = [],
+  onCancelSubscription,
+  onApproveSuspension,
+  onNavigate
+}) {
   const [modalConfig, setModalConfig] = useState({ isOpen: false });
   const [showGrid, setShowGrid] = useState(false);
+  const [filterState, setFilterState] = useState('ALL'); // 'ALL' | 'ACTIVE' | 'TRIAL' | 'SUSPENDED' | 'CANCELLED'
 
   // Telemetry KPIs
   const totalBurn = useMemo(() => {
@@ -20,6 +26,31 @@ export default function SubscriptionTable({ subscriptions = [], onCancelSubscrip
   const trialsCount = useMemo(() => {
     return subscriptions.filter(item => item.status === 'TRIAL_ACTIVE' || item.is_trial).length;
   }, [subscriptions]);
+
+  const suspendedCount = useMemo(() => {
+    return subscriptions.filter(item => item.status === 'SUSPENDED_AWAITING_HUMAN').length;
+  }, [subscriptions]);
+
+  const cancelledCount = useMemo(() => {
+    return subscriptions.filter(item => item.status === 'PENDING_CANCELLATION').length;
+  }, [subscriptions]);
+
+  // Filter subscriptions based on selected sub-tab
+  const filteredSubscriptions = useMemo(() => {
+    if (filterState === 'ACTIVE') {
+      return subscriptions.filter(s => s.status === 'ACTIVE_RECURRING');
+    }
+    if (filterState === 'TRIAL') {
+      return subscriptions.filter(s => s.status === 'TRIAL_ACTIVE' || s.is_trial);
+    }
+    if (filterState === 'SUSPENDED') {
+      return subscriptions.filter(s => s.status === 'SUSPENDED_AWAITING_HUMAN');
+    }
+    if (filterState === 'CANCELLED') {
+      return subscriptions.filter(s => s.status === 'PENDING_CANCELLATION');
+    }
+    return subscriptions;
+  }, [subscriptions, filterState]);
 
   // Confirmation prompts
   const promptCancel = (sub) => {
@@ -237,24 +268,129 @@ export default function SubscriptionTable({ subscriptions = [], onCancelSubscrip
       </span>
 
       {/* Header with Title and Toggle for detailed grid */}
-      <div className="section-heading compact">
+      <div className="section-heading compact" style={{ flexWrap: 'wrap', gap: '14px' }}>
         <div>
           <span className="section-kicker">YOUR SOFTWARE</span>
           <h2>Everything you pay for, in one place.</h2>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--muted)' }}>
+            Monitor active licenses, authorize autonomous spending requests, and manage cancellation shields.
+          </p>
         </div>
+
         <button
           className="outline-button"
           onClick={() => setShowGrid(!showGrid)}
           aria-expanded={showGrid}
+          type="button"
         >
           <SubGuardIcon name="grid" size={16} />
           {showGrid ? 'Compact list view' : 'Detailed data grid'}
         </button>
       </div>
 
+      {/* State Filter Pills */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          overflowX: 'auto',
+          paddingBottom: '12px',
+          marginBottom: '10px'
+        }}
+      >
+        <button
+          type="button"
+          className={`categories-button ${filterState === 'ALL' ? 'active' : ''}`}
+          onClick={() => setFilterState('ALL')}
+          style={{
+            border: 0,
+            background: filterState === 'ALL' ? 'var(--navy)' : 'transparent',
+            color: filterState === 'ALL' ? 'white' : 'var(--muted)',
+            padding: '7px 12px',
+            borderRadius: '9px',
+            fontSize: '12px',
+            cursor: 'pointer',
+            fontWeight: 600
+          }}
+        >
+          All ({subscriptions.length})
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setFilterState('ACTIVE')}
+          style={{
+            border: 0,
+            background: filterState === 'ACTIVE' ? 'var(--navy)' : 'transparent',
+            color: filterState === 'ACTIVE' ? 'white' : 'var(--muted)',
+            padding: '7px 12px',
+            borderRadius: '9px',
+            fontSize: '12px',
+            cursor: 'pointer',
+            fontWeight: 600
+          }}
+        >
+          Active Plans ({activeCount - trialsCount})
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setFilterState('TRIAL')}
+          style={{
+            border: 0,
+            background: filterState === 'TRIAL' ? 'var(--navy)' : 'transparent',
+            color: filterState === 'TRIAL' ? 'white' : 'var(--muted)',
+            padding: '7px 12px',
+            borderRadius: '9px',
+            fontSize: '12px',
+            cursor: 'pointer',
+            fontWeight: 600
+          }}
+        >
+          Protected Trials ({trialsCount})
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setFilterState('SUSPENDED')}
+          style={{
+            border: 0,
+            background: filterState === 'SUSPENDED' ? 'var(--navy)' : 'transparent',
+            color: filterState === 'SUSPENDED' ? 'white' : (suspendedCount > 0 ? '#c24e49' : 'var(--muted)'),
+            padding: '7px 12px',
+            borderRadius: '9px',
+            fontSize: '12px',
+            cursor: 'pointer',
+            fontWeight: 600
+          }}
+        >
+          Needs Approval ({suspendedCount})
+        </button>
+
+        {cancelledCount > 0 && (
+          <button
+            type="button"
+            onClick={() => setFilterState('CANCELLED')}
+            style={{
+              border: 0,
+              background: filterState === 'CANCELLED' ? 'var(--navy)' : 'transparent',
+              color: filterState === 'CANCELLED' ? 'white' : 'var(--muted)',
+              padding: '7px 12px',
+              borderRadius: '9px',
+              fontSize: '12px',
+              cursor: 'pointer',
+              fontWeight: 600
+            }}
+          >
+            Shield Armed ({cancelledCount})
+          </button>
+        )}
+      </div>
+
       {/* Redesign Subscriptions List (Default View) */}
       <div className="subscription-list" style={{ display: showGrid ? 'none' : 'block' }}>
-        {subscriptions.map((sub) => {
+        {filteredSubscriptions.map((sub) => {
           const isSuspended = sub.status === 'SUSPENDED_AWAITING_HUMAN';
           const isTrial = sub.status === 'TRIAL_ACTIVE' || sub.is_trial;
           const isArmed = sub.status === 'PENDING_CANCELLATION';
@@ -317,15 +453,21 @@ export default function SubscriptionTable({ subscriptions = [], onCancelSubscrip
                   className="approve-button"
                   onClick={() => promptApprove(sub)}
                   aria-label={`Review request for ${sub.product_name}`}
+                  type="button"
                 >
                   Review request
                 </button>
+              ) : isArmed ? (
+                <span style={{ fontSize: '11px', color: '#a07832', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <SubGuardIcon name="shield" size={12} /> Auto-Cancel Ready
+                </span>
               ) : (
                 <button
                   className="icon-button"
                   onClick={() => promptCancel(sub)}
                   aria-label={`Arm cancel shield for ${sub.product_name}`}
                   title="Arm 48-Hour Cancellation Shield"
+                  type="button"
                 >
                   <SubGuardIcon name="more" />
                 </button>
@@ -333,6 +475,14 @@ export default function SubscriptionTable({ subscriptions = [], onCancelSubscrip
             </article>
           );
         })}
+
+        {filteredSubscriptions.length === 0 && (
+          <div className="empty-state" style={{ padding: '40px 0' }}>
+            <SubGuardIcon name="card" size={28} />
+            <strong>No subscriptions in this view</strong>
+            <span>All subscriptions are monitored and governed by SubGuard.</span>
+          </div>
+        )}
       </div>
 
       {/* Detailed AG Grid Container (ALWAYS in DOM for Vitest test assertions) */}
@@ -347,7 +497,7 @@ export default function SubscriptionTable({ subscriptions = [], onCancelSubscrip
         }}
       >
         <AgGridReact
-          rowData={subscriptions}
+          rowData={filteredSubscriptions}
           columnDefs={columnDefs}
           defaultColDef={{ resizable: true, sortable: true }}
           rowBuffer={20}

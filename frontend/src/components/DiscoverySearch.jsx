@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import SubGuardIcon from './SubGuardIcon';
+import ProductDetailsModal from './ProductDetailsModal';
 
 const CURATED_PRODUCTS = [
   {
@@ -111,7 +112,8 @@ const CATEGORIES = ['For you', 'Productivity', 'Design', 'Development', 'Communi
 export default function DiscoverySearch({ onSelectTool }) {
   const [category, setCategory] = useState('For you');
   const [query, setQuery] = useState('');
-  const [provisioningId, setProvisioningId] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [soc2Only, setSoc2Only] = useState(false);
   const searchRef = useRef(null);
 
   useEffect(() => {
@@ -129,27 +131,28 @@ export default function DiscoverySearch({ onSelectTool }) {
   const filtered = useMemo(() => {
     return CURATED_PRODUCTS.filter((product) => {
       const matchesCategory = category === 'For you' || product.category === category;
+      const matchesSoc2 = !soc2Only || product.soc2_compliant;
       const haystack = `${product.name} ${product.category} ${product.line}`.toLowerCase();
-      return matchesCategory && haystack.includes(query.toLowerCase());
+      return matchesCategory && matchesSoc2 && haystack.includes(query.toLowerCase());
     });
-  }, [category, query]);
+  }, [category, query, soc2Only]);
 
   const handleCardClick = (product) => {
-    setProvisioningId(product.product_id);
-    setTimeout(() => {
-      if (onSelectTool) {
-        onSelectTool({
-          product_id: product.product_id,
-          product_name: product.name,
-          pricing_tier: product.pricing_tier,
-          monthly_cost: product.price,
-          vendor_domain: product.vendor_domain,
-          tos_risk_score: product.tos_risk_score,
-          category: product.category
-        });
-      }
-      setProvisioningId(null);
-    }, 350);
+    setSelectedProduct(product);
+  };
+
+  const handleConfirmProvision = (product) => {
+    if (onSelectTool) {
+      onSelectTool({
+        product_id: product.product_id,
+        product_name: product.name,
+        pricing_tier: product.pricing_tier,
+        monthly_cost: product.price,
+        vendor_domain: product.vendor_domain,
+        tos_risk_score: product.tos_risk_score,
+        category: product.category
+      });
+    }
   };
 
   return (
@@ -182,27 +185,56 @@ export default function DiscoverySearch({ onSelectTool }) {
           ))}
         </div>
 
-        <label className="search-box">
-          <SubGuardIcon name="search" size={18} />
-          <input
-            ref={searchRef}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder='Try “a design tool under $20”'
-            aria-label="Search the software marketplace"
-          />
-          {query && (
-            <button
-              className="search-clear"
-              onClick={() => setQuery('')}
-              aria-label="Clear search"
-              type="button"
-            >
-              ×
-            </button>
-          )}
-          <span>⌘ K</span>
-        </label>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <label
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '11px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              color: soc2Only ? 'var(--blue)' : 'var(--muted)',
+              background: soc2Only ? 'rgba(63, 100, 255, 0.1)' : 'transparent',
+              border: '1px solid',
+              borderColor: soc2Only ? 'var(--blue)' : 'var(--line)',
+              padding: '8px 12px',
+              borderRadius: '9px',
+              transition: 'all 0.15s ease'
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={soc2Only}
+              onChange={(e) => setSoc2Only(e.target.checked)}
+              style={{ display: 'none' }}
+            />
+            <SubGuardIcon name="shield" size={13} />
+            <span>SOC-2 Only</span>
+          </label>
+
+          <label className="search-box">
+            <SubGuardIcon name="search" size={18} />
+            <input
+              ref={searchRef}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder='Try “a design tool under $20”'
+              aria-label="Search the software marketplace"
+            />
+            {query && (
+              <button
+                className="search-clear"
+                onClick={() => setQuery('')}
+                aria-label="Clear search"
+                type="button"
+              >
+                ×
+              </button>
+            )}
+            <span>⌘ K</span>
+          </label>
+        </div>
       </div>
 
       {/* Result summary banner */}
@@ -215,70 +247,83 @@ export default function DiscoverySearch({ onSelectTool }) {
 
       {/* Product Cards Grid */}
       <div className="product-grid">
-        {filtered.map((product) => {
-          const isProvisioning = provisioningId === product.product_id;
-          return (
-            <article key={product.product_id} className="product-card">
-              <div className="product-topline">
-                <span className="product-tag">{product.tag}</span>
-                <button
-                  className="icon-button"
-                  aria-label={`More options for ${product.name}`}
-                  type="button"
-                >
-                  <SubGuardIcon name="more" />
-                </button>
-              </div>
+        {filtered.map((product) => (
+          <article
+            key={product.product_id}
+            className="product-card"
+            onClick={() => handleCardClick(product)}
+            style={{ cursor: 'pointer' }}
+          >
+            <div className="product-topline">
+              <span className="product-tag">{product.tag}</span>
+              <button
+                className="icon-button"
+                aria-label={`Inspect ${product.name}`}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCardClick(product);
+                }}
+              >
+                <SubGuardIcon name="more" />
+              </button>
+            </div>
 
-              <div className="product-identity">
-                <span className="product-logo" style={{ background: product.bg, color: product.color }}>
-                  {product.mark}
-                </span>
-                <div>
-                  <h3>{product.name}</h3>
-                  <span>{product.category}</span>
-                </div>
+            <div className="product-identity">
+              <span className="product-logo" style={{ background: product.bg, color: product.color }}>
+                {product.mark}
+              </span>
+              <div>
+                <h3>{product.name}</h3>
+                <span>{product.category}</span>
               </div>
+            </div>
 
-              <p>{product.line}</p>
+            <p>{product.line}</p>
 
-              <div className="trust-row">
-                <span>
-                  <SubGuardIcon name="shield" size={14} /> {product.risk}
-                </span>
-                <span className="guard-score">SG {product.rating}</span>
+            <div className="trust-row">
+              <span>
+                <SubGuardIcon name="shield" size={14} /> {product.risk}
+              </span>
+              <span className="guard-score">SG {product.rating}</span>
+            </div>
+
+            <div className="product-footer">
+              <div>
+                <strong>${product.price}</strong>
+                <span> / user / mo</span>
               </div>
-
-              <div className="product-footer">
-                <div>
-                  <strong>${product.price}</strong>
-                  <span> / user / mo</span>
-                </div>
-                <button
-                  onClick={() => handleCardClick(product)}
-                  aria-label={`Provision ${product.name}`}
-                  title="Provision subscription"
-                  type="button"
-                >
-                  {isProvisioning ? (
-                    <SubGuardIcon name="check" size={16} />
-                  ) : (
-                    <SubGuardIcon name="arrow" size={17} />
-                  )}
-                </button>
-              </div>
-            </article>
-          );
-        })}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCardClick(product);
+                }}
+                aria-label={`View details and provision ${product.name}`}
+                title="Review & Provision"
+                type="button"
+              >
+                <SubGuardIcon name="arrow" size={17} />
+              </button>
+            </div>
+          </article>
+        ))}
 
         {filtered.length === 0 && (
           <div className="empty-state">
             <SubGuardIcon name="search" size={24} />
             <strong>No matches yet</strong>
-            <span>Try another name or category.</span>
+            <span>Try another name, category, or clear filters.</span>
           </div>
         )}
       </div>
+
+      {/* Product Details & Provision Review Modal */}
+      <ProductDetailsModal
+        product={selectedProduct}
+        isOpen={Boolean(selectedProduct)}
+        onClose={() => setSelectedProduct(null)}
+        onProvision={handleConfirmProvision}
+      />
     </section>
   );
 }

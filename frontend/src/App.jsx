@@ -3,6 +3,8 @@ import SubGuardIcon from './components/SubGuardIcon';
 import DiscoverySearch from './components/DiscoverySearch';
 import SubscriptionTable from './components/SubscriptionTable';
 import RenewalTimeline from './components/RenewalTimeline';
+import NotificationsDrawer from './components/NotificationsDrawer';
+import AccountModal from './components/AccountModal';
 
 const INITIAL_SUBSCRIPTIONS = [
   {
@@ -59,6 +61,9 @@ export default function App() {
   const [notice, setNotice] = useState('');
   const [activeNav, setActiveNav] = useState('home');
   const [showTimeline, setShowTimeline] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('subguard-theme');
     if (saved === 'light' || saved === 'dark') return saved;
@@ -84,21 +89,36 @@ export default function App() {
 
   const showNotice = (msg) => {
     setNotice(msg);
-    setTimeout(() => setNotice(''), 2800);
+    setTimeout(() => setNotice(''), 3000);
+  };
+
+  const navigateTo = (sectionId) => {
+    setActiveNav(sectionId);
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleCancel = (id) => {
     setSubscriptions(prev =>
       prev.map(sub => sub.id === id ? { ...sub, status: 'PENDING_CANCELLATION' } : sub)
     );
-    showNotice('Cancellation guard armed 48h before renewal');
+    showNotice('Cancellation guard armed: scheduled 48h before renewal');
   };
 
   const handleApprove = (id) => {
     setSubscriptions(prev =>
       prev.map(sub => sub.id === id ? { ...sub, status: 'ACTIVE_RECURRING' } : sub)
     );
-    showNotice('Agent spend request approved & resumed via PayPal');
+    showNotice('Agent spend request approved & resumed via PayPal MCP');
+  };
+
+  const handleApproveDatadog = () => {
+    const datadogSub = subscriptions.find(s => s.status === 'SUSPENDED_AWAITING_HUMAN');
+    if (datadogSub) {
+      handleApprove(datadogSub.id);
+    }
   };
 
   const handleSelectTool = (tool) => {
@@ -118,11 +138,12 @@ export default function App() {
       tos_risk_score: tool.tos_risk_score
     };
     setSubscriptions(prev => [newSub, ...prev]);
-    showNotice(`${tool.product_name} added to your active plans!`);
+    showNotice(`${tool.product_name} added to your active subscriptions!`);
+    navigateTo('subscriptions');
   };
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" style={{ paddingBottom: '90px' }}>
       {/* Toast Notification */}
       {notice && (
         <div className="toast">
@@ -134,7 +155,15 @@ export default function App() {
       {/* Topbar Header */}
       <header className="topbar">
         {/* Brand */}
-        <a className="brand" href="#home" aria-label="SubGuard home" onClick={() => setActiveNav('home')}>
+        <a
+          className="brand"
+          href="#home"
+          aria-label="SubGuard home"
+          onClick={(e) => {
+            e.preventDefault();
+            navigateTo('home');
+          }}
+        >
           <span className="brand-mark">
             <SubGuardIcon name="bag" size={20} />
             <span className="brand-shield">
@@ -154,7 +183,10 @@ export default function App() {
           <a
             className={activeNav === 'home' ? 'active' : ''}
             href="#home"
-            onClick={() => setActiveNav('home')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo('home');
+            }}
           >
             <SubGuardIcon name="home" size={16} />
             Home
@@ -162,7 +194,10 @@ export default function App() {
           <a
             className={activeNav === 'discover' ? 'active' : ''}
             href="#discover"
-            onClick={() => setActiveNav('discover')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo('discover');
+            }}
           >
             <SubGuardIcon name="compass" size={16} />
             Discover
@@ -170,7 +205,10 @@ export default function App() {
           <a
             className={activeNav === 'subscriptions' ? 'active' : ''}
             href="#subscriptions"
-            onClick={() => setActiveNav('subscriptions')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo('subscriptions');
+            }}
           >
             <SubGuardIcon name="card" size={16} />
             My subscriptions
@@ -178,7 +216,10 @@ export default function App() {
           <a
             className={activeNav === 'protection' ? 'active' : ''}
             href="#protection"
-            onClick={() => setActiveNav('protection')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo('protection');
+            }}
           >
             <SubGuardIcon name="shield" size={16} />
             Protection <span className="nav-dot" />
@@ -197,11 +238,11 @@ export default function App() {
             <SubGuardIcon name={theme === 'light' ? 'moon' : 'sun'} size={17} />
           </button>
 
-          {/* Notifications */}
+          {/* Notifications Bell */}
           <button
             className="notification"
             aria-label="Notifications"
-            onClick={() => showNotice('1 trial approaching 48h protection window')}
+            onClick={() => setIsNotificationsOpen(true)}
             type="button"
           >
             <SubGuardIcon name="bell" size={18} />
@@ -211,7 +252,8 @@ export default function App() {
           {/* User Profile */}
           <button
             className="profile"
-            onClick={() => showNotice('Personal account: Alex Morgan')}
+            onClick={() => setIsAccountOpen(true)}
+            aria-label="User Account Settings"
             type="button"
           >
             <span>AM</span>
@@ -256,12 +298,20 @@ export default function App() {
             </div>
 
             <div className="hero-actions">
-              <a className="primary-button" href="#discover" onClick={() => setActiveNav('discover')}>
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => navigateTo('discover')}
+              >
                 Discover software <SubGuardIcon name="arrow" size={17} />
-              </a>
-              <a className="text-button" href="#subscriptions" onClick={() => setActiveNav('subscriptions')}>
+              </button>
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => navigateTo('subscriptions')}
+              >
                 Review my subscriptions <SubGuardIcon name="chevron" size={15} />
-              </a>
+              </button>
             </div>
 
             {/* Spend Story Card */}
@@ -308,7 +358,10 @@ export default function App() {
               <button
                 className={`toggle ${shieldOn ? 'on' : ''}`}
                 aria-pressed={shieldOn}
-                onClick={() => setShieldOn(!shieldOn)}
+                onClick={() => {
+                  setShieldOn(!shieldOn);
+                  showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
+                }}
                 type="button"
               >
                 <span />
@@ -353,7 +406,7 @@ export default function App() {
               className="shield-link"
               onClick={() => {
                 setShowTimeline(!showTimeline);
-                showNotice(showTimeline ? 'Protection timeline closed' : 'Protection timeline expanded');
+                showNotice(showTimeline ? 'Protection timeline collapsed' : 'Protection timeline expanded');
               }}
               type="button"
             >
@@ -362,7 +415,7 @@ export default function App() {
           </aside>
         </section>
 
-        {/* Optional Collapsible Protection Gantt Timeline */}
+        {/* Collapsible Protection Gantt Timeline */}
         {showTimeline && (
           <div style={{ margin: '24px 0' }}>
             <RenewalTimeline subscriptions={subscriptions} />
@@ -382,7 +435,10 @@ export default function App() {
           </div>
           <span className="date-pill">NOV 18</span>
           <button
-            onClick={() => showNotice('Notion Plus renewal verified under active $50 spending policy')}
+            onClick={() => {
+              showNotice('Notion Plus renewal: monitored under $50.00 spending policy');
+              navigateTo('subscriptions');
+            }}
             type="button"
           >
             Review renewal <SubGuardIcon name="arrow" size={16} />
@@ -398,6 +454,7 @@ export default function App() {
             subscriptions={subscriptions}
             onCancelSubscription={handleCancel}
             onApproveSuspension={handleApprove}
+            onNavigate={navigateTo}
           />
         </section>
 
@@ -414,15 +471,41 @@ export default function App() {
               We read the terms, watch the dates, and protect every purchase—so you can focus on choosing tools you love.
             </p>
           </div>
-          <a href="#protection" onClick={() => setActiveNav('protection')}>
+          <button
+            type="button"
+            onClick={() => {
+              setShowTimeline(true);
+              navigateTo('protection');
+            }}
+            style={{
+              background: 'transparent',
+              border: '1px solid rgba(255, 255, 255, 0.25)',
+              padding: '12px 15px',
+              borderRadius: '9px',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'white',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px'
+            }}
+          >
             How protection works <SubGuardIcon name="arrow" size={17} />
-          </a>
+          </button>
         </section>
       </main>
 
       {/* Footer */}
       <footer>
-        <a className="brand footer-brand" href="#home" onClick={() => setActiveNav('home')}>
+        <a
+          className="brand footer-brand"
+          href="#home"
+          onClick={(e) => {
+            e.preventDefault();
+            navigateTo('home');
+          }}
+        >
           <span className="brand-mark">
             <SubGuardIcon name="bag" size={18} />
           </span>
@@ -431,6 +514,20 @@ export default function App() {
         <p>Your software. Your money. Protected.</p>
         <span>© 2026 SubGuard</span>
       </footer>
+
+      {/* Notifications Drawer */}
+      <NotificationsDrawer
+        isOpen={isNotificationsOpen}
+        onClose={() => setIsNotificationsOpen(false)}
+        onNavigate={navigateTo}
+        onApproveDatadog={handleApproveDatadog}
+      />
+
+      {/* Account & Policies Modal */}
+      <AccountModal
+        isOpen={isAccountOpen}
+        onClose={() => setIsAccountOpen(false)}
+      />
     </div>
   );
 }
