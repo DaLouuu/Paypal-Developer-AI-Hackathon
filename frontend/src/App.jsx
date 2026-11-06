@@ -56,6 +56,21 @@ const INITIAL_SUBSCRIPTIONS = [
   }
 ];
 
+const SPEND_TREND_DATA = [
+  { height: 38, period: 'May (Early)', amount: 380, note: 'Legacy unmanaged SaaS' },
+  { height: 48, period: 'May (Late)', amount: 480, note: 'Duplicate seat charges' },
+  { height: 35, period: '6 mos ago', amount: 350, note: 'Unreviewed renewals' },
+  { height: 52, period: 'Jun (Late)', amount: 520, note: 'Historical spend peak' },
+  { height: 44, period: 'Jul (Early)', amount: 440, note: 'Zombie subscriptions flagged' },
+  { height: 32, period: 'Jul (Late)', amount: 320, note: 'SubGuard installed' },
+  { height: 38, period: '3 mos ago', amount: 380, note: 'AP2 spending ceiling enforced' },
+  { height: 26, period: 'Aug (Late)', amount: 260, note: 'Trial traps auto-shielded' },
+  { height: 30, period: 'Sep (Early)', amount: 300, note: 'Autonomous limits synced' },
+  { height: 22, period: 'Oct (Early)', amount: 220, note: 'Unused seats pruned' },
+  { height: 26, period: 'Oct (Late)', amount: 255, note: 'Prior billing period' },
+  { height: 18, period: 'Nov (Current)', amount: 235, note: 'Governed commitments · 8% lower' }
+];
+
 export default function App() {
   const [subscriptions, setSubscriptions] = useState(INITIAL_SUBSCRIPTIONS);
   const [shieldOn, setShieldOn] = useState(true);
@@ -66,6 +81,7 @@ export default function App() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hoveredBarIndex, setHoveredBarIndex] = useState(null);
 
   const [user, setUser] = useState(() => {
     try {
@@ -814,10 +830,42 @@ export default function App() {
                   </div>
 
                   <div className="spend-chart-col">
-                    <div className="mini-chart" aria-label="Spending trend over six months">
-                      {[38, 48, 35, 52, 44, 32, 38, 26, 30, 22, 26, 18].map((height, index) => (
-                        <i key={index} style={{ height }} />
+                    <div
+                      className="mini-chart"
+                      aria-label="Spending trend over six months"
+                      onMouseLeave={() => setHoveredBarIndex(null)}
+                    >
+                      {SPEND_TREND_DATA.map((item, index) => (
+                        <i
+                          key={index}
+                          style={{ height: item.height }}
+                          onMouseEnter={() => setHoveredBarIndex(index)}
+                          onClick={() => setHoveredBarIndex(hoveredBarIndex === index ? null : index)}
+                          aria-label={`${item.period}: $${item.amount.toFixed(2)}`}
+                          role="img"
+                        />
                       ))}
+
+                      {hoveredBarIndex !== null && (() => {
+                        const item = SPEND_TREND_DATA[hoveredBarIndex];
+                        const leftPercent = ((hoveredBarIndex + 0.5) / SPEND_TREND_DATA.length) * 100;
+
+                        return (
+                          <div
+                            className="chart-tooltip"
+                            style={{
+                              left: `${leftPercent}%`,
+                              bottom: 'calc(100% + 10px)'
+                            }}
+                            role="tooltip"
+                          >
+                            <span className="chart-tooltip-period">{item.period}</span>
+                            <span className="chart-tooltip-amount">${item.amount.toFixed(2)}</span>
+                            <span className="chart-tooltip-note">{item.note}</span>
+                            <span className="chart-tooltip-arrow" />
+                          </div>
+                        );
+                      })()}
                     </div>
                     <div className="chart-timeline-labels">
                       <span>6 mos ago</span>

@@ -616,6 +616,7 @@ main {
   box-shadow: 4px 4px 0px var(--line);
   transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease;
   position: relative;
+  z-index: 10;
 }
 
 .home-shortcut-card:hover {
@@ -788,6 +789,8 @@ main {
   gap: 18px;
   width: 100%;
   margin-top: 14px;
+  position: relative;
+  z-index: 5;
 }
 
 /* Multi-Page Route Transitions & Headers */
@@ -1128,6 +1131,7 @@ main {
   gap: 28px;
   transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease;
   position: relative;
+  z-index: 10;
 }
 
 .spend-story:hover {
@@ -1185,6 +1189,7 @@ main {
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
+  position: relative;
 }
 
 .mini-chart i {
@@ -1192,6 +1197,7 @@ main {
   min-width: 5px;
   border-radius: 2px 2px 0 0;
   background: var(--line);
+  cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
@@ -1223,6 +1229,81 @@ main {
 .chart-timeline-labels .current-label {
   color: var(--blue, #2edcc4);
   font-weight: 700;
+}
+
+/* Spending Mini-Chart Tooltip */
+.chart-tooltip {
+  position: absolute;
+  transform: translateX(-50%);
+  background: #060723;
+  border: 1.5px solid rgba(46, 220, 196, 0.65);
+  box-shadow: 0 12px 28px rgba(6, 7, 35, 0.4), 0 0 16px rgba(46, 220, 196, 0.25);
+  border-radius: 8px;
+  padding: 7px 13px;
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 140px;
+  opacity: 1;
+  animation: chart-tooltip-in 0.16s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.chart-tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #060723;
+}
+
+.chart-tooltip-period {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8e9cd0;
+}
+
+.chart-tooltip-amount {
+  font-size: 15px;
+  font-weight: 800;
+  font-family: var(--font-sans);
+  color: #f9dec9;
+  margin: 1px 0;
+}
+
+.chart-tooltip-note {
+  font-size: 10px;
+  font-weight: 600;
+  color: #2edcc4;
+}
+
+@keyframes chart-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart-tooltip {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 .spend-meta {
