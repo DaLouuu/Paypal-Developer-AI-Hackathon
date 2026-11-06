@@ -363,116 +363,138 @@ export default function SubscriptionTable({
         </button>
       </div>
 
-      {/* Redesign Subscriptions List (Default View) */}
-      <div className="subscription-list" style={{ display: showGrid ? 'none' : 'block' }}>
-        {filteredSubscriptions.map((sub) => {
-          const isSuspended = sub.status === 'SUSPENDED_AWAITING_HUMAN';
-          const isTrial = sub.status === 'TRIAL_ACTIVE' || sub.is_trial;
-          const isArmed = sub.status === 'PENDING_CANCELLATION';
-          const logoClass = getLogoClass(sub.product_name);
-          const logoChar = getLogoChar(sub.product_name);
+      {/* Symmetrical Ledger & Cart Purchases Container */}
+      <div className="subscription-ledger" style={{ display: showGrid ? 'none' : 'block' }}>
+        {/* Ledger Header Row */}
+        <div className="ledger-header">
+          <span>Subscription / Vendor</span>
+          <span>Status</span>
+          <span>Renewal / Cycle</span>
+          <span className="ledger-col-right">Recurring Cost</span>
+          <span className="ledger-col-action">Governance Action</span>
+        </div>
 
-          return (
-            <article key={sub.id}>
-              {/* Product Identity */}
-              <div className="sub-identity">
-                <span className={`product-logo ${logoClass}`}>
-                  {logoChar}
-                </span>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <strong>{sub.product_name}</strong>
-                    <span className="ap2-verified-tag">
-                      <SubGuardIcon name="check" size={9} stroke={2.4} /> AP2 Signed
-                    </span>
+        {/* Ledger Body Rows */}
+        <div className="subscription-list">
+          {filteredSubscriptions.map((sub) => {
+            const isSuspended = sub.status === 'SUSPENDED_AWAITING_HUMAN';
+            const isTrial = sub.status === 'TRIAL_ACTIVE' || sub.is_trial;
+            const isArmed = sub.status === 'PENDING_CANCELLATION';
+            const logoClass = getLogoClass(sub.product_name);
+            const logoChar = getLogoChar(sub.product_name);
+
+            return (
+              <article key={sub.id}>
+                {/* 1. Product Identity */}
+                <div className="sub-identity">
+                  <span className={`product-logo ${logoClass}`}>
+                    {logoChar}
+                  </span>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <strong>{sub.product_name}</strong>
+                      <span className="ap2-verified-tag">
+                        <SubGuardIcon name="check" size={9} stroke={2.4} /> AP2 Signed
+                      </span>
+                    </div>
+                    <small>
+                      {sub.product_tier || 'Team plan'} · {sub.active_seats || 1} seat{sub.active_seats > 1 ? 's' : ''}
+                    </small>
                   </div>
+                </div>
+
+                {/* 2. Status Badge */}
+                <div>
+                  {isSuspended ? (
+                    <div className="sub-status attention">
+                      <i /> Needs approval
+                    </div>
+                  ) : isArmed ? (
+                    <div className="sub-status trial">
+                      <SubGuardIcon name="shield" size={13} /> Shield armed
+                    </div>
+                  ) : isTrial ? (
+                    <div className="sub-status trial">
+                      <SubGuardIcon name="clock" size={13} /> Trial protected
+                    </div>
+                  ) : (
+                    <div className="sub-status active">
+                      <i /> Active
+                    </div>
+                  )}
+                </div>
+
+                {/* 3. Renewal / Cycle Column */}
+                <div className="sub-renew">
+                  <strong>
+                    {isSuspended
+                      ? 'Pending Approval'
+                      : formatRenewalDate(sub.next_billing_date)}
+                  </strong>
                   <small>
-                    {sub.product_tier || 'Team plan'} · {sub.active_seats || 1} seat{sub.active_seats > 1 ? 's' : ''}
+                    {isTrial ? 'Trial Expiration' : isSuspended ? 'Exceeds $50 ceiling' : 'Monthly renewal'}
                   </small>
                 </div>
-              </div>
 
-              {/* Status Badge */}
-              {isSuspended ? (
-                <div className="sub-status attention">
-                  <i /> Needs approval
+                {/* 4. Price Column (Right-Aligned Accounting Style) */}
+                <div className="sub-price">
+                  <strong>${Number(sub.recurring_amount || 0).toFixed(2)}</strong>
+                  <small>{isTrial ? '/ mo after trial' : '/ month'}</small>
                 </div>
-              ) : isArmed ? (
-                <div className="sub-status trial">
-                  <SubGuardIcon name="shield" size={13} /> Shield armed
+
+                {/* 5. Action Column (Symmetrically Fixed Footprint) */}
+                <div className="sub-action">
+                  {isSuspended ? (
+                    <button
+                      className="approve-button"
+                      onClick={() => promptApprove(sub)}
+                      aria-label={`Review request for ${sub.product_name}`}
+                      type="button"
+                    >
+                      Review request
+                    </button>
+                  ) : isArmed ? (
+                    <span className="auto-cancel-ready-tag">
+                      <SubGuardIcon name="shield" size={12} /> Auto-Cancel Ready
+                    </span>
+                  ) : (
+                    <button
+                      className="outline-button"
+                      onClick={() => promptCancel(sub)}
+                      aria-label={`Arm cancel shield for ${sub.product_name}`}
+                      title="Arm 48-Hour Cancellation Shield"
+                      type="button"
+                    >
+                      <SubGuardIcon name="shield" size={12} />
+                      Arm Shield
+                    </button>
+                  )}
                 </div>
-              ) : isTrial ? (
-                <div className="sub-status trial">
-                  <SubGuardIcon name="clock" size={13} /> Trial protected
-                </div>
-              ) : (
-                <div className="sub-status active">
-                  <i /> Active
-                </div>
-              )}
+              </article>
+            );
+          })}
 
-              {/* Renewal / Date Column */}
-              <div className="sub-renew">
-                <small>{isTrial ? 'TRIAL ENDS' : isSuspended ? 'SPEND REQUEST' : 'NEXT RENEWAL'}</small>
-                <strong>
-                  {isSuspended
-                    ? `$${Number(sub.recurring_amount || 0).toFixed(2)} / month`
-                    : formatRenewalDate(sub.next_billing_date)}
-                </strong>
-              </div>
+          {filteredSubscriptions.length === 0 && (
+            <div className="empty-state" style={{ padding: '40px 0' }}>
+              <SubGuardIcon name="card" size={28} />
+              <strong>No subscriptions in this view</strong>
+              <span>All subscriptions are monitored and governed by SubGuard.</span>
+            </div>
+          )}
+        </div>
 
-              {/* Price Column */}
-              <div className="sub-price">
-                <strong>${Number(sub.recurring_amount || 0).toFixed(2)}</strong>
-                <small>{isTrial ? '/ month after trial' : '/ month'}</small>
-              </div>
-
-              {/* Action Column */}
-              {isSuspended ? (
-                <button
-                  className="approve-button"
-                  onClick={() => promptApprove(sub)}
-                  aria-label={`Review request for ${sub.product_name}`}
-                  type="button"
-                >
-                  Review request
-                </button>
-              ) : isArmed ? (
-                <span className="auto-cancel-ready-tag">
-                  <SubGuardIcon name="shield" size={12} /> Auto-Cancel Ready
-                </span>
-              ) : (
-                <button
-                  className="outline-button"
-                  onClick={() => promptCancel(sub)}
-                  aria-label={`Arm cancel shield for ${sub.product_name}`}
-                  title="Arm 48-Hour Cancellation Shield"
-                  type="button"
-                  style={{
-                    fontSize: '11px',
-                    padding: '5px 10px',
-                    borderRadius: '6px',
-                    fontWeight: 600,
-                    whiteSpace: 'nowrap',
-                    gap: '5px',
-                    alignSelf: 'center'
-                  }}
-                >
-                  <SubGuardIcon name="shield" size={12} />
-                  Arm Shield
-                </button>
-              )}
-            </article>
-          );
-        })}
-
-        {filteredSubscriptions.length === 0 && (
-          <div className="empty-state" style={{ padding: '40px 0' }}>
-            <SubGuardIcon name="card" size={28} />
-            <strong>No subscriptions in this view</strong>
-            <span>All subscriptions are monitored and governed by SubGuard.</span>
+        {/* Ledger Summary & Cart Totals Footer */}
+        <div className="ledger-footer">
+          <div className="ledger-footer-meta">
+            <SubGuardIcon name="shield" size={14} />
+            <span>AP2 Ed25519 Cryptographically Bound · Real-Time FastMCP Enforced</span>
           </div>
-        )}
+          <div className="ledger-footer-total">
+            <span className="ledger-total-label">Total Monthly Commitment:</span>
+            <strong className="ledger-total-amount">${totalBurn.toFixed(2)}</strong>
+            <small className="ledger-total-period">/ mo</small>
+          </div>
+        </div>
       </div>
 
       {/* Detailed AG Grid Container (ALWAYS in DOM for Vitest test assertions) */}
