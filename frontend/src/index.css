@@ -851,21 +851,39 @@ main {
 }
 
 .eyebrow.status-alert {
-  background: #f9dec9;
-  color: #060723;
-  border-color: #060723;
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #f87171;
 }
 
 .eyebrow.status-warning {
-  background: #f9dec9;
-  color: #060723;
-  border-color: #1b1f9d;
+  background: #fffbeb;
+  color: #92400e;
+  border-color: #f59e0b;
 }
 
 .eyebrow.status-paused {
-  background: #ffffff;
-  color: #1b1f9d;
-  border-color: #1b1f9d;
+  background: #fffbeb;
+  color: #92400e;
+  border-color: #f59e0b;
+}
+
+.eyebrow-dot.alert {
+  background: #dc2626;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.4);
+}
+
+.eyebrow-dot.warning {
+  background: #d97706;
+  box-shadow: 0 0 6px rgba(217, 119, 6, 0.4);
+}
+
+.eyebrow-dot.paused {
+  background: #d97706;
+}
+
+.eyebrow-dot.active {
+  background: #0d9488;
 }
 
 .eyebrow-dot {
@@ -923,6 +941,34 @@ main {
   left: 0;
   right: 0;
   bottom: 4px;
+}
+
+/* Semantic Health Highlight Colors (Light Mode) */
+.welcome-copy h1 em.attention {
+  color: #c5221f;
+}
+.welcome-copy h1 em.attention:after {
+  background: #dc2626;
+}
+
+.welcome-copy h1 em.warning,
+.welcome-copy h1 em.paused {
+  color: #b45309;
+}
+.welcome-copy h1 em.warning:after,
+.welcome-copy h1 em.paused:after {
+  background: #d97706;
+}
+
+.welcome-copy h1 em.healthy,
+.welcome-copy h1 em.protected,
+.welcome-copy h1 em.clear {
+  color: #059669;
+}
+.welcome-copy h1 em.healthy:after,
+.welcome-copy h1 em.protected:after,
+.welcome-copy h1 em.clear:after {
+  background: #10b981;
 }
 
 .intro {
@@ -3253,6 +3299,39 @@ footer span {
   background: #2edcc4;
 }
 
+/* Attention (Action Required / Suspended): Vivid Coral Rose/Crimson */
+[data-theme="dark"] .welcome-copy h1 em.attention {
+  color: #ff4d6d;
+}
+[data-theme="dark"] .welcome-copy h1 em.attention:after {
+  background: #ff4d6d;
+  box-shadow: 0 0 12px rgba(255, 77, 109, 0.65);
+}
+
+/* Warning & Paused: Vibrant Amber / Orange */
+[data-theme="dark"] .welcome-copy h1 em.warning,
+[data-theme="dark"] .welcome-copy h1 em.paused {
+  color: #fbbf24;
+}
+[data-theme="dark"] .welcome-copy h1 em.warning:after,
+[data-theme="dark"] .welcome-copy h1 em.paused:after {
+  background: #fbbf24;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.65);
+}
+
+/* Positive / Healthy / Protected: High-Vibrancy Electric Turquoise */
+[data-theme="dark"] .welcome-copy h1 em.healthy,
+[data-theme="dark"] .welcome-copy h1 em.protected,
+[data-theme="dark"] .welcome-copy h1 em.clear {
+  color: #2edcc4;
+}
+[data-theme="dark"] .welcome-copy h1 em.healthy:after,
+[data-theme="dark"] .welcome-copy h1 em.protected:after,
+[data-theme="dark"] .welcome-copy h1 em.clear:after {
+  background: #2edcc4;
+  box-shadow: 0 0 12px rgba(46, 220, 196, 0.5);
+}
+
 [data-theme="dark"] .eyebrow {
   color: #2edcc4;
   background: rgba(46, 220, 196, 0.15);
@@ -3266,37 +3345,41 @@ footer span {
 }
 
 [data-theme="dark"] .eyebrow.status-alert {
-  color: #f9dec9;
-  background: rgba(249, 222, 201, 0.16);
-  border-color: rgba(249, 222, 201, 0.4);
+  color: #ff6b81;
+  background: rgba(255, 77, 109, 0.16);
+  border-color: rgba(255, 77, 109, 0.45);
 }
 
 [data-theme="dark"] .eyebrow.status-warning {
-  color: #f9dec9;
-  background: rgba(249, 222, 201, 0.14);
-  border-color: #20296e;
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(245, 158, 11, 0.45);
 }
 
 [data-theme="dark"] .eyebrow.status-paused {
-  color: #ffffff;
-  background: rgba(32, 41, 110, 0.25);
-  border-color: #20296e;
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(245, 158, 11, 0.45);
 }
 
 [data-theme="dark"] .eyebrow-dot.active {
   background: #2edcc4;
+  box-shadow: 0 0 8px rgba(46, 220, 196, 0.7);
 }
 
 [data-theme="dark"] .eyebrow-dot.alert {
-  background: #f9dec9;
+  background: #ff4d6d;
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.7);
 }
 
 [data-theme="dark"] .eyebrow-dot.warning {
-  background: #f9dec9;
+  background: #fbbf24;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
 }
 
 [data-theme="dark"] .eyebrow-dot.paused {
-  background: #ffffff;
+  background: #fbbf24;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
 }
 
 [data-theme="dark"] .intro,
