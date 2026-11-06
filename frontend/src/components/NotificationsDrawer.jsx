@@ -169,3 +169,4 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
     </div>
   );
 }
+
