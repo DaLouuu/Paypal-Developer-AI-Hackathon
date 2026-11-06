@@ -224,6 +224,11 @@ html {
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.15em;
+  transition: color 0.2s ease;
+}
+
+.brand:hover .brand-lockup small {
+  color: #216e65;
 }
 
 nav {
@@ -3173,6 +3178,15 @@ footer span {
 [data-theme="dark"] .empty-state strong,
 [data-theme="dark"] footer .brand-name {
   color: #f9dec9;
+}
+
+[data-theme="dark"] .brand-lockup small {
+  color: #f9dec9;
+  letter-spacing: 0.16em;
+}
+
+[data-theme="dark"] .brand:hover .brand-lockup small {
+  color: #2edcc4;
 }
 
 [data-theme="dark"] nav a {
