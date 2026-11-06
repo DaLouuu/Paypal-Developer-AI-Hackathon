@@ -1513,13 +1513,25 @@ main {
   background: transparent;
   font-size: 11px;
 }
-.search-box span {
+.search-box input::placeholder {
+  color: rgba(6, 7, 35, 0.55);
+}
+.search-box span,
+.search-box kbd,
+.search-box .search-shortcut {
   white-space: nowrap;
+  font-family: inherit;
   font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   background: #ffffff;
+  color: #1b1f9d;
   border: 1px solid #1b1f9d;
-  padding: 3px 5px;
+  padding: 3px 6px;
   border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 .search-clear {
   width: 20px;
@@ -2710,10 +2722,15 @@ footer {
 [data-theme="dark"] .search-box input {
   color: #ffffff;
 }
-[data-theme="dark"] .search-box span {
+[data-theme="dark"] .search-box input::placeholder {
+  color: rgba(249, 222, 201, 0.7);
+}
+[data-theme="dark"] .search-box span,
+[data-theme="dark"] .search-box kbd,
+[data-theme="dark"] .search-box .search-shortcut {
   color: #f9dec9;
   background: #060723;
-  border-color: #1b1f9d;
+  border-color: rgba(249, 222, 201, 0.35);
 }
 [data-theme="dark"] .search-clear {
   color: #060723;

@@ -167,7 +167,23 @@ export default function DiscoverySearch({ onSelectTool }) {
   const [soc2Only, setSoc2Only] = useState(false);
   const [favorites, setFavorites] = useState(['prod_notion', 'prod_figma']);
   const [compareList, setCompareList] = useState([]);
+  const [shortcutKey, setShortcutKey] = useState('Ctrl K');
   const searchRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
+      const platform =
+        navigator.userAgentData?.platform ||
+        navigator.platform ||
+        navigator.userAgent ||
+        '';
+      if (/mac|iphone|ipad|ipod/i.test(platform)) {
+        setShortcutKey('⌘K');
+      } else {
+        setShortcutKey('Ctrl K');
+      }
+    }
+  }, []);
 
   const toggleFavorite = (productId, e) => {
     e.stopPropagation();
@@ -299,7 +315,13 @@ export default function DiscoverySearch({ onSelectTool }) {
                   ×
                 </button>
               )}
-              <span>⌘ K</span>
+              <kbd
+                className="search-shortcut"
+                title={shortcutKey === '⌘K' ? 'Press ⌘K to search' : 'Press Ctrl+K to search'}
+                aria-label={`Search shortcut: ${shortcutKey}`}
+              >
+                {shortcutKey}
+              </kbd>
             </label>
           </div>
         </div>
