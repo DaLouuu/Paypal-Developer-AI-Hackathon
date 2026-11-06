@@ -160,6 +160,32 @@ const SUGGESTIONS = [
   'Predictable pricing without renewal traps'
 ];
 
+export const getTagMeta = (tag) => {
+  const norm = (tag || '').toLowerCase();
+  if (norm.includes('hot') || norm.includes('deal')) {
+    return { className: 'tag-hot-deal', icon: 'flame' };
+  }
+  if (norm.includes('trap') || norm.includes('risk') || norm.includes('danger')) {
+    return { className: 'tag-contract-trap', icon: 'alert' };
+  }
+  if (norm.includes('ai') || norm.includes('trend')) {
+    return { className: 'tag-trending-ai', icon: 'sparkle' };
+  }
+  if (norm.includes('seller') || norm.includes('star') || norm.includes('popular')) {
+    return { className: 'tag-best-seller', icon: 'star' };
+  }
+  if (norm.includes('soc') || norm.includes('security') || norm.includes('compliance')) {
+    return { className: 'tag-soc2', icon: 'shield' };
+  }
+  if (norm.includes('team') || norm.includes('collab')) {
+    return { className: 'tag-teams', icon: 'grid' };
+  }
+  if (norm.includes('enterprise') || norm.includes('scale')) {
+    return { className: 'tag-enterprise', icon: 'card' };
+  }
+  return { className: 'tag-default', icon: null };
+};
+
 export default function DiscoverySearch({ onSelectTool }) {
   const [category, setCategory] = useState('For you');
   const [query, setQuery] = useState('');
@@ -365,7 +391,15 @@ export default function DiscoverySearch({ onSelectTool }) {
             >
               {/* Card Topline: Tag + Compare + Wishlist Heart */}
               <div className="product-topline">
-                <span className="product-tag">{product.tag}</span>
+                {(() => {
+                  const tagMeta = getTagMeta(product.tag);
+                  return (
+                    <span className={`product-tag ${tagMeta.className}`}>
+                      {tagMeta.icon && <SubGuardIcon name={tagMeta.icon} size={11} stroke={2.2} />}
+                      <span>{product.tag}</span>
+                    </span>
+                  );
+                })()}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <button
                     className={`compare-btn ${compareList.some(p => p.product_id === product.product_id) ? 'active' : ''}`}

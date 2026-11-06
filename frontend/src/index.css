@@ -1634,14 +1634,58 @@ main {
   color: #060723;
   border: 1.5px solid #1b1f9d;
   border-radius: 6px;
-  padding: 4px 8px;
+  padding: 3px 8px;
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 4.5px;
+  line-height: 1.2;
+  transition: all 0.2s ease;
+}
+.product-tag svg {
+  flex-shrink: 0;
+}
+
+/* Light Mode Semantic Tag Variants */
+.product-tag.tag-hot-deal {
+  background: #fff1f2;
+  color: #e11d48;
+  border-color: #f43f5e;
+  box-shadow: 0 1px 3px rgba(244, 63, 94, 0.15);
+}
+.product-tag.tag-contract-trap {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #dc2626;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2);
+}
+.product-tag.tag-trending-ai {
+  background: rgba(46, 220, 196, 0.14);
+  color: #0f766e;
+  border-color: #0d9488;
+}
+.product-tag.tag-best-seller {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #f59e0b;
+}
+.product-tag.tag-soc2 {
+  background: rgba(33, 110, 101, 0.12);
+  color: #216e65;
+  border-color: #216e65;
+}
+.product-tag.tag-teams {
+  background: #eef2ff;
+  color: #1b1f9d;
+  border-color: #1b1f9d;
+}
+.product-tag.tag-enterprise {
+  background: #f8fafc;
+  color: #060723;
+  border-color: #060723;
 }
 .wishlist-btn {
   width: 28px;
@@ -2823,7 +2867,49 @@ footer {
 [data-theme="dark"] .product-tag {
   color: #f9dec9;
   background: rgba(249, 222, 201, 0.12);
-  border: 1px solid rgba(249, 222, 201, 0.25);
+  border: 1.5px solid rgba(249, 222, 201, 0.25);
+}
+[data-theme="dark"] .product-tag.tag-hot-deal {
+  background: rgba(255, 51, 92, 0.22);
+  color: #ff94a7;
+  border-color: #ff335c;
+  box-shadow: 0 0 10px rgba(255, 51, 92, 0.35);
+}
+[data-theme="dark"] .product-tag.tag-contract-trap {
+  background: rgba(239, 68, 68, 0.28);
+  color: #fca5a5;
+  border-color: #f87171;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+[data-theme="dark"] .product-tag.tag-trending-ai {
+  background: rgba(46, 220, 196, 0.22);
+  color: #2edcc4;
+  border-color: #2edcc4;
+  box-shadow: 0 0 10px rgba(46, 220, 196, 0.3);
+}
+[data-theme="dark"] .product-tag.tag-best-seller {
+  background: rgba(245, 158, 11, 0.22);
+  color: #fde68a;
+  border-color: #fbbf24;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+[data-theme="dark"] .product-tag.tag-soc2 {
+  background: rgba(33, 110, 101, 0.35);
+  color: #a7f3d0;
+  border-color: #34d399;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.25);
+}
+[data-theme="dark"] .product-tag.tag-teams {
+  background: rgba(99, 102, 241, 0.25);
+  color: #c7d2fe;
+  border-color: #818cf8;
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.3);
+}
+[data-theme="dark"] .product-tag.tag-enterprise {
+  background: rgba(249, 222, 201, 0.16);
+  color: #ffffff;
+  border-color: #f9dec9;
+  box-shadow: 0 0 8px rgba(249, 222, 201, 0.2);
 }
 [data-theme="dark"] .trust-row .guard-score {
   color: #2edcc4;
