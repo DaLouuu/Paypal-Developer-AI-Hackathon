@@ -288,7 +288,7 @@ export default function App() {
   };
 
   return (
-    <div className="app-shell" style={{ paddingBottom: '90px' }}>
+    <div className="app-shell">
       {/* Loading Screen Overlay */}
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
 
