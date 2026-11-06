@@ -402,15 +402,15 @@ main {
 
 /* Multi-Page Route Transitions & Headers */
 .page-container {
-  animation: page-fade-in 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 30px 0 60px;
+  animation: page-fade-in 0.18s ease;
+  padding: 16px 0 40px;
   width: 100%;
 }
 
 @keyframes page-fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
@@ -424,10 +424,10 @@ main {
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 .page-breadcrumb a {
   color: var(--muted);
@@ -444,23 +444,23 @@ main {
 }
 
 .page-header {
-  margin-bottom: 36px;
+  margin-bottom: 18px;
 }
 .page-header h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(38px, 4vw, 56px);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin: 14px 0 10px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
   color: var(--navy);
 }
 .page-header p {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--muted);
   max-width: 720px;
-  line-height: 1.6;
-  margin: 0;
+  line-height: 1.5;
+  margin: 4px 0 0;
 }
 
 /* Home Destinations Shortcuts Grid */
@@ -3157,6 +3157,14 @@ footer {
   }
 }
 @media (max-width: 560px) {
+  main {
+    width: calc(100% - 24px);
+    margin: 0 auto;
+  }
+  .loading-screen {
+    max-width: 100vw;
+    overflow: hidden;
+  }
   .brand-name {
     font-size: 17px;
   }
@@ -3179,29 +3187,34 @@ footer {
     padding-top: 0;
   }
   .welcome-copy h1 {
-    font-size: 39px;
-    letter-spacing: -2.6px;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    word-break: break-word;
   }
   .intro {
-    font-size: 15px;
+    font-size: 14px;
   }
   .hero-actions {
     align-items: flex-start;
     flex-direction: column;
-    gap: 17px;
+    gap: 14px;
   }
   .spend-story {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 14px;
   }
   .mini-chart {
     grid-column: 1/-1;
-    grid-row: 2;
+    grid-row: auto;
+    max-width: 100%;
+    overflow-x: hidden;
   }
   .spend-meta {
-    justify-self: end;
+    justify-self: start;
   }
   .shield-panel {
-    padding: 24px 21px;
+    padding: 18px 16px;
   }
   .renewal-ribbon {
     flex-wrap: wrap;

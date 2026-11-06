@@ -231,44 +231,7 @@ export default function DiscoverySearch({ onSelectTool }) {
 
   return (
     <section className="marketplace-section" id="discover">
-      {/* Amazon-Style High-Conversion Guarantee Banner */}
-      <div className="ecommerce-promo-banner">
-        <div className="promo-copy">
-          <span className="promo-kicker">
-            <SubGuardIcon name="sparkle" size={13} /> SUBGUARD EXCLUSIVE GUARANTEE
-          </span>
-          <h3>48-Hour Cancellation Shield on Every Subscription</h3>
-          <p>
-            Browse curated software provisioned through PayPal with deterministic spend limits. SubGuard intercepts checkout, checks contract terms, and auto-schedules rollover shields.
-          </p>
-          <div className="promo-perks">
-            <span><SubGuardIcon name="check" size={13} /> Ed25519 Cryptographic Signatures</span>
-            <span><SubGuardIcon name="check" size={13} /> 48h Autopilot Rollover Blocker</span>
-            <span><SubGuardIcon name="check" size={13} /> $50.00 Autonomous Spend Ceiling</span>
-          </div>
-        </div>
-        <div className="promo-badge-box">
-          <div className="promo-badge-icon">
-            <SubGuardIcon name="shield" size={38} stroke={2.4} />
-          </div>
-          <strong>100% Protected</strong>
-          <small>PayPal Dev Sandbox</small>
-        </div>
-      </div>
-
-      {/* Section Header */}
-      <div className="section-heading">
-        <div>
-          <span className="section-kicker">THE SUBGUARD EDIT</span>
-          <h2>Software worth paying for.</h2>
-          <p>Handpicked tools with transparent pricing, verified compliance, and zero auto-renewal traps.</p>
-        </div>
-        <a href="#discover">
-          Browse all software <SubGuardIcon name="arrow" size={17} />
-        </a>
-      </div>
-
-      {/* Toolbar: Categories & Search Bar */}
+      {/* Toolbar: Categories, SOC-2 Toggle & Search Bar */}
       <div className="market-toolbar" style={{ flexDirection: 'column', gap: '14px', alignItems: 'stretch' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           {/* Categories Tablist */}
@@ -295,14 +258,15 @@ export default function DiscoverySearch({ onSelectTool }) {
                 alignItems: 'center',
                 gap: '6px',
                 fontSize: '11px',
-                fontWeight: 600,
+                fontWeight: 700,
                 cursor: 'pointer',
-                color: soc2Only ? '#2edcc4' : 'var(--muted)',
+                color: soc2Only ? '#060723' : 'var(--navy)',
                 background: soc2Only ? '#2edcc4' : 'transparent',
-                border: '1px solid',
-                borderColor: soc2Only ? '#2edcc4' : 'var(--line)',
+                border: '1.5px solid',
+                borderColor: soc2Only ? '#060723' : 'var(--line)',
                 padding: '8px 12px',
-                borderRadius: '9px',
+                borderRadius: '8px',
+                boxShadow: soc2Only ? '2px 2px 0px #060723' : 'none',
                 transition: 'all 0.15s ease'
               }}
             >

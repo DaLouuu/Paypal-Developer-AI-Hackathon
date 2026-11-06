@@ -67,6 +67,7 @@ export default function LoadingScreen({ onComplete }) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
+        overflow: 'hidden',
         background: 'var(--cream, #ffffff)',
         display: 'flex',
         flexDirection: 'column',
@@ -83,8 +84,8 @@ export default function LoadingScreen({ onComplete }) {
       <div
         style={{
           position: 'absolute',
-          width: '500px',
-          height: '500px',
+          width: 'min(500px, 90vw)',
+          height: 'min(500px, 90vw)',
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(33, 110, 101, 0.14) 0%, rgba(46, 220, 196, 0.06) 50%, transparent 70%)',
           pointerEvents: 'none',
@@ -102,7 +103,7 @@ export default function LoadingScreen({ onComplete }) {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          maxWidth: '440px',
+          maxWidth: 'min(440px, calc(100vw - 32px))',
           width: '100%'
         }}
       >

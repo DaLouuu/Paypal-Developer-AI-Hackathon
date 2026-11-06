@@ -326,16 +326,12 @@ export default function App() {
             <div className="page-breadcrumb">
               <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
               <span>/</span>
-              <strong>Discover Software</strong>
+              <strong>Software Catalog</strong>
             </div>
-            <div className="page-header">
-              <span className="eyebrow">
-                <SubGuardIcon name="compass" size={14} /> SaaS DISCOVERY MARKETPLACE
-              </span>
-              <h1>Find vetted software without hidden traps.</h1>
-              <p>
-                Every SaaS product is pre-analyzed for dark pattern traps, auto-renewal contracts, and compliant spending limits before provisioning.
-              </p>
+            <div className="page-header" style={{ marginBottom: '16px' }}>
+              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
+                Software Catalog
+              </h1>
             </div>
             <DiscoverySearch onSelectTool={handleSelectTool} />
           </div>
@@ -346,16 +342,12 @@ export default function App() {
             <div className="page-breadcrumb">
               <a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>Home</a>
               <span>/</span>
-              <strong>My Subscriptions</strong>
+              <strong>Subscription Ledger</strong>
             </div>
-            <div className="page-header">
-              <span className="eyebrow">
-                <SubGuardIcon name="card" size={14} /> SUBSCRIPTION MANAGEMENT CENTER
-              </span>
-              <h1>My Subscriptions</h1>
-              <p>
-                Review active software subscriptions, monitor upcoming trial expirations, and approve autonomous agent spending requests.
-              </p>
+            <div className="page-header" style={{ marginBottom: '16px' }}>
+              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
+                Subscription Ledger
+              </h1>
             </div>
 
             <section className="subscriptions-section">
@@ -376,14 +368,10 @@ export default function App() {
               <span>/</span>
               <strong>Protection Center</strong>
             </div>
-            <div className="page-header">
-              <span className="eyebrow">
-                <SubGuardIcon name="shield" size={14} /> AUTOPILOT GOVERNANCE & PROTOCOLS
-              </span>
-              <h1>SubGuard Protection Center</h1>
-              <p>
-                Deterministic spending ceilings, 48-hour trial cancellation safeguards, and Ed25519 cryptographic protocol verification.
-              </p>
+            <div className="page-header" style={{ marginBottom: '16px' }}>
+              <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
+                Protection & Autopilot
+              </h1>
             </div>
 
             <div className="protection-grid">
