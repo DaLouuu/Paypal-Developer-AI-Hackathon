@@ -2978,43 +2978,37 @@ main {
   margin: 0;
 }
 
-.promise button,
-.promise a,
 .promise-cta {
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 12px 15px;
-  border-radius: 9px;
-  font-size: 11px;
+  border: 1.5px solid #060723;
+  background: #ffffff;
+  color: #060723;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 12px;
   font-weight: 700;
-  display: flex;
-  gap: 10px;
+  display: inline-flex;
+  gap: 8px;
   align-items: center;
   white-space: nowrap;
-  background: transparent;
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 2px 2px 0px #060723;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.promise button:hover,
-.promise a:hover,
 .promise-cta:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.18) !important;
-  border-color: white !important;
-  box-shadow: 0 8px 22px rgba(255, 255, 255, 0.16);
+  transform: translate(-1px, -1px);
+  background: #f9dec9;
+  border-color: #060723;
+  color: #060723;
+  box-shadow: 3px 3px 0px #060723;
 }
 
-.promise button svg,
-.promise a svg,
 .promise-cta svg {
-  transition: transform 0.2s ease;
+  transition: transform 0.15s ease;
 }
 
-.promise button:hover svg,
-.promise a:hover svg,
 .promise-cta:hover svg {
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
 
 footer {
@@ -3406,7 +3400,38 @@ footer span {
 
 [data-theme="dark"] .promise {
   background: linear-gradient(145deg, #1b1f9d, #060723);
-  border: 1px solid rgba(33, 110, 101, 0.2);
+  border: 1px solid rgba(46, 220, 196, 0.25);
+  box-shadow: 4px 4px 0px #060723;
+}
+
+[data-theme="dark"] .promise span {
+  color: #2edcc4;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .promise h2 {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .promise p {
+  color: #f9dec9;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+[data-theme="dark"] .promise-cta {
+  background: #060723 !important;
+  color: #ffffff !important;
+  border: 1.5px solid #2edcc4 !important;
+  box-shadow: 2px 2px 0px #060723 !important;
+}
+
+[data-theme="dark"] .promise-cta:hover {
+  background: #2edcc4 !important;
+  color: #060723 !important;
+  border-color: #2edcc4 !important;
+  box-shadow: 3px 3px 0px #060723 !important;
+  transform: translateY(-2px);
 }
 
 [data-theme="dark"] .live-label {

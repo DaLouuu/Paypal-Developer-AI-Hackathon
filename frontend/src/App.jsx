@@ -918,21 +918,9 @@ export default function App() {
                 type="button"
                 className="outline-button promise-cta"
                 onClick={() => navigateTo('protection')}
-                style={{
-                  background: 'transparent',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  padding: '12px 15px',
-                  borderRadius: '9px',
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  color: 'white',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px'
-                }}
               >
-                How protection works <SubGuardIcon name="arrow" size={17} />
+                <span>How protection works</span>
+                <SubGuardIcon name="arrow" size={16} />
               </button>
             </section>
           </div>
