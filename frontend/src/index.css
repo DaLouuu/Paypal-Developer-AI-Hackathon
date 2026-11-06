@@ -1305,7 +1305,7 @@ main {
   padding: 5px 10px;
 }
 .marketplace-section {
-  padding: 89px 0 95px;
+  padding: 0 0 60px;
 }
 .ecommerce-promo-banner {
   background: linear-gradient(135deg, #1b1f9d 0%, #060723 100%);
@@ -1800,10 +1800,10 @@ main {
   color: var(--navy);
 }
 .subscriptions-section {
-  margin: 0 calc((100vw - min(1240px, calc(100vw - 48px))) / -2);
-  background: #fff;
-  padding: 84px max(calc((100vw - 1240px) / 2), 24px) 91px;
-  border-top: 1px solid #1b1f9d;
+  margin: 0;
+  background: transparent;
+  padding: 0 0 60px;
+  border-top: none;
 }
 .section-heading.compact {
   margin-bottom: 30px;
@@ -2815,8 +2815,8 @@ footer {
   color: #2edcc4;
 }
 [data-theme="dark"] .subscriptions-section {
-  background: #1b1f9d;
-  border-color: #1b1f9d;
+  background: transparent;
+  border-color: transparent;
 }
 [data-theme="dark"] .confirm-icon-box.danger {
   background-color: #060723;
