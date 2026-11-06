@@ -748,7 +748,7 @@ main {
 /* Multi-Page Route Transitions & Headers */
 .page-container {
   animation: page-fade-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 30px 0 60px;
+  padding: 24px 0 28px;
   width: 100%;
 }
 
@@ -3020,7 +3020,7 @@ main {
   color: var(--muted, #1b1f9d);
 }
 .promise {
-  margin: 72px 0;
+  margin: 36px 0 24px;
   border-radius: 14px;
   background: var(--surface);
   color: var(--navy);
@@ -3116,14 +3116,14 @@ main {
 }
 
 footer {
-  min-height: 105px;
-  border-top: 1px solid #1b1f9d;
+  min-height: 70px;
+  border-top: 1.5px solid var(--line);
   width: min(1240px, calc(100% - 48px));
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #1b1f9d;
+  color: var(--line);
   font-size: 12px;
 }
 
