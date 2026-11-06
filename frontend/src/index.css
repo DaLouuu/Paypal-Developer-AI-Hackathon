@@ -44,12 +44,12 @@
   --green-soft: rgba(46, 220, 196, 0.18);
   --yellow: #f9dec9;
   --yellow-light: #f9dec9;
-  --muted: #1b1f9d;
-  --line: #1b1f9d;
-  --surface: #f0f4fe;
-  --surface-soft: #dbe5f9;
+  --muted: #4a5578;
+  --line: #a6bbe2;
+  --surface: #ffffff;
+  --surface-soft: #f0f4fe;
   --text: #060723;
-  --text-muted: #1b1f9d;
+  --text-muted: #4a5578;
   --meter-inactive: rgba(6, 7, 35, 0.15);
   --timeline-grid-line: rgba(27, 31, 157, 0.15);
   --trial-label-color: #92400e;
@@ -267,7 +267,7 @@ html {
 
 .brand-lockup small {
   margin-top: 5px;
-  color: #1b1f9d;
+  color: var(--muted);
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -486,7 +486,7 @@ nav a.active svg {
 .profile-copy small {
   font-size: 10px;
   font-weight: 600;
-  color: #1b1f9d;
+  color: var(--muted);
   white-space: nowrap;
 }
 
@@ -880,8 +880,8 @@ main {
   border-radius: 6px;
   color: #060723;
   background: #2edcc4;
-  border: 1.5px solid #060723;
-  box-shadow: 2px 2px 0px #060723;
+  border: 1.5px solid var(--line);
+  box-shadow: 2px 2px 0px rgba(6, 7, 35, 0.15);
   font-weight: 700;
   font-family: var(--font-sans);
   cursor: pointer;
@@ -890,48 +890,53 @@ main {
 
 .eyebrow:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px #060723;
+  box-shadow: 3px 3px 0px rgba(6, 7, 35, 0.22);
 }
 
 .eyebrow:active {
   transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px #060723;
+  box-shadow: 1px 1px 0px rgba(6, 7, 35, 0.15);
 }
 
 .eyebrow.status-alert {
   background: #fef2f2;
   color: #991b1b;
   border-color: #f87171;
+  box-shadow: 2px 2px 0px rgba(220, 38, 38, 0.2);
 }
 
 .eyebrow.status-warning {
   background: #fffbeb;
   color: #92400e;
   border-color: #f59e0b;
+  box-shadow: 2px 2px 0px rgba(217, 119, 6, 0.2);
 }
 
 .eyebrow.status-paused {
   background: #fffbeb;
   color: #92400e;
   border-color: #f59e0b;
+  box-shadow: 2px 2px 0px rgba(217, 119, 6, 0.2);
 }
 
 .eyebrow-dot.alert {
-  background: #dc2626;
-  box-shadow: 0 0 6px rgba(220, 38, 38, 0.4);
+  background: #f97316;
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.5);
 }
 
 .eyebrow-dot.warning {
-  background: #d97706;
-  box-shadow: 0 0 6px rgba(217, 119, 6, 0.4);
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
 }
 
 .eyebrow-dot.paused {
-  background: #d97706;
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);
 }
 
 .eyebrow-dot.active {
   background: #0d9488;
+  box-shadow: 0 0 6px rgba(13, 148, 136, 0.5);
 }
 
 .eyebrow-dot {
@@ -944,22 +949,6 @@ main {
 
 .eyebrow-dot.pulse {
   animation: pulse-dot 2s infinite ease-in-out;
-}
-
-.eyebrow-dot.active {
-  background: #060723;
-}
-
-.eyebrow-dot.alert {
-  background: #1b1f9d;
-}
-
-.eyebrow-dot.warning {
-  background: #1b1f9d;
-}
-
-.eyebrow-dot.paused {
-  background: #1b1f9d;
 }
 
 .welcome-copy h1 {
