@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import BrandLogo from './components/BrandLogo';
+import HomeDashboard from './components/HomeDashboard';
+import DiscoverySearch from './components/DiscoverySearch';
 import SubscriptionTable from './components/SubscriptionTable';
 import RenewalTimeline from './components/RenewalTimeline';
-import DiscoverySearch from './components/DiscoverySearch';
-import { Shield, Lock, Bell, ChevronDown, CheckCircle2, Cpu, ExternalLink } from 'lucide-react';
+import ProductCompareDrawer from './components/ProductCompareDrawer';
+import { Home, Compass, CreditCard, Shield, Lock, Bell, ChevronDown, CheckCircle2, Cpu, ExternalLink } from 'lucide-react';
 
 const INITIAL_SUBSCRIPTIONS = [
   {
@@ -54,7 +57,9 @@ const INITIAL_SUBSCRIPTIONS = [
 ];
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState('home'); // 'home' | 'discover' | 'subscriptions' | 'protection'
   const [subscriptions, setSubscriptions] = useState(INITIAL_SUBSCRIPTIONS);
+  const [compareList, setCompareList] = useState([]);
 
   const handleCancel = (id) => {
     setSubscriptions(prev =>
@@ -85,155 +90,179 @@ export default function App() {
       tos_risk_score: tool.tos_risk_score
     };
     setSubscriptions(prev => [newSub, ...prev]);
+    setActiveTab('subscriptions');
+  };
+
+  const handleToggleCompare = (tool) => {
+    setCompareList(prev => {
+      const exists = prev.some(item => item.product_id === tool.product_id);
+      if (exists) {
+        return prev.filter(item => item.product_id !== tool.product_id);
+      }
+      if (prev.length >= 3) {
+        alert('You can compare up to 3 SaaS products side-by-side.');
+        return prev;
+      }
+      return [...prev, tool];
+    });
+  };
+
+  const handleRemoveCompare = (productId) => {
+    setCompareList(prev => prev.filter(item => item.product_id !== productId));
+  };
+
+  const handleClearCompare = () => {
+    setCompareList([]);
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc', color: '#0f172a' }}>
-      {/* Enterprise Application Header */}
+    <div style={{ minHeight: '100vh', backgroundColor: '#FAFBFC', color: '#17243D', display: 'flex', flexDirection: 'column' }}>
+      {/* Enterprise Customer Header */}
       <header
         style={{
           backgroundColor: '#ffffff',
-          borderBottom: '1px solid #e2e8f0',
+          borderBottom: '1px solid #E1E8F0',
           padding: '0 32px',
-          height: '60px',
+          height: '66px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           position: 'sticky',
           top: 0,
-          zIndex: 100
+          zIndex: 100,
+          boxShadow: '0 1px 3px rgba(23, 36, 61, 0.03)'
         }}
       >
-        {/* Brand & Wordmark */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div
-            style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '8px',
-              backgroundColor: '#0f172a',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff'
-            }}
-          >
-            <Shield size={18} strokeWidth={2.5} />
+        {/* Brand Logo & Wordmark */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
+          <div style={{ cursor: 'pointer' }} onClick={() => setActiveTab('home')}>
+            <BrandLogo size={34} showWordmark={true} />
           </div>
 
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.02em' }}>
-                SubGuard AI
+          {/* 4 Customer-Facing Destinations */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <button
+              type="button"
+              className={`nav-pill ${activeTab === 'home' ? 'active' : ''}`}
+              onClick={() => setActiveTab('home')}
+            >
+              <Home size={15} />
+              <span>Home</span>
+            </button>
+            <button
+              type="button"
+              className={`nav-pill ${activeTab === 'discover' ? 'active' : ''}`}
+              onClick={() => setActiveTab('discover')}
+            >
+              <Compass size={15} />
+              <span>Discover</span>
+            </button>
+            <button
+              type="button"
+              className={`nav-pill ${activeTab === 'subscriptions' ? 'active' : ''}`}
+              onClick={() => setActiveTab('subscriptions')}
+            >
+              <CreditCard size={15} />
+              <span>My Subscriptions</span>
+              <span style={{ fontSize: '10px', backgroundColor: activeTab === 'subscriptions' ? '#4568F5' : '#F0F3F8', color: activeTab === 'subscriptions' ? '#ffffff' : '#687F9E', borderRadius: '100px', padding: '1px 6px', fontWeight: 700 }}>
+                {subscriptions.length}
               </span>
-              <span style={{ fontSize: '10px', fontWeight: 600, color: '#2563eb', backgroundColor: '#eff6ff', border: '1px solid #dbeafe', borderRadius: '4px', padding: '1px 5px' }}>
-                v1.0
-              </span>
-            </div>
-            <div style={{ fontSize: '11px', color: '#64748b', lineHeight: 1 }}>
-              Autonomous Subscription Governance & Protocol Proxy
-            </div>
-          </div>
+            </button>
+            <button
+              type="button"
+              className={`nav-pill ${activeTab === 'protection' ? 'active' : ''}`}
+              onClick={() => setActiveTab('protection')}
+            >
+              <Shield size={15} />
+              <span>Protection</span>
+              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#22B982' }} />
+            </button>
+          </nav>
         </div>
 
-        {/* Live Operational Status Indicators */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          {/* FastMCP Gateway Status */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '12px', color: '#334155', backgroundColor: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '5px 10px' }}>
+        {/* Live Operational Beacon & Profile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+          {/* FastMCP Gateway Beacon */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#293A55', backgroundColor: '#F0F3F8', border: '1px solid #D0D9E7', borderRadius: '8px', padding: '5px 12px' }}>
             <span className="beacon-online" />
             <span style={{ fontWeight: 500 }}>FastMCP Proxy:</span>
-            <strong style={{ color: '#059669', fontWeight: 600 }}>ONLINE (port 8000)</strong>
+            <strong style={{ color: '#188A60', fontWeight: 700 }}>ONLINE (8000)</strong>
           </div>
 
-          {/* AP2 Cryptographic Verifier */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', color: '#475569' }}>
-            <Lock size={13} color="#2563eb" />
-            <span>AP2 Ed25519: <strong style={{ color: '#0f172a' }}>ENFORCED</strong></span>
+          {/* AP2 Cryptographic Protocol Badge */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#4C607C' }}>
+            <Lock size={13} color="#4568F5" />
+            <span>AP2 Ed25519: <strong style={{ color: '#17243D' }}>ENFORCED</strong></span>
           </div>
 
-          <div style={{ width: '1px', height: '24px', backgroundColor: '#e2e8f0' }} />
+          <div style={{ width: '1px', height: '24px', backgroundColor: '#E1E8F0' }} />
 
-          {/* User Profile Selector */}
+          {/* User Account / Profile */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
             <div
               style={{
-                width: '28px',
-                height: '28px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '50%',
-                backgroundColor: '#e2e8f0',
+                backgroundColor: '#17243D',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '11px',
+                fontSize: '12px',
                 fontWeight: 700,
-                color: '#334155'
+                color: '#ffffff'
               }}
             >
               FA
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '12px', fontWeight: 600, color: '#0f172a' }}>Founder Admin</span>
-              <span style={{ fontSize: '10px', color: '#64748b' }}>PayPal Dev Sandbox</span>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#17243D', lineHeight: 1.2 }}>Founder Admin</span>
+              <span style={{ fontSize: '10px', color: '#687F9E' }}>PayPal Dev Sandbox</span>
             </div>
-            <ChevronDown size={14} color="#94a3b8" />
+            <ChevronDown size={14} color="#687F9E" />
           </div>
         </div>
       </header>
 
-      {/* Main Container - Full-Width Balanced Layout */}
-      <main style={{ maxWidth: '1440px', margin: '0 auto', padding: '32px 32px 64px 32px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
-        {/* Hero Operational Banner */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1px solid #e2e8f0', paddingBottom: '16px' }}>
-          <div>
-            <h1 style={{ margin: 0, fontSize: '20px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.02em' }}>
-              Subscription Governance & Discovery Console
-            </h1>
-            <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#64748b' }}>
-              Continuous SaaS vendor discovery, contractual ToS dark-pattern risk scoring, and autonomous trial auto-cancellation.
-            </p>
-          </div>
+      {/* Main Container */}
+      <main style={{ maxWidth: '1440px', width: '100%', margin: '0 auto', padding: '32px 32px 96px 32px', flex: 1, display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        {activeTab === 'home' && (
+          <HomeDashboard
+            subscriptions={subscriptions}
+            onNavigate={setActiveTab}
+            onApproveSuspension={handleApprove}
+            onCancelSubscription={handleCancel}
+          />
+        )}
 
-          {/* Architecture Journey Pills: Discover -> Evaluate -> Govern -> Protect */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', fontWeight: 600 }}>
-            <span style={{ color: '#2563eb', backgroundColor: '#eff6ff', padding: '3px 8px', borderRadius: '4px' }}>1. Discover</span>
-            <span style={{ color: '#cbd5e1' }}>→</span>
-            <span style={{ color: '#2563eb', backgroundColor: '#eff6ff', padding: '3px 8px', borderRadius: '4px' }}>2. Evaluate</span>
-            <span style={{ color: '#cbd5e1' }}>→</span>
-            <span style={{ color: '#059669', backgroundColor: '#ecfdf5', padding: '3px 8px', borderRadius: '4px' }}>3. Govern</span>
-            <span style={{ color: '#cbd5e1' }}>→</span>
-            <span style={{ color: '#dc2626', backgroundColor: '#fef2f2', padding: '3px 8px', borderRadius: '4px' }}>4. Protect (48h Shield)</span>
-          </div>
-        </div>
+        {activeTab === 'discover' && (
+          <DiscoverySearch
+            onSelectTool={handleSelectTool}
+            compareList={compareList}
+            onToggleCompare={handleToggleCompare}
+          />
+        )}
 
-        {/* SECTION 1: Semantic SaaS Discovery & ToS Risk Radar */}
-        <section>
-          <DiscoverySearch onSelectTool={handleSelectTool} />
-        </section>
-
-        {/* SECTION 2: Active Financial Telemetry & Subscription Grid (AG Grid) */}
-        <section>
-          <div style={{ marginBottom: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
-              <h2 style={{ margin: 0, fontSize: '16px', fontWeight: 700, color: '#0f172a' }}>
-                Active Subscription Telemetry & Seat Allocation
-              </h2>
-              <p style={{ margin: '2px 0 0 0', fontSize: '12px', color: '#64748b' }}>
-                Dense financial grid with real-time seat tracking, AP2 cryptographic status, and one-click cancellation guards.
-              </p>
-            </div>
-          </div>
+        {activeTab === 'subscriptions' && (
           <SubscriptionTable
             subscriptions={subscriptions}
             onCancelSubscription={handleCancel}
             onApproveSuspension={handleApprove}
           />
-        </section>
+        )}
 
-        {/* SECTION 3: Contract Lifecycle & Cancellation Timeline (Bryntum Gantt Concept) */}
-        <section>
+        {activeTab === 'protection' && (
           <RenewalTimeline subscriptions={subscriptions} />
-        </section>
+        )}
       </main>
+
+      {/* Floating Product Comparison Shortlist Drawer */}
+      <ProductCompareDrawer
+        items={compareList}
+        onRemoveItem={handleRemoveCompare}
+        onClearAll={handleClearCompare}
+        onProvision={handleSelectTool}
+      />
     </div>
   );
 }

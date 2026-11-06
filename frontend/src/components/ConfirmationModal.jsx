@@ -100,3 +100,4 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
     </div>
   );
 }
+

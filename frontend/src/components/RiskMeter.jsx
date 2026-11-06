@@ -66,3 +66,4 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
     </div>
   );
 }
+
