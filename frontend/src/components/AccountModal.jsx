@@ -189,9 +189,9 @@ export default function AccountModal({
                       type="button"
                       onClick={handleSave}
                       style={{
-                        border: 0,
-                        background: 'var(--blue)',
-                        color: 'white',
+                        border: '1px solid #1b1f9d',
+                        background: '#1b1f9d',
+                        color: '#ffffff',
                         padding: '4px 8px',
                         borderRadius: '6px',
                         fontSize: '11px',

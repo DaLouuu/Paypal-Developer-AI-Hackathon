@@ -565,8 +565,8 @@ export default function App() {
                       Autonomous Spending Policy
                     </h3>
                   </div>
-                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px', background: 'var(--blue)', color: '#ffffff' }}>
-                    Deterministic
+                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px' }}>
+                    <SubGuardIcon name="check" size={11} stroke={2.2} /> Deterministic
                   </span>
                 </div>
 

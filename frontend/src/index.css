@@ -2544,6 +2544,22 @@ main {
   padding: 2px 7px;
   border-radius: 5px;
   letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.compare-btn {
+  background: transparent;
+  color: var(--muted);
+  transition: all 0.15s ease;
+}
+
+.compare-btn.active {
+  background: #2edcc4 !important;
+  color: #060723 !important;
+  border-color: #060723 !important;
+  font-weight: 800;
 }
 
 .fingerprint-pill {
@@ -3930,6 +3946,13 @@ footer span {
   border: 1.5px solid #2edcc4;
   font-weight: 800;
   box-shadow: 0 0 8px rgba(46, 220, 196, 0.25);
+}
+
+[data-theme="dark"] .compare-btn.active {
+  background: #2edcc4 !important;
+  color: #060723 !important;
+  border-color: #2edcc4 !important;
+  font-weight: 800;
 }
 
 [data-theme="dark"] .timeline-bar-trial {

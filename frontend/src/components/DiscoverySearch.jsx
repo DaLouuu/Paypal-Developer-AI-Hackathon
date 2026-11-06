@@ -408,8 +408,6 @@ export default function DiscoverySearch({ onSelectTool }) {
                     title={compareList.some(p => p.product_id === product.product_id) ? 'Comparing' : 'Compare tool'}
                     onClick={(e) => toggleCompare(product, e)}
                     style={{
-                      background: compareList.some(p => p.product_id === product.product_id) ? 'var(--blue)' : 'transparent',
-                      color: compareList.some(p => p.product_id === product.product_id) ? '#ffffff' : 'var(--muted)',
                       border: '1px solid var(--line)',
                       borderRadius: '8px',
                       padding: '3px 8px',
