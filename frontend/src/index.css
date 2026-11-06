@@ -53,10 +53,55 @@
   --meter-inactive: rgba(6, 7, 35, 0.15);
   --timeline-grid-line: rgba(27, 31, 157, 0.15);
   --trial-label-color: #92400e;
+
+  /* Scrollbar Palette Tokens (Light Mode Ice Blue Theme) */
+  --scrollbar-track: rgba(230, 237, 252, 0.7);
+  --scrollbar-thumb: rgba(27, 31, 157, 0.45);
+  --scrollbar-thumb-hover: #1b1f9d;
+  --scrollbar-thumb-active: #060723;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Firefox W3C Standards Fallback */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+}
+
+/* Universal Adaptive WebKit / Blink / Safari Scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-thumb-active);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 html {
@@ -3311,6 +3356,12 @@ footer span {
   --c-heart-red-glow: rgba(255, 77, 109, 0.45);
   --timeline-grid-line: rgba(255, 255, 255, 0.12);
   --trial-label-color: #fbbf24;
+
+  /* Scrollbar Palette Tokens (Dark Mode Midnight Theme) */
+  --scrollbar-track: rgba(6, 7, 35, 0.55);
+  --scrollbar-thumb: rgba(46, 220, 196, 0.65);
+  --scrollbar-thumb-hover: #2edcc4;
+  --scrollbar-thumb-active: #f9dec9;
 }
 
 [data-theme="dark"] body {
@@ -4946,6 +4997,7 @@ footer span {
   --ag-selected-row-background-color: rgba(46, 220, 196, 0.16);
   --ag-font-family: var(--font-sans);
   --ag-font-size: 13px;
+  --ag-scrollbar-size: 10px;
   border-radius: 14px;
   overflow: hidden;
   border: 1.5px solid var(--line);

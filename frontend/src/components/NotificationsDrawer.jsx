@@ -79,7 +79,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
         </div>
 
         {/* Notifications List */}
-        <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, overflowY: 'auto' }}>
+        <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, minHeight: 0, overflowY: 'auto' }}>
           {/* Notification 1: Cursor Trial */}
           <div className="notice-card notice-card-amber">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -75,7 +75,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         </div>
 
         {/* Modal Body */}
-        <div style={{ padding: '26px', display: 'flex', flexDirection: 'column', gap: '20px', maxHeight: '70vh', overflowY: 'auto' }}>
+        <div style={{ padding: '26px', display: 'flex', flexDirection: 'column', gap: '20px', maxHeight: '70vh', minHeight: 0, overflowY: 'auto' }}>
           <div>
             <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 700, color: 'var(--muted)' }}>
               Overview & Capabilities

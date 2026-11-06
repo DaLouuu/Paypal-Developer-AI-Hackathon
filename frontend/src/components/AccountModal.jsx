@@ -48,6 +48,7 @@ export default function AccountModal({
       onClick={onClose}
     >
       <div
+        className="account-modal-card"
         style={{
           backgroundColor: 'var(--surface, #ffffff)',
           color: 'var(--navy, #060723)',
@@ -136,7 +137,7 @@ export default function AccountModal({
         </div>
 
         {/* Content */}
-        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px', overflowY: 'auto' }}>
+        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px', flex: 1, minHeight: 0, overflowY: 'auto' }}>
           {/* Section 1: Active Autonomous Spending Guardrails */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
