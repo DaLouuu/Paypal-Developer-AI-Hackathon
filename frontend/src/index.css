@@ -6,7 +6,7 @@
 
 :root {
   color: #060723;
-  background: #ffffff;
+  background: #e6edfc;
   font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-synthesis: none;
 
@@ -30,10 +30,10 @@
   --c-heart-red-soft: rgba(255, 51, 92, 0.12);
   --c-heart-red-glow: rgba(255, 51, 92, 0.3);
 
-  /* Functional Mappings (Light Mode) */
+  /* Functional Mappings (Light Mode Ice Blue Theme) */
   --navy: #060723;
   --navy-deep: #1b1f9d;
-  --cream: #ffffff;
+  --cream: #e6edfc;
   --peach: #f9dec9;
   --mint: #2edcc4;
   --sky: #216e65;
@@ -46,12 +46,12 @@
   --yellow-light: #f9dec9;
   --muted: #1b1f9d;
   --line: #1b1f9d;
-  --surface: #ffffff;
-  --surface-soft: #ffffff;
+  --surface: #f0f4fe;
+  --surface-soft: #dbe5f9;
   --text: #060723;
   --text-muted: #1b1f9d;
   --meter-inactive: rgba(6, 7, 35, 0.15);
-  --timeline-grid-line: rgba(6, 7, 35, 0.12);
+  --timeline-grid-line: rgba(27, 31, 157, 0.15);
   --trial-label-color: #92400e;
 }
 
@@ -134,9 +134,9 @@ html {
 .topbar {
   height: 78px;
   padding: 0 clamp(16px, 3.5vw, 64px);
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(230, 237, 252, 0.88);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(6, 7, 35, 0.08);
+  border-bottom: 1.5px solid rgba(27, 31, 157, 0.14);
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -1872,7 +1872,7 @@ main {
 .search-box {
   width: 275px;
   flex: 0 0 auto;
-  background: white;
+  background: var(--surface);
   border: 1px solid #1b1f9d;
   box-shadow: 0 4px 14px rgba(6, 7, 35, 0.04);
   height: 40px;
@@ -1906,7 +1906,7 @@ main {
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  background: #ffffff;
+  background: var(--surface-soft);
   color: #1b1f9d;
   border: 1px solid #1b1f9d;
   padding: 3px 6px;
@@ -2095,7 +2095,7 @@ main {
   height: 28px;
   border-radius: 50%;
   border: 1.5px solid rgba(255, 51, 92, 0.35);
-  background: #ffffff;
+  background: var(--surface);
   color: var(--c-heart-red, #ff335c);
   display: grid;
   place-items: center;
@@ -2338,7 +2338,7 @@ main {
   justify-content: center;
   gap: 8px;
   border: 1.5px solid #060723;
-  background: #ffffff;
+  background: var(--surface);
   color: #060723;
   padding: 10px 16px;
   border-radius: 10px;
@@ -2478,17 +2478,17 @@ main {
 }
 
 .notice-card-amber {
-  background-color: #ffffff;
+  background-color: var(--surface);
   border: 1.5px solid #1b1f9d;
 }
 
 .notice-card-crimson {
-  background-color: #ffffff;
+  background-color: var(--surface);
   border: 1.5px solid #1b1f9d;
 }
 
 .notice-card-neutral {
-  background-color: var(--surface-soft, #ffffff);
+  background-color: var(--surface-soft);
   border: 1.5px solid var(--line, #1b1f9d);
 }
 
@@ -3084,7 +3084,7 @@ main {
 
 .promise-cta {
   border: 1.5px solid #060723;
-  background: #ffffff;
+  background: var(--surface);
   color: #060723;
   padding: 12px 18px;
   border-radius: 10px;
@@ -4534,7 +4534,7 @@ footer span {
     bottom: 14px;
     left: 16px;
     right: 16px;
-    background: white;
+    background: var(--surface);
     border: 1px solid var(--line, #1b1f9d);
     box-shadow: 0 8px 35px rgba(6, 7, 35, 0.16);
     border-radius: 16px;
@@ -4815,8 +4815,10 @@ footer span {
 
 /* AG Grid SubGuard Theme Integration */
 .ag-theme-alpine {
+  --ag-background-color: var(--surface);
   --ag-header-background-color: var(--surface-soft);
   --ag-header-foreground-color: var(--navy);
+  --ag-data-color: var(--navy);
   --ag-border-color: var(--line);
   --ag-row-hover-color: rgba(46, 220, 196, 0.08);
   --ag-selected-row-background-color: rgba(46, 220, 196, 0.16);
