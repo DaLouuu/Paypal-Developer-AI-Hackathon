@@ -23,7 +23,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-display)', color: 'var(--navy)' }}>
+            <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)' }}>
               Executive Dashboard
             </h1>
             <span
@@ -35,7 +35,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
                 borderRadius: '6px',
                 fontSize: '11px',
                 fontWeight: 700,
-                fontFamily: 'var(--font-mono)',
+                fontFamily: 'var(--font-sans)',
                 backgroundColor: 'rgba(46, 220, 196, 0.15)',
                 color: 'var(--green, #216e65)',
                 border: '1px solid var(--green, #216e65)'
@@ -45,7 +45,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
               AP2 AUTOPILOT ACTIVE
             </span>
           </div>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted, #1b1f9d)', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: '12px', color: 'var(--text-muted, #1b1f9d)', marginTop: '4px', fontFamily: 'var(--font-sans)' }}>
             Organization: alex.morgan@passport · Ceiling: $50.00/tx · FastMCP Gateway: 8000
           </div>
         </div>
@@ -72,56 +72,56 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
         <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Monthly Spend
             </span>
             <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#f9dec9', color: '#060723', border: '1px solid #1b1f9d' }}>
               <DollarSign size={14} />
             </span>
           </div>
-          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--navy)', marginTop: '10px' }}>
+          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)', marginTop: '10px' }}>
             ${totalBurn.toFixed(2)}
           </div>
         </div>
 
         <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Active Contracts
             </span>
             <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#2edcc4', color: '#060723', border: '1px solid #060723' }}>
               <Layers size={14} />
             </span>
           </div>
-          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--navy)', marginTop: '10px' }}>
+          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)', marginTop: '10px' }}>
             {activeCount} Plans
           </div>
         </div>
 
         <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Watched Trials
             </span>
             <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#f9dec9', color: '#060723', border: '1px solid #1b1f9d' }}>
               <Clock size={14} />
             </span>
           </div>
-          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--navy)', marginTop: '10px' }}>
+          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)', marginTop: '10px' }}>
             {trials.length} Active
           </div>
         </div>
 
         <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Spend Ceiling
             </span>
             <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#2edcc4', color: '#060723', border: '1px solid #060723' }}>
               <ShieldCheck size={14} />
             </span>
           </div>
-          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--navy)', marginTop: '10px' }}>
+          <div className="tabular-nums" style={{ fontSize: '26px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)', marginTop: '10px' }}>
             $50.00 <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--muted)' }}>/ tx</span>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <AlertTriangle size={15} color="#1b1f9d" />
-            <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--navy)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--navy)', fontFamily: 'var(--font-sans)' }}>
               Pending Items ({suspended.length + trials.length})
             </span>
           </div>

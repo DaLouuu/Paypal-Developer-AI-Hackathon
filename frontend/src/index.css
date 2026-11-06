@@ -1,7 +1,7 @@
 @import 'ag-grid-community/styles/ag-grid.css';
 @import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap");
 
 
 :root {
@@ -12,9 +12,9 @@
 
   /* Font Families */
   --font-serif: "Instrument Serif", Georgia, serif;
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
-  --font-display: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-sans);
+  --font-display: var(--font-sans);
 
   /* 5-Color Scheme Tokens + Ultramarine */
   --c-prussian: #060723;
@@ -176,9 +176,9 @@ html {
   border: 1.5px solid #060723;
 }
 .brand-name {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.7px;
 }
 .brand-name > span {
@@ -196,7 +196,7 @@ html {
   margin-top: 5px;
   color: #1b1f9d;
   font-size: 8px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.15em;
 }
 nav {
@@ -354,7 +354,7 @@ nav a.active svg {
   display: grid;
   place-items: center;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.02em;
   box-sizing: border-box;
 }
@@ -586,16 +586,16 @@ main {
 .governance-metric-box span {
   display: block;
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
   margin-bottom: 4px;
 }
 .governance-metric-box strong {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--navy);
 }
 .governance-metric-box small {
@@ -625,7 +625,7 @@ main {
   color: var(--muted);
 }
 .protocol-spec-item strong {
-  font-family: monospace;
+  font-family: var(--font-sans);
   font-size: 11px;
 }
 .hero-bottom-band {
@@ -680,9 +680,9 @@ main {
   margin-bottom: 36px;
 }
 .page-header h1 {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(32px, 3.4vw, 48px);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -2px;
   margin: 14px 0 10px;
   color: var(--navy);
@@ -736,9 +736,9 @@ main {
   color: #2edcc4;
 }
 .shortcut-card-header h3 {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
   margin: 0;
   color: var(--navy);
 }
@@ -799,16 +799,16 @@ main {
 .governance-metric-box span {
   display: block;
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
   margin-bottom: 4px;
 }
 .governance-metric-box strong {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--navy);
 }
 .governance-metric-box small {
@@ -838,7 +838,7 @@ main {
   color: var(--muted);
 }
 .protocol-spec-item strong {
-  font-family: monospace;
+  font-family: var(--font-sans);
   font-size: 11px;
 }
 .welcome-copy {
@@ -1219,7 +1219,7 @@ main {
 }
 .shield-status strong {
   display: block;
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: 19px;
   margin: 3px 0;
   letter-spacing: -0.5px;
@@ -1413,16 +1413,16 @@ main {
   padding: 4px 10px;
   border-radius: 100px;
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.1em;
   color: #2edcc4;
   margin-bottom: 8px;
 }
 .promo-copy h3 {
   margin: 0 0 6px;
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.6px;
   color: #ffffff;
 }
@@ -1466,9 +1466,9 @@ main {
   margin-bottom: 4px;
 }
 .promo-badge-box strong {
-  font-family: Manrope, sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   color: #ffffff;
 }
 .promo-badge-box small {
@@ -1688,7 +1688,7 @@ main {
   border-radius: 6px;
   padding: 4px 8px;
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   display: inline-flex;
@@ -1730,8 +1730,8 @@ main {
   border-radius: 12px;
   display: grid;
   place-items: center;
-  font-family: Manrope;
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-weight: 700;
   font-size: 18px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
@@ -1794,7 +1794,7 @@ main {
   border: 1px solid #2edcc4;
   border-radius: 6px;
   padding: 3px 6px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
   display: inline-flex;
   align-items: center;
@@ -1815,12 +1815,12 @@ main {
   text-decoration: line-through;
   font-size: 11px;
   color: var(--muted);
-  font-weight: 500;
+  font-weight: 600;
   margin-left: 4px;
 }
 .discount-pill {
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 700;
   background: #2edcc4;
   color: #1b1f9d;
   padding: 2px 5px;
@@ -1954,7 +1954,7 @@ main {
 .horizon-btn.active {
   color: #060723;
   background: #2edcc4;
-  font-weight: 800;
+  font-weight: 700;
   border: 1.5px solid #060723;
   box-shadow: 2px 2px 0px #060723;
 }
@@ -2020,7 +2020,7 @@ main {
 }
 .notice-tag {
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 2px 8px;
@@ -2048,8 +2048,8 @@ main {
 }
 .notice-title {
   font-size: 13px;
-  font-weight: 800;
-  font-family: Manrope, sans-serif;
+  font-weight: 700;
+  font-family: var(--font-sans);
   color: var(--navy);
   margin-top: 2px;
 }
@@ -2081,7 +2081,7 @@ main {
   align-items: center;
   gap: 3px;
   font-size: 8px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background: #2edcc4;
@@ -2126,7 +2126,7 @@ main {
 }
 .badge-verified {
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   color: #060723;
   background-color: #2edcc4;
   border: 1.5px solid #060723;
@@ -2141,7 +2141,7 @@ main {
   color: var(--navy);
   padding: 3px 8px;
   border-radius: 6px;
-  font-family: monospace;
+  font-family: var(--font-sans);
   font-weight: 600;
 }
 .timeline-bar {
@@ -2248,7 +2248,7 @@ main {
   gap: 4px;
 }
 .sub-identity strong {
-  font-family: Manrope;
+  font-family: var(--font-sans);
   font-size: 14px;
 }
 .sub-identity small,
@@ -2315,7 +2315,7 @@ main {
   font-size: 9px;
   color: #1b1f9d;
   letter-spacing: 0.1em;
-  font-weight: 800;
+  font-weight: 700;
 }
 .sub-renew strong {
   font-size: 11px;
@@ -2590,7 +2590,7 @@ footer {
 [data-theme="dark"] .profile > span:first-child {
   color: #060723;
   background: #2edcc4;
-  font-weight: 800;
+  font-weight: 700;
 }
 [data-theme="dark"] .profile-copy strong {
   color: #f9dec9;
@@ -2665,7 +2665,7 @@ footer {
 [data-theme="dark"] .primary-button {
   color: #060723;
   background: #2edcc4;
-  font-weight: 800;
+  font-weight: 700;
 }
 [data-theme="dark"] .primary-button:hover,
 [data-theme="dark"] .product-footer button:hover {
@@ -2729,7 +2729,7 @@ footer {
 [data-theme="dark"] .filter-tab.active {
   background: #2edcc4 !important;
   color: #060723 !important;
-  font-weight: 800;
+  font-weight: 700;
   box-shadow: 0 4px 14px rgba(46, 220, 196, 0.3);
 }
 [data-theme="dark"] .horizon-btn:hover:not(.active) {
@@ -2739,7 +2739,7 @@ footer {
 [data-theme="dark"] .horizon-btn.active {
   background: #2edcc4 !important;
   color: #060723 !important;
-  font-weight: 800;
+  font-weight: 700;
 }
 [data-theme="dark"] .subscription-list article:hover {
   background: rgba(255, 255, 255, 0.035);
@@ -3359,7 +3359,7 @@ footer {
   --ag-border-color: var(--line);
   --ag-row-hover-color: rgba(46, 220, 196, 0.08);
   --ag-selected-row-background-color: rgba(46, 220, 196, 0.16);
-  --ag-font-family: 'DM Sans', -apple-system, sans-serif;
+  --ag-font-family: var(--font-sans);
   --ag-font-size: 13px;
   border-radius: 14px;
   overflow: hidden;
@@ -3367,7 +3367,7 @@ footer {
 }
 
 .ag-theme-alpine .ag-header-cell-label {
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 11px;
   text-transform: uppercase;

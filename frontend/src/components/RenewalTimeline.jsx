@@ -59,7 +59,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
               >
                 <SubGuardIcon name="shield" size={19} stroke={2.4} />
               </span>
-              <h2 style={{ margin: 0, fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
+              <h2 style={{ margin: 0, fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)' }}>
                 Protection Center & Governance Guardrails
               </h2>
             </div>
@@ -84,23 +84,23 @@ export default function RenewalTimeline({ subscriptions = [] }) {
         {/* Protection System Metrics Bar */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '16px', marginTop: '22px', paddingTop: '20px', borderTop: '1px solid var(--line)' }}>
           <div>
-            <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Governed Spend</div>
-            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', marginTop: '3px' }}>$235.00 / mo</div>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Governed Spend</div>
+            <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', marginTop: '3px' }}>$235.00 / mo</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Total recurring commitments</div>
           </div>
           <div>
-            <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Autonomous Ceiling</div>
-            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', marginTop: '3px' }}>$50.00 per mandate</div>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Autonomous Ceiling</div>
+            <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', marginTop: '3px' }}>$50.00 per mandate</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Charges above require approval</div>
           </div>
           <div>
-            <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cryptographic Protocol</div>
-            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', color: 'var(--green, #2edcc4)', marginTop: '3px' }}>AP2 Ed25519 Enforced</div>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cryptographic Protocol</div>
+            <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--green, #2edcc4)', marginTop: '3px' }}>AP2 Ed25519 Enforced</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Strict mandate verification</div>
           </div>
           <div>
-            <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cancellation Protection</div>
-            <div style={{ fontSize: '19px', fontWeight: 800, fontFamily: 'Manrope', color: 'var(--blue, #216e65)', marginTop: '3px' }}>48-Hour Auto-Shield</div>
+            <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cancellation Protection</div>
+            <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--blue, #216e65)', marginTop: '3px' }}>48-Hour Auto-Shield</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Deterministic execution</div>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <SubGuardIcon name="calendar" size={17} />
-              <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, fontFamily: 'Manrope' }}>
+              <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 700, fontFamily: 'var(--font-sans)' }}>
                 Contract Lifecycles & Scheduled Protection Timeline
               </h3>
             </div>
@@ -219,7 +219,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                   >
                     {/* Lane Label */}
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--navy)' }}>{sub.product_name}</span>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy)' }}>{sub.product_name}</span>
                       <span style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>
                         ${sub.recurring_amount}/mo · {sub.product_tier}
                       </span>
@@ -287,7 +287,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                           {/* Tooltip */}
                           {activeTooltip === sub.id && (
                             <div className="timeline-tooltip">
-                              <div style={{ fontWeight: 800, color: '#2edcc4', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                              <div style={{ fontWeight: 700, color: '#2edcc4', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                                 <SubGuardIcon name="shield" size={12} /> 48h Pre-Renewal Shield
                               </div>
                               <div>

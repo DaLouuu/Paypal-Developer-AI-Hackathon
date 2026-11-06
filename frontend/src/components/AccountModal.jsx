@@ -86,7 +86,7 @@ export default function AccountModal({
                 color: '#060723',
                 display: 'grid',
                 placeItems: 'center',
-                fontWeight: 800,
+                fontWeight: 700,
                 fontSize: '13px',
                 flexShrink: 0
               }}
@@ -112,7 +112,7 @@ export default function AccountModal({
                     }}
                   />
                 ) : (
-                  <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
+                  <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'var(--font-sans)' }}>
                     {user?.fullName || 'Alex Morgan'}
                   </h3>
                 )}
@@ -203,7 +203,7 @@ export default function AccountModal({
                     </button>
                   </div>
                 ) : (
-                  <div style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'Manrope', marginTop: '2px' }}>
+                  <div style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'var(--font-sans)', marginTop: '2px' }}>
                     ${spendingCap.toFixed(2)}
                   </div>
                 )}
@@ -217,7 +217,7 @@ export default function AccountModal({
                 <small style={{ fontSize: '9px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>
                   Monthly Budget Hard Cap
                 </small>
-                <div style={{ fontSize: '18px', fontWeight: 800, fontFamily: 'Manrope', marginTop: '2px' }}>
+                <div style={{ fontSize: '18px', fontWeight: 700, fontFamily: 'var(--font-sans)', marginTop: '2px' }}>
                   $500.00
                 </div>
                 <small style={{ fontSize: '10px', color: 'var(--muted)', display: 'block', marginTop: '3px' }}>

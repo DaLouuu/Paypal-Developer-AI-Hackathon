@@ -75,7 +75,7 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
                 <X size={14} />
               </button>
 
-              <div style={{ fontWeight: 700, fontSize: '15px', color: 'var(--navy)', fontFamily: 'Manrope, sans-serif' }}>
+              <div style={{ fontWeight: 700, fontSize: '15px', color: 'var(--navy)', fontFamily: 'var(--font-sans)' }}>
                 {tool.product_name}
               </div>
               <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>
@@ -85,7 +85,7 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '12px 0', borderTop: '1px solid var(--line)', paddingTop: '10px' }}>
                 <div>
                   <div style={{ fontSize: '10px', color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 700 }}>Monthly Cost</div>
-                  <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--navy)', fontVariantNumeric: 'tabular-nums' }}>
+                  <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--navy)', fontVariantNumeric: 'tabular-nums' }}>
                     ${Number(tool.monthly_cost).toFixed(2)}
                   </div>
                 </div>

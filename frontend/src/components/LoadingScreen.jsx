@@ -147,8 +147,8 @@ export default function LoadingScreen({ onComplete }) {
             style={{
               fontSize: '28px',
               margin: '0 0 4px',
-              fontFamily: 'Manrope, sans-serif',
-              fontWeight: 800,
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 700,
               letterSpacing: '-1px'
             }}
           >
@@ -157,7 +157,7 @@ export default function LoadingScreen({ onComplete }) {
           <span
             style={{
               fontSize: '9px',
-              fontWeight: 800,
+              fontWeight: 700,
               letterSpacing: '0.18em',
               color: 'var(--muted, #1b1f9d)',
               textTransform: 'uppercase'

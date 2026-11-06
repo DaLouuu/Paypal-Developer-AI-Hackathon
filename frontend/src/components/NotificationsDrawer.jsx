@@ -60,7 +60,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
               <SubGuardIcon name="bell" size={17} />
             </span>
             <div>
-              <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 800, fontFamily: 'Manrope, sans-serif' }}>
+              <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'var(--font-sans)' }}>
                 Notifications & Alerts
               </h3>
               <small style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: 600 }}>

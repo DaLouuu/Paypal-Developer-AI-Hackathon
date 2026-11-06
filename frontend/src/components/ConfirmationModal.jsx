@@ -66,7 +66,7 @@ export default function ConfirmationModal({
           </div>
 
           <div style={{ flex: 1 }}>
-            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'Manrope, sans-serif', color: 'var(--navy)' }}>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)' }}>
               {title}
             </h3>
             <p style={{ margin: '10px 0 0 0', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.55 }}>
