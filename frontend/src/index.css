@@ -3070,6 +3070,10 @@ main {
   margin: 0;
 }
 .approve-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: 1.5px solid #060723;
   background: #2edcc4;
   color: #060723;
