@@ -2247,10 +2247,10 @@ main {
 
 .price-strike {
   text-decoration: line-through;
-  text-decoration-color: rgba(6, 7, 35, 0.4);
+  text-decoration-color: rgba(6, 7, 35, 0.5);
   font-size: 12px;
-  color: rgba(6, 7, 35, 0.45);
-  font-weight: 500;
+  color: rgba(6, 7, 35, 0.68);
+  font-weight: 600;
   margin-left: 6px;
 }
 
@@ -2267,12 +2267,13 @@ main {
   letter-spacing: 0.02em;
 }
 
-.product-footer span.unit {
-  font-size: 10px;
-  color: rgba(6, 7, 35, 0.55);
+.product-footer span.unit,
+.product-footer .unit {
+  font-size: 11px;
+  color: rgba(6, 7, 35, 0.72);
   display: block;
   margin-top: 2px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .product-footer button {
@@ -3970,22 +3971,27 @@ footer span {
 }
 
 [data-theme="dark"] .product-footer strong {
-  color: #ffffff;
+  color: #f9dec9;
 }
 [data-theme="dark"] .price-strike {
-  color: rgba(249, 222, 201, 0.42);
-  text-decoration-color: rgba(249, 222, 201, 0.35);
+  color: rgba(249, 222, 201, 0.88);
+  text-decoration-color: rgba(249, 222, 201, 0.65);
+  font-weight: 600;
 }
 [data-theme="dark"] .discount-pill {
   background: #2edcc4;
   color: #060723;
-  border: 1px solid #060723;
-  box-shadow: 0 1px 4px rgba(46, 220, 196, 0.35);
+  border: 1px solid #2edcc4;
+  box-shadow: 0 0 10px rgba(46, 220, 196, 0.3);
   font-weight: 700;
 }
 
-[data-theme="dark"] .product-footer span.unit {
-  color: rgba(249, 222, 201, 0.6);
+[data-theme="dark"] .product-footer span.unit,
+[data-theme="dark"] .product-footer .unit {
+  color: #f9dec9;
+  opacity: 0.9;
+  font-size: 11px;
+  font-weight: 600;
 }
 [data-theme="dark"] .subscriptions-section {
   background: transparent;
