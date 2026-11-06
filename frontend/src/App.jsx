@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-import BrandLogo from './components/BrandLogo';
-import HomeDashboard from './components/HomeDashboard';
+import React, { useEffect, useMemo, useState } from 'react';
+import SubGuardIcon from './components/SubGuardIcon';
 import DiscoverySearch from './components/DiscoverySearch';
 import SubscriptionTable from './components/SubscriptionTable';
 import RenewalTimeline from './components/RenewalTimeline';
-import ProductCompareDrawer from './components/ProductCompareDrawer';
-import { Home, Compass, CreditCard, Shield, Lock, Bell, ChevronDown, CheckCircle2, Cpu, ExternalLink } from 'lucide-react';
 
 const INITIAL_SUBSCRIPTIONS = [
   {
     id: '550e8400-e29b-41d4-a716-446655440001',
     merchant_name: 'Notion',
     merchant_domain: 'notion.so',
-    product_name: 'Notion Team Plus',
-    product_tier: 'Team Plus',
+    product_name: 'Notion Plus',
+    product_tier: 'Team workspace',
     active_seats: 8,
     recurring_amount: 80.0,
     currency: 'USD',
@@ -28,7 +25,7 @@ const INITIAL_SUBSCRIPTIONS = [
     merchant_name: 'Cursor',
     merchant_domain: 'cursor.sh',
     product_name: 'Cursor Pro',
-    product_tier: 'Pro',
+    product_tier: 'AI code editor',
     active_seats: 4,
     recurring_amount: 80.0,
     currency: 'USD',
@@ -41,10 +38,10 @@ const INITIAL_SUBSCRIPTIONS = [
   },
   {
     id: '550e8400-e29b-41d4-a716-446655440003',
-    merchant_name: 'DataDog',
+    merchant_name: 'Datadog',
     merchant_domain: 'datadoghq.com',
-    product_name: 'DataDog APM',
-    product_tier: 'Pro Infra',
+    product_name: 'Datadog APM',
+    product_tier: 'Infrastructure monitoring',
     active_seats: 2,
     recurring_amount: 75.0,
     currency: 'USD',
@@ -57,20 +54,51 @@ const INITIAL_SUBSCRIPTIONS = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home'); // 'home' | 'discover' | 'subscriptions' | 'protection'
   const [subscriptions, setSubscriptions] = useState(INITIAL_SUBSCRIPTIONS);
-  const [compareList, setCompareList] = useState([]);
+  const [shieldOn, setShieldOn] = useState(true);
+  const [notice, setNotice] = useState('');
+  const [activeNav, setActiveNav] = useState('home');
+  const [showTimeline, setShowTimeline] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('subguard-theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('subguard-theme', theme);
+  }, [theme]);
+
+  const totalBurn = useMemo(() => {
+    return subscriptions.reduce((sum, item) => sum + (Number(item.recurring_amount) || 0), 0);
+  }, [subscriptions]);
+
+  const activeCount = useMemo(() => {
+    return subscriptions.filter(item => item.status === 'ACTIVE_RECURRING' || item.status === 'TRIAL_ACTIVE').length;
+  }, [subscriptions]);
+
+  const trialsCount = useMemo(() => {
+    return subscriptions.filter(item => item.status === 'TRIAL_ACTIVE' || item.is_trial).length;
+  }, [subscriptions]);
+
+  const showNotice = (msg) => {
+    setNotice(msg);
+    setTimeout(() => setNotice(''), 2800);
+  };
 
   const handleCancel = (id) => {
     setSubscriptions(prev =>
       prev.map(sub => sub.id === id ? { ...sub, status: 'PENDING_CANCELLATION' } : sub)
     );
+    showNotice('Cancellation guard armed 48h before renewal');
   };
 
   const handleApprove = (id) => {
     setSubscriptions(prev =>
       prev.map(sub => sub.id === id ? { ...sub, status: 'ACTIVE_RECURRING' } : sub)
     );
+    showNotice('Agent spend request approved & resumed via PayPal');
   };
 
   const handleSelectTool = (tool) => {
@@ -90,179 +118,319 @@ export default function App() {
       tos_risk_score: tool.tos_risk_score
     };
     setSubscriptions(prev => [newSub, ...prev]);
-    setActiveTab('subscriptions');
-  };
-
-  const handleToggleCompare = (tool) => {
-    setCompareList(prev => {
-      const exists = prev.some(item => item.product_id === tool.product_id);
-      if (exists) {
-        return prev.filter(item => item.product_id !== tool.product_id);
-      }
-      if (prev.length >= 3) {
-        alert('You can compare up to 3 SaaS products side-by-side.');
-        return prev;
-      }
-      return [...prev, tool];
-    });
-  };
-
-  const handleRemoveCompare = (productId) => {
-    setCompareList(prev => prev.filter(item => item.product_id !== productId));
-  };
-
-  const handleClearCompare = () => {
-    setCompareList([]);
+    showNotice(`${tool.product_name} added to your active plans!`);
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#FAFBFC', color: '#17243D', display: 'flex', flexDirection: 'column' }}>
-      {/* Enterprise Customer Header */}
-      <header
-        style={{
-          backgroundColor: '#ffffff',
-          borderBottom: '1px solid #E1E8F0',
-          padding: '0 32px',
-          height: '66px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          boxShadow: '0 1px 3px rgba(23, 36, 61, 0.03)'
-        }}
-      >
-        {/* Brand Logo & Wordmark */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
-          <div style={{ cursor: 'pointer' }} onClick={() => setActiveTab('home')}>
-            <BrandLogo size={34} showWordmark={true} />
-          </div>
-
-          {/* 4 Customer-Facing Destinations */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <button
-              type="button"
-              className={`nav-pill ${activeTab === 'home' ? 'active' : ''}`}
-              onClick={() => setActiveTab('home')}
-            >
-              <Home size={15} />
-              <span>Home</span>
-            </button>
-            <button
-              type="button"
-              className={`nav-pill ${activeTab === 'discover' ? 'active' : ''}`}
-              onClick={() => setActiveTab('discover')}
-            >
-              <Compass size={15} />
-              <span>Discover</span>
-            </button>
-            <button
-              type="button"
-              className={`nav-pill ${activeTab === 'subscriptions' ? 'active' : ''}`}
-              onClick={() => setActiveTab('subscriptions')}
-            >
-              <CreditCard size={15} />
-              <span>My Subscriptions</span>
-              <span style={{ fontSize: '10px', backgroundColor: activeTab === 'subscriptions' ? '#4568F5' : '#F0F3F8', color: activeTab === 'subscriptions' ? '#ffffff' : '#687F9E', borderRadius: '100px', padding: '1px 6px', fontWeight: 700 }}>
-                {subscriptions.length}
-              </span>
-            </button>
-            <button
-              type="button"
-              className={`nav-pill ${activeTab === 'protection' ? 'active' : ''}`}
-              onClick={() => setActiveTab('protection')}
-            >
-              <Shield size={15} />
-              <span>Protection</span>
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#22B982' }} />
-            </button>
-          </nav>
+    <div className="app-shell">
+      {/* Toast Notification */}
+      {notice && (
+        <div className="toast">
+          <SubGuardIcon name="check" size={16} />
+          {notice}
         </div>
+      )}
 
-        {/* Live Operational Beacon & Profile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-          {/* FastMCP Gateway Beacon */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#293A55', backgroundColor: '#F0F3F8', border: '1px solid #D0D9E7', borderRadius: '8px', padding: '5px 12px' }}>
-            <span className="beacon-online" />
-            <span style={{ fontWeight: 500 }}>FastMCP Proxy:</span>
-            <strong style={{ color: '#188A60', fontWeight: 700 }}>ONLINE (8000)</strong>
-          </div>
+      {/* Topbar Header */}
+      <header className="topbar">
+        {/* Brand */}
+        <a className="brand" href="#home" aria-label="SubGuard home" onClick={() => setActiveNav('home')}>
+          <span className="brand-mark">
+            <SubGuardIcon name="bag" size={20} />
+            <span className="brand-shield">
+              <SubGuardIcon name="shield" size={10} stroke={2.4} />
+            </span>
+          </span>
+          <span className="brand-lockup">
+            <span className="brand-name">
+              Sub<span>Guard</span>
+            </span>
+            <small>SHOP SMART. STAY GUARDED.</small>
+          </span>
+        </a>
 
-          {/* AP2 Cryptographic Protocol Badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#4C607C' }}>
-            <Lock size={13} color="#4568F5" />
-            <span>AP2 Ed25519: <strong style={{ color: '#17243D' }}>ENFORCED</strong></span>
-          </div>
+        {/* Primary Navigation */}
+        <nav aria-label="Primary navigation">
+          <a
+            className={activeNav === 'home' ? 'active' : ''}
+            href="#home"
+            onClick={() => setActiveNav('home')}
+          >
+            <SubGuardIcon name="home" size={16} />
+            Home
+          </a>
+          <a
+            className={activeNav === 'discover' ? 'active' : ''}
+            href="#discover"
+            onClick={() => setActiveNav('discover')}
+          >
+            <SubGuardIcon name="compass" size={16} />
+            Discover
+          </a>
+          <a
+            className={activeNav === 'subscriptions' ? 'active' : ''}
+            href="#subscriptions"
+            onClick={() => setActiveNav('subscriptions')}
+          >
+            <SubGuardIcon name="card" size={16} />
+            My subscriptions
+          </a>
+          <a
+            className={activeNav === 'protection' ? 'active' : ''}
+            href="#protection"
+            onClick={() => setActiveNav('protection')}
+          >
+            <SubGuardIcon name="shield" size={16} />
+            Protection <span className="nav-dot" />
+          </a>
+        </nav>
 
-          <div style={{ width: '1px', height: '24px', backgroundColor: '#E1E8F0' }} />
+        {/* Header Actions */}
+        <div className="header-actions">
+          {/* Theme Switcher */}
+          <button
+            className="theme-button"
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+            type="button"
+          >
+            <SubGuardIcon name={theme === 'light' ? 'moon' : 'sun'} size={17} />
+          </button>
 
-          {/* User Account / Profile */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-            <div
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                backgroundColor: '#17243D',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '12px',
-                fontWeight: 700,
-                color: '#ffffff'
-              }}
-            >
-              FA
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#17243D', lineHeight: 1.2 }}>Founder Admin</span>
-              <span style={{ fontSize: '10px', color: '#687F9E' }}>PayPal Dev Sandbox</span>
-            </div>
-            <ChevronDown size={14} color="#687F9E" />
-          </div>
+          {/* Notifications */}
+          <button
+            className="notification"
+            aria-label="Notifications"
+            onClick={() => showNotice('1 trial approaching 48h protection window')}
+            type="button"
+          >
+            <SubGuardIcon name="bell" size={18} />
+            <span />
+          </button>
+
+          {/* User Profile */}
+          <button
+            className="profile"
+            onClick={() => showNotice('Personal account: Alex Morgan')}
+            type="button"
+          >
+            <span>AM</span>
+            <span className="profile-copy">
+              <strong>Alex Morgan</strong>
+              <small>Personal account</small>
+            </span>
+            <SubGuardIcon name="chevron" size={14} />
+          </button>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main style={{ maxWidth: '1440px', width: '100%', margin: '0 auto', padding: '32px 32px 96px 32px', flex: 1, display: 'flex', flexDirection: 'column', gap: '28px' }}>
-        {activeTab === 'home' && (
-          <HomeDashboard
-            subscriptions={subscriptions}
-            onNavigate={setActiveTab}
-            onApproveSuspension={handleApprove}
-            onCancelSubscription={handleCancel}
-          />
+      {/* Main Content Area */}
+      <main id="home">
+        {/* SECTION 1: Welcome Grid */}
+        <section className="welcome-grid">
+          <div className="welcome-copy">
+            <span className="eyebrow">
+              <SubGuardIcon name="shield" size={15} /> Guarded by SubGuard
+            </span>
+
+            <h1>
+              Good morning, Alex.
+              <br />
+              Your subscriptions look <em>healthy.</em>
+            </h1>
+
+            <p className="intro">
+              Shop smarter software, see exactly what you spend, and let SubGuard handle the fine print.
+            </p>
+
+            <div className="brand-proof" aria-label="SubGuard benefits">
+              <span>
+                <SubGuardIcon name="check" size={13} /> Contract checked
+              </span>
+              <span>
+                <SubGuardIcon name="check" size={13} /> Renewal watched
+              </span>
+              <span>
+                <SubGuardIcon name="check" size={13} /> Cancellation ready
+              </span>
+            </div>
+
+            <div className="hero-actions">
+              <a className="primary-button" href="#discover" onClick={() => setActiveNav('discover')}>
+                Discover software <SubGuardIcon name="arrow" size={17} />
+              </a>
+              <a className="text-button" href="#subscriptions" onClick={() => setActiveNav('subscriptions')}>
+                Review my subscriptions <SubGuardIcon name="chevron" size={15} />
+              </a>
+            </div>
+
+            {/* Spend Story Card */}
+            <div className="spend-story">
+              <div className="spend-main">
+                <span>Monthly software spend</span>
+                <strong data-testid="total-burn">${totalBurn.toFixed(2)}</strong>
+                <small>
+                  <span className="positive">
+                    <SubGuardIcon name="trend" size={13} /> 8% lower
+                  </span>{' '}
+                  than last month
+                </small>
+              </div>
+
+              <div className="mini-chart" aria-label="Spending trend over six months">
+                {[55, 68, 49, 72, 62, 44, 51, 36, 42, 29, 34, 25].map((height, index) => (
+                  <i key={index} style={{ height }} />
+                ))}
+              </div>
+
+              <div className="spend-meta">
+                <div>
+                  <strong data-testid="active-count">{activeCount}</strong>
+                  <span>Active plans</span>
+                </div>
+                <div>
+                  <strong>{trialsCount}</strong>
+                  <span>Protected trial</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Autopilot Cancellation Shield Panel */}
+          <aside className={`shield-panel ${shieldOn ? '' : 'shield-off'}`} id="protection">
+            <div className="shield-heading">
+              <div>
+                <span className="live-label">
+                  <i /> SUBGUARD AUTOPILOT
+                </span>
+                <h2>Cancellation Shield</h2>
+              </div>
+              <button
+                className={`toggle ${shieldOn ? 'on' : ''}`}
+                aria-pressed={shieldOn}
+                onClick={() => setShieldOn(!shieldOn)}
+                type="button"
+              >
+                <span />
+              </button>
+            </div>
+
+            <div className="shield-visual">
+              <div className="orbit orbit-one" />
+              <div className="orbit orbit-two" />
+              <div className="shield-core">
+                <SubGuardIcon name="shield" size={38} stroke={1.45} />
+              </div>
+              <span className="orbit-dot dot-one" />
+              <span className="orbit-dot dot-two" />
+            </div>
+
+            <div className="shield-status">
+              <span>CURSOR PRO TRIAL</span>
+              <strong>{shieldOn ? '2 days, 14 hours' : 'Protection paused'}</strong>
+              <p>
+                {shieldOn
+                  ? 'Until SubGuard steps in before renewal'
+                  : 'Turn protection back on to avoid an unwanted renewal.'}
+              </p>
+            </div>
+
+            <div className="next-step">
+              <span className="step-icon">
+                <SubGuardIcon name="wand" size={17} />
+              </span>
+              <div>
+                <small>WHAT HAPPENS NEXT</small>
+                <p>
+                  {shieldOn
+                    ? 'We’ll check in 48 hours before billing. No reply? We cancel it for you.'
+                    : 'Automated cancellation is currently disabled.'}
+                </p>
+              </div>
+            </div>
+
+            <button
+              className="shield-link"
+              onClick={() => {
+                setShowTimeline(!showTimeline);
+                showNotice(showTimeline ? 'Protection timeline closed' : 'Protection timeline expanded');
+              }}
+              type="button"
+            >
+              {showTimeline ? 'Hide protection timeline' : 'View protection timeline'} <SubGuardIcon name="arrow" size={16} />
+            </button>
+          </aside>
+        </section>
+
+        {/* Optional Collapsible Protection Gantt Timeline */}
+        {showTimeline && (
+          <div style={{ margin: '24px 0' }}>
+            <RenewalTimeline subscriptions={subscriptions} />
+          </div>
         )}
 
-        {activeTab === 'discover' && (
-          <DiscoverySearch
-            onSelectTool={handleSelectTool}
-            compareList={compareList}
-            onToggleCompare={handleToggleCompare}
-          />
-        )}
+        {/* SECTION 2: Upcoming Renewal Ribbon */}
+        <section className="renewal-ribbon">
+          <span className="renewal-icon">
+            <SubGuardIcon name="calendar" size={20} />
+          </span>
+          <div>
+            <small>UPCOMING RENEWAL</small>
+            <p>
+              <strong>Notion Plus</strong> renews in 12 days for $80.00
+            </p>
+          </div>
+          <span className="date-pill">NOV 18</span>
+          <button
+            onClick={() => showNotice('Notion Plus renewal verified under active $50 spending policy')}
+            type="button"
+          >
+            Review renewal <SubGuardIcon name="arrow" size={16} />
+          </button>
+        </section>
 
-        {activeTab === 'subscriptions' && (
+        {/* SECTION 3: The SubGuard Edit SaaS Marketplace */}
+        <DiscoverySearch onSelectTool={handleSelectTool} />
+
+        {/* SECTION 4: Subscriptions Management */}
+        <section className="subscriptions-section" id="subscriptions">
           <SubscriptionTable
             subscriptions={subscriptions}
             onCancelSubscription={handleCancel}
             onApproveSuspension={handleApprove}
           />
-        )}
+        </section>
 
-        {activeTab === 'protection' && (
-          <RenewalTimeline subscriptions={subscriptions} />
-        )}
+        {/* SECTION 5: The SubGuard Promise */}
+        <section className="promise">
+          <div className="promise-mark">
+            <SubGuardIcon name="bag" size={32} />
+            <SubGuardIcon name="shield" size={18} />
+          </div>
+          <div>
+            <span>THE SUBGUARD PROMISE</span>
+            <h2>Great software should never come with a catch.</h2>
+            <p>
+              We read the terms, watch the dates, and protect every purchase—so you can focus on choosing tools you love.
+            </p>
+          </div>
+          <a href="#protection" onClick={() => setActiveNav('protection')}>
+            How protection works <SubGuardIcon name="arrow" size={17} />
+          </a>
+        </section>
       </main>
 
-      {/* Floating Product Comparison Shortlist Drawer */}
-      <ProductCompareDrawer
-        items={compareList}
-        onRemoveItem={handleRemoveCompare}
-        onClearAll={handleClearCompare}
-        onProvision={handleSelectTool}
-      />
+      {/* Footer */}
+      <footer>
+        <a className="brand footer-brand" href="#home" onClick={() => setActiveNav('home')}>
+          <span className="brand-mark">
+            <SubGuardIcon name="bag" size={18} />
+          </span>
+          <span className="brand-name">SubGuard</span>
+        </a>
+        <p>Your software. Your money. Protected.</p>
+        <span>© 2026 SubGuard</span>
+      </footer>
     </div>
   );
 }

@@ -119,3 +119,4 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
     </div>
   );
 }
+
