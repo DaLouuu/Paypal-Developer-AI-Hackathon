@@ -301,7 +301,7 @@ export default function SubscriptionTable({
       >
         <button
           type="button"
-          className={`categories-button ${filterState === 'ALL' ? 'active' : ''}`}
+          className={`filter-tab ${filterState === 'ALL' ? 'active' : ''}`}
           onClick={() => setFilterState('ALL')}
           style={{
             border: 0,
@@ -319,6 +319,7 @@ export default function SubscriptionTable({
 
         <button
           type="button"
+          className={`filter-tab ${filterState === 'ACTIVE' ? 'active' : ''}`}
           onClick={() => setFilterState('ACTIVE')}
           style={{
             border: 0,
@@ -336,6 +337,7 @@ export default function SubscriptionTable({
 
         <button
           type="button"
+          className={`filter-tab ${filterState === 'TRIAL' ? 'active' : ''}`}
           onClick={() => setFilterState('TRIAL')}
           style={{
             border: 0,
@@ -353,6 +355,7 @@ export default function SubscriptionTable({
 
         <button
           type="button"
+          className={`filter-tab ${filterState === 'SUSPENDED' ? 'active' : ''}`}
           onClick={() => setFilterState('SUSPENDED')}
           style={{
             border: 0,
@@ -371,6 +374,7 @@ export default function SubscriptionTable({
         {cancelledCount > 0 && (
           <button
             type="button"
+            className={`filter-tab ${filterState === 'CANCELLED' ? 'active' : ''}`}
             onClick={() => setFilterState('CANCELLED')}
             style={{
               border: 0,

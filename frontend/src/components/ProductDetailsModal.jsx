@@ -70,7 +70,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
 
           <button
             onClick={onClose}
-            className="icon-button"
+            className="icon-button modal-close"
             aria-label="Close modal"
             style={{ fontSize: '20px', color: 'var(--muted, #687387)' }}
           >

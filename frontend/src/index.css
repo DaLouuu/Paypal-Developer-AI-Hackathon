@@ -47,6 +47,19 @@ html {
   a {
     -webkit-tap-highlight-color: transparent;
   }
+  button:not(:disabled),
+  a[href],
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  label[role="button"] {
+    cursor: pointer;
+  }
+  button:not(:disabled):active,
+  a[href]:active,
+  [role="button"]:active {
+    transform: scale(0.97);
+  }
   button {
     color: inherit;
   }
@@ -93,6 +106,10 @@ html {
   align-items: center;
   gap: 10px;
   width: max-content;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.brand:hover {
+  transform: translateY(-1px);
 }
 .brand-mark {
   width: 38px;
@@ -104,6 +121,11 @@ html {
   place-items: center;
   position: relative;
   box-shadow: 0 8px 18px rgba(19, 35, 62, 0.18);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+.brand:hover .brand-mark {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: 0 10px 24px rgba(63, 100, 255, 0.35);
 }
 .brand-mark::before {
   content: "";
@@ -132,6 +154,10 @@ html {
 }
 .brand-name > span {
   color: var(--blue);
+  transition: color 0.2s ease, filter 0.2s ease;
+}
+.brand:hover .brand-name > span {
+  filter: brightness(1.2);
 }
 .brand-lockup {
   display: grid;
@@ -157,12 +183,28 @@ nav a {
   padding: 10px 14px;
   border-radius: 11px;
   font-size: 14px;
-  transition: 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-nav a:hover,
+nav a svg {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+nav a:hover {
+  color: var(--navy);
+  background: #f1f3f5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(19, 35, 62, 0.06);
+}
+nav a:hover svg {
+  transform: scale(1.15);
+  color: var(--blue);
+}
 nav a.active {
   color: var(--navy);
   background: #f1f3f5;
+  box-shadow: 0 2px 6px rgba(19, 35, 62, 0.04);
+}
+nav a.active:hover {
+  transform: translateY(-1px);
 }
 .nav-dot {
   width: 6px;
@@ -186,12 +228,14 @@ nav a.active {
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 .theme-button:hover {
   color: var(--blue);
   border-color: #bac6ff;
-  transform: rotate(8deg);
+  background: white;
+  transform: rotate(15deg) scale(1.1);
+  box-shadow: 0 6px 16px rgba(63, 100, 255, 0.16);
 }
 .notification,
 .icon-button {
@@ -201,6 +245,28 @@ nav a.active {
   place-items: center;
   cursor: pointer;
   position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+.notification {
+  padding: 6px;
+  border-radius: 8px;
+}
+.notification:hover {
+  transform: scale(1.18);
+  color: var(--blue);
+}
+.notification:hover svg {
+  animation: bell-ring 0.45s ease-in-out;
+}
+.icon-button:hover {
+  transform: scale(1.2);
+  color: var(--blue);
+}
+.modal-close:hover,
+.icon-button[aria-label*="Close"]:hover,
+.icon-button[aria-label*="close"]:hover {
+  transform: rotate(90deg) scale(1.2);
+  color: #ff6e63 !important;
 }
 .notification span {
   width: 6px;
@@ -220,6 +286,14 @@ nav a.active {
   background: transparent;
   cursor: pointer;
   text-align: left;
+  padding: 4px 10px 4px 4px;
+  border-radius: 20px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.profile:hover {
+  transform: translateY(-2px);
+  background: rgba(63, 100, 255, 0.07);
+  box-shadow: 0 4px 14px rgba(19, 35, 62, 0.08);
 }
 .profile > span:first-child {
   width: 35px;
@@ -231,6 +305,18 @@ nav a.active {
   place-items: center;
   font-size: 11px;
   font-weight: 700;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+.profile:hover > span:first-child {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(19, 35, 62, 0.3);
+}
+.profile svg {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.profile:hover svg {
+  transform: translateX(2px);
+  color: var(--blue);
 }
 .profile-copy {
   display: grid;
@@ -342,10 +428,19 @@ main {
   font-weight: 600;
   font-size: 14px;
   box-shadow: 0 11px 24px rgba(19, 35, 62, 0.15);
-  transition: 0.2s;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, background-color 0.2s ease;
+}
+.primary-button svg {
+  transition: transform 0.2s ease;
 }
 .primary-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(19, 35, 62, 0.24);
+}
+.primary-button:hover svg {
+  transform: translateX(4px);
 }
 .text-button {
   display: inline-flex;
@@ -353,6 +448,20 @@ main {
   align-items: center;
   font-size: 14px;
   font-weight: 600;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.text-button svg {
+  transition: transform 0.2s ease;
+}
+.text-button:hover {
+  color: var(--blue);
+  transform: translateX(3px);
+}
+.text-button:hover svg {
+  transform: translateX(4px);
 }
 .spend-story {
   margin-top: 52px;
@@ -489,7 +598,11 @@ main {
   border-radius: 20px;
   background: #4c5b72;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.25s ease;
+}
+.toggle:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 14px rgba(43, 191, 136, 0.45);
 }
 .toggle span {
   width: 18px;
@@ -632,11 +745,17 @@ main {
   font-size: 11px;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.shield-link svg {
+  transition: transform 0.2s ease;
 }
 .shield-link:hover {
   color: #c4d0ff;
-  transform: translateX(2px);
+  transform: translateX(4px);
+}
+.shield-link:hover svg {
+  transform: translateX(4px);
 }
 .renewal-ribbon {
   min-height: 78px;
@@ -648,6 +767,12 @@ main {
   align-items: center;
   gap: 14px;
   box-shadow: 0 8px 24px rgba(71, 54, 24, 0.04);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.2s ease;
+}
+.renewal-ribbon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(71, 54, 24, 0.1);
+  border-color: #d8c6a0;
 }
 .renewal-icon {
   width: 42px;
@@ -688,6 +813,17 @@ main {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.renewal-ribbon button svg {
+  transition: transform 0.2s ease;
+}
+.renewal-ribbon button:hover {
+  color: #7a5d2b;
+  transform: translateX(4px);
+}
+.renewal-ribbon button:hover svg {
+  transform: translateX(4px);
 }
 .marketplace-section {
   padding: 89px 0 95px;
@@ -718,6 +854,18 @@ main {
   font-weight: 700;
   padding-bottom: 6px;
   border-bottom: 1px solid #9ea5ae;
+  transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.section-heading > a:hover {
+  transform: translateX(3px);
+  color: var(--blue);
+  border-color: var(--blue);
+}
+.section-heading > a svg {
+  transition: transform 0.2s ease;
+}
+.section-heading > a:hover svg {
+  transform: translateX(4px);
 }
 .market-toolbar {
   border-top: 1px solid var(--line);
@@ -742,10 +890,20 @@ main {
   font-size: 12px;
   cursor: pointer;
   white-space: nowrap;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.categories button:hover:not(.active) {
+  color: var(--navy);
+  background: rgba(19, 35, 62, 0.08);
+  transform: translateY(-2px);
 }
 .categories button.active {
   color: white;
   background: var(--navy);
+}
+.categories button.active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(19, 35, 62, 0.2);
 }
 .search-box {
   width: 275px;
@@ -788,6 +946,37 @@ main {
   color: #566174;
   cursor: pointer;
   line-height: 1;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
+}
+.search-clear:hover {
+  transform: rotate(90deg) scale(1.15);
+  background: #d8dde6;
+  color: var(--navy);
+}
+.suggested-chip {
+  background: var(--surface-soft, #f1f3f5);
+  border: 1px solid var(--line, #dedbd3);
+  color: var(--text-muted, #687387);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.suggested-chip:hover {
+  transform: translateY(-2px);
+  background: rgba(63, 100, 255, 0.1);
+  border-color: var(--blue);
+  color: var(--blue);
+  box-shadow: 0 4px 12px rgba(63, 100, 255, 0.14);
+}
+.soc2-pill {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.soc2-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue) !important;
+  box-shadow: 0 4px 12px rgba(63, 100, 255, 0.14);
 }
 .result-summary {
   min-height: 28px;
@@ -820,13 +1009,14 @@ main {
   border: 1px solid #e2dfd8;
   border-radius: 17px;
   padding: 17px;
-  transition: 0.25s;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
   display: flex;
   flex-direction: column;
 }
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 18px 38px rgba(35, 45, 63, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 42px rgba(35, 45, 63, 0.12);
+  border-color: #cfd4de;
   background: white;
 }
 .product-topline {
@@ -925,6 +1115,15 @@ main {
   display: grid;
   place-items: center;
   cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.product-card:hover .product-footer button {
+  transform: scale(1.12);
+  box-shadow: 0 4px 14px rgba(19, 35, 62, 0.25);
+  background: var(--blue);
+}
+.product-card .product-footer button:hover {
+  transform: scale(1.22);
 }
 .empty-state {
   grid-column: 1/-1;
@@ -964,6 +1163,56 @@ main {
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.outline-button svg {
+  transition: transform 0.2s ease;
+}
+.outline-button:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue);
+  color: var(--blue);
+  background: rgba(63, 100, 255, 0.04);
+  box-shadow: 0 8px 18px rgba(63, 100, 255, 0.12);
+}
+.outline-button:hover svg {
+  transform: scale(1.15);
+}
+.filter-tab {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.filter-tab:hover:not(.active) {
+  transform: translateY(-2px);
+  background: rgba(19, 35, 62, 0.08) !important;
+  color: var(--navy) !important;
+}
+.filter-tab.active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(19, 35, 62, 0.2);
+}
+.horizon-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.horizon-btn:hover:not(.active) {
+  transform: translateY(-1px);
+  background: rgba(63, 100, 255, 0.1) !important;
+  color: var(--blue) !important;
+}
+.horizon-btn.active:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(19, 35, 62, 0.2);
+}
+.cancel-btn,
+.confirm-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+.cancel-btn:hover,
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+.confirm-btn:hover {
+  filter: brightness(1.1);
 }
 .subscription-list {
   border-top: 1px solid #e6e8ea;
@@ -975,6 +1224,13 @@ main {
   align-items: center;
   gap: 18px;
   border-bottom: 1px solid #e6e8ea;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+.subscription-list article:hover {
+  background: rgba(63, 100, 255, 0.03);
+  transform: translateX(4px);
 }
 .sub-identity {
   display: flex;
@@ -1070,6 +1326,14 @@ main {
   cursor: pointer;
   font-size: 10px;
   font-weight: 700;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.approve-button:hover {
+  transform: translateY(-2px);
+  background: #158763;
+  color: white;
+  border-color: #158763;
+  box-shadow: 0 8px 18px rgba(21, 135, 99, 0.28);
 }
 .promise {
   margin: 72px 0;
@@ -1116,7 +1380,9 @@ main {
   font-size: 12px;
   margin: 0;
 }
-.promise a {
+.promise button,
+.promise a,
+.promise-cta {
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 12px 15px;
@@ -1127,6 +1393,27 @@ main {
   gap: 10px;
   align-items: center;
   white-space: nowrap;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.promise button:hover,
+.promise a:hover,
+.promise-cta:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-color: white !important;
+  box-shadow: 0 8px 22px rgba(255, 255, 255, 0.16);
+}
+.promise button svg,
+.promise a svg,
+.promise-cta svg {
+  transition: transform 0.2s ease;
+}
+.promise button:hover svg,
+.promise a:hover svg,
+.promise-cta:hover svg {
+  transform: translateX(4px);
 }
 footer {
   min-height: 105px;
@@ -1291,7 +1578,42 @@ footer {
 }
 [data-theme="dark"] .product-card:hover {
   background: #192231;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+  border-color: #3b4961;
+}
+[data-theme="dark"] .outline-button:hover {
+  border-color: #5577ff;
+  color: #aebdff;
+  background: #1b2436;
+  box-shadow: 0 8px 18px rgba(69, 105, 255, 0.2);
+}
+[data-theme="dark"] .profile:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+[data-theme="dark"] .categories button:hover:not(.active) {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .categories button.active:hover {
+  box-shadow: 0 6px 14px rgba(69, 105, 255, 0.35);
+}
+[data-theme="dark"] .suggested-chip:hover {
+  background: rgba(69, 105, 255, 0.2);
+  border-color: #5577ff;
+  color: #aebdff;
+  box-shadow: 0 4px 12px rgba(69, 105, 255, 0.25);
+}
+[data-theme="dark"] .filter-tab:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+[data-theme="dark"] .horizon-btn:hover:not(.active) {
+  background: rgba(69, 105, 255, 0.2) !important;
+  color: #aebdff !important;
+}
+[data-theme="dark"] .subscription-list article:hover {
+  background: rgba(255, 255, 255, 0.035);
 }
 [data-theme="dark"] .product-card,
 [data-theme="dark"] .trust-row,
@@ -1424,29 +1746,6 @@ footer {
 
 .notification span {
   animation: pulse-dot 2.2s infinite ease-in-out;
-}
-
-.product-card {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
-}
-.product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(35, 45, 63, 0.12);
-}
-
-.product-footer button {
-  transition: transform 0.15s ease, background-color 0.15s ease;
-}
-.product-card:hover .product-footer button {
-  transform: scale(1.08);
-}
-
-.renewal-ribbon {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.renewal-ribbon:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(71, 54, 24, 0.08);
 }
 
 @media (max-width: 1050px) {

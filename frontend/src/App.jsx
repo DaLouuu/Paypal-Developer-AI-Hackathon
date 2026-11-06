@@ -500,6 +500,7 @@ export default function App() {
           </div>
           <button
             type="button"
+            className="outline-button promise-cta"
             onClick={() => {
               setShowTimeline(true);
               navigateTo('protection');

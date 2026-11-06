@@ -226,6 +226,7 @@ export default function DiscoverySearch({ onSelectTool }) {
           {/* SOC-2 Toggle & Search Bar */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <label
+              className="soc2-pill"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -283,17 +284,8 @@ export default function DiscoverySearch({ onSelectTool }) {
             <button
               key={idx}
               type="button"
+              className="suggested-chip"
               onClick={() => setQuery(s)}
-              style={{
-                background: 'var(--surface-soft, #f1f3f5)',
-                border: '1px solid var(--line, #dedbd3)',
-                color: 'var(--text-muted, #687387)',
-                padding: '3px 9px',
-                borderRadius: '100px',
-                fontSize: '11px',
-                cursor: 'pointer',
-                transition: 'all 0.15s ease'
-              }}
             >
               {s}
             </button>

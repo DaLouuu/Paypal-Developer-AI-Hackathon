@@ -164,6 +164,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
               <button
                 key={tab.id}
                 type="button"
+                className={`horizon-btn ${horizon === tab.id ? 'active' : ''}`}
                 onClick={() => setHorizon(tab.id)}
                 style={{
                   border: 'none',

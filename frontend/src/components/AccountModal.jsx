@@ -85,7 +85,7 @@ export default function AccountModal({ isOpen, onClose, spendingCap = 50, onUpda
           </div>
           <button
             onClick={onClose}
-            className="icon-button"
+            className="icon-button modal-close"
             aria-label="Close modal"
             style={{ fontSize: '20px', color: 'var(--muted)' }}
           >

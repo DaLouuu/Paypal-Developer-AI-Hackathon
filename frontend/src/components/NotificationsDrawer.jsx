@@ -51,7 +51,8 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
           </div>
           <button
             onClick={onClose}
-            className="icon-button"
+            className="icon-button modal-close"
+            aria-label="Close notifications"
             style={{ fontSize: '20px', color: 'var(--muted)' }}
           >
             ×

@@ -23,6 +23,8 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
       >
         <button
           onClick={onCancel}
+          className="icon-button modal-close"
+          aria-label="Close modal"
           style={{
             position: 'absolute',
             top: '16px',
@@ -61,6 +63,7 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '20px' }}>
               <button
                 type="button"
+                className="cancel-btn text-button"
                 onClick={onCancel}
                 style={{
                   border: '1px solid #cbd5e1',
@@ -78,6 +81,7 @@ export default function ConfirmationModal({ isOpen, title, message, confirmText 
 
               <button
                 type="button"
+                className="confirm-btn primary-button"
                 onClick={onConfirm}
                 style={{
                   border: 'none',
