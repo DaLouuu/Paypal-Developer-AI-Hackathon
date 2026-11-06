@@ -30,7 +30,7 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
   const seg2Active = normalized > 0.3;
   const seg3Active = normalized > 0.6;
 
-  const inactiveBg = 'var(--line, #1b1f9d)';
+  const inactiveBg = 'var(--meter-inactive, rgba(249, 222, 201, 0.25))';
 
   if (size === 'compact') {
     return (

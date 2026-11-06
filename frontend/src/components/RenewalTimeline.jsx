@@ -226,7 +226,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                     </div>
 
                     {/* Lane Track */}
-                    <div style={{ position: 'relative', height: '36px', backgroundColor: 'var(--surface, #ffffff)', borderRadius: '8px', overflow: 'visible', border: '1px solid var(--line)' }}>
+                    <div className="timeline-track" style={{ position: 'relative', height: '36px', borderRadius: '8px', overflow: 'visible', border: '1px solid var(--line)' }}>
                       {/* Trial Window Bar */}
                       {isTrial && (
                         <div

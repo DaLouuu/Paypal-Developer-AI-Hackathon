@@ -45,6 +45,7 @@
   --surface-soft: #ffffff;
   --text: #060723;
   --text-muted: #1b1f9d;
+  --meter-inactive: rgba(6, 7, 35, 0.15);
 }
 
 * {
@@ -2480,6 +2481,7 @@ footer {
   --yellow: #f9dec9;
   --yellow-light: #060723;
   --yellow-dark: #f9dec9;
+  --meter-inactive: rgba(249, 222, 201, 0.25);
 }
 [data-theme="dark"] body {
   background: #060723;
@@ -2598,10 +2600,27 @@ footer {
   color: #f9dec9;
 }
 [data-theme="dark"] .mini-chart {
-  border-color: #1b1f9d;
+  border-color: rgba(249, 222, 201, 0.35);
 }
 [data-theme="dark"] .mini-chart i {
-  background: #1b1f9d;
+  background: rgba(249, 222, 201, 0.35);
+  border: 1px solid rgba(249, 222, 201, 0.5);
+}
+[data-theme="dark"] .mini-chart i:nth-last-child(-n + 5) {
+  background: #2edcc4;
+  border-color: #2edcc4;
+  box-shadow: 0 0 8px rgba(46, 220, 196, 0.45);
+}
+[data-theme="dark"] .mini-chart i:nth-last-child(-n + 2) {
+  background: #f9dec9;
+  border-color: #f9dec9;
+  box-shadow: 0 0 8px rgba(249, 222, 201, 0.45);
+}
+[data-theme="dark"] .mini-chart i:hover {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+  transform: scaleY(1.18);
 }
 [data-theme="dark"] .shield-panel {
   background: #1b1f9d;
@@ -2857,19 +2876,32 @@ footer {
   border-color: rgba(46, 220, 196, 0.3);
 }
 [data-theme="dark"] .timeline-bar-trial {
-  background-color: rgba(249, 222, 201, 0.15);
-  border-color: rgba(249, 222, 201, 0.3);
-  color: #f9dec9;
+  background-color: #f9dec9;
+  border: 1.5px solid #ffffff;
+  color: #060723;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(249, 222, 201, 0.3);
 }
 [data-theme="dark"] .timeline-bar-active {
-  background-color: rgba(46, 220, 196, 0.18);
-  border-color: rgba(46, 220, 196, 0.4);
-  color: #2edcc4;
+  background-color: #2edcc4;
+  border: 1.5px solid #060723;
+  color: #060723;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(46, 220, 196, 0.35);
 }
 [data-theme="dark"] .timeline-bar-suspended {
-  background-color: #060723;
-  border-color: #060723;
-  color: #f9dec9;
+  background-color: #f9dec9;
+  border: 1.5px solid #060723;
+  color: #060723;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(249, 222, 201, 0.3);
+}
+.timeline-track {
+  background-color: var(--surface, #ffffff);
+}
+[data-theme="dark"] .timeline-track {
+  background-color: #060723 !important;
+  border-color: rgba(249, 222, 201, 0.25) !important;
 }
 [data-theme="dark"] .timeline-tooltip {
   background-color: #060723;
