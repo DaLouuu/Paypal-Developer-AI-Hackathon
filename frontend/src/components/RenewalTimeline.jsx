@@ -406,7 +406,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                               className="timeline-bar timeline-bar-suspended"
                               style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'hidden' }}
                             >
-                              <SubGuardIcon name="alert" size={13} style={{ flexShrink: 0 }} />
+                              <SubGuardIcon name="alert" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
                               <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flex: '1 1 auto' }}>
                                 Suspended: Awaiting Authorization
                               </span>
