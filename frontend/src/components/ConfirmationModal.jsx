@@ -66,10 +66,10 @@ export default function ConfirmationModal({
           </div>
 
           <div style={{ flex: 1 }}>
-            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--navy)' }}>
+            <h3 style={{ margin: 0, fontSize: '16px', fontWeight: 700, fontFamily: 'var(--font-sans)' }}>
               {title}
             </h3>
-            <p style={{ margin: '10px 0 0 0', fontSize: '13px', color: 'var(--muted)', lineHeight: 1.55 }}>
+            <p style={{ margin: '10px 0 0 0', fontSize: '13px', lineHeight: 1.55 }}>
               {message}
             </p>
 
@@ -78,35 +78,14 @@ export default function ConfirmationModal({
                 type="button"
                 className="cancel-btn text-button"
                 onClick={onCancel}
-                style={{
-                  border: '1px solid var(--line)',
-                  backgroundColor: 'var(--surface-soft)',
-                  color: 'var(--navy)',
-                  borderRadius: '9px',
-                  padding: '9px 16px',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
               >
                 Cancel
               </button>
 
               <button
                 type="button"
-                className="confirm-btn primary-button"
+                className={`confirm-btn ${isDanger ? 'danger' : 'primary'}`}
                 onClick={onConfirm}
-                style={{
-                  border: 'none',
-                  backgroundColor: isDanger ? '#f9dec9' : 'var(--blue, #216e65)',
-                  color: '#ffffff',
-                  borderRadius: '9px',
-                  padding: '9px 18px',
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  boxShadow: isDanger ? '0 4px 14px rgba(249, 222, 201, 0.25)' : '0 4px 14px rgba(33, 110, 101, 0.25)'
-                }}
               >
                 {confirmText}
               </button>
