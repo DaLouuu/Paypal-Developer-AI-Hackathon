@@ -378,16 +378,20 @@ export default function DiscoverySearch({ onSelectTool }) {
 
       {/* Product Cards Grid */}
       <div className="product-grid">
-        {filtered.map((product) => {
+        {filtered.map((product, idx) => {
           const isFav = favorites.includes(product.product_id);
           const hasDiscount = product.original_price && product.original_price > product.price;
 
           return (
             <article
-              key={product.product_id}
+              key={`${category}-${product.product_id}`}
               className="product-card"
               onClick={() => handleCardClick(product)}
-              style={{ cursor: 'pointer' }}
+              style={{
+                cursor: 'pointer',
+                '--stagger-delay': `${Math.min(idx * 60, 480)}ms`,
+                animationDelay: `${Math.min(idx * 60, 480)}ms`
+              }}
             >
               {/* Card Topline: Tag + Compare + Wishlist Heart */}
               <div className="product-topline">
