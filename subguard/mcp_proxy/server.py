@@ -300,6 +300,10 @@ def create_app(testing: bool = False) -> FastAPI:
     from subguard.discovery.router import discovery_router
     app.include_router(discovery_router)
 
+    # Mount Authentication & Profiling Router (AP2 Protocol Compliant)
+    from subguard.auth.router import auth_router
+    app.include_router(auth_router)
+
     return app
 
 

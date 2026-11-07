@@ -57,10 +57,18 @@ class GuardStatusEnum(str, Enum):
 class UserModel(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     email: str
-    organization_name: Optional[str] = None
+    full_name: str = "Alex Morgan"
+    first_name: str = "Alex"
+    initials: str = "AM"
+    hashed_password: Optional[str] = None
+    salt: Optional[str] = None
+    role: str = "Founder Admin"
+    avatar_color: str = "#2edcc4"
+    organization_name: Optional[str] = "PayPal Dev Sandbox Organization"
     monthly_budget_ceiling: float = 500.00
+    single_transaction_limit: float = 50.00
     currency: str = "USD"
-    public_signing_key: str
+    public_signing_key: str = ""
     created_at: datetime = Field(default_factory=utc_now)
     updated_at: datetime = Field(default_factory=utc_now)
 
@@ -146,6 +154,33 @@ class InMemoryRepository:
         self.cancellation_guards: Dict[str, CancellationGuardModel] = {}
         self.audit_logs: List[PolicyAuditLogModel] = []
         self.suspended_transactions: Dict[str, dict] = {}
+        self.seed_demo_users()
+
+    def seed_demo_users(self):
+        from subguard.core.auth import hash_password, generate_user_keys
+        if "user-demo-alex" not in self.users:
+            try:
+                pub_key, _ = generate_user_keys()
+                hp, salt = hash_password("subguard2026!")
+                alex = UserModel(
+                    id="user-demo-alex",
+                    email="alex.morgan@subguard.dev",
+                    full_name="Alex Morgan",
+                    first_name="Alex",
+                    initials="AM",
+                    hashed_password=hp,
+                    salt=salt,
+                    role="Founder Admin",
+                    avatar_color="#2edcc4",
+                    organization_name="PayPal Dev Sandbox Organization",
+                    monthly_budget_ceiling=500.00,
+                    single_transaction_limit=50.00,
+                    public_signing_key=pub_key
+                )
+                self.users[alex.id] = alex
+                self.users[alex.email] = alex
+            except Exception:
+                pass
 
 
 db_repo = InMemoryRepository()

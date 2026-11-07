@@ -6,6 +6,8 @@ import RenewalTimeline from './components/RenewalTimeline';
 import NotificationsDrawer from './components/NotificationsDrawer';
 import AccountModal from './components/AccountModal';
 import LoadingScreen from './components/LoadingScreen';
+import AuthModal from './components/AuthModal';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 const INITIAL_SUBSCRIPTIONS = [
   {
@@ -71,10 +73,19 @@ const SPEND_TREND_DATA = [
   { height: 18, period: 'Nov (Current)', amount: 235, note: 'Governed commitments · 8% lower' }
 ];
 
-export default function App() {
+function AppContent() {
+  const {
+    user,
+    isAuthenticated,
+    authModalConfig,
+    openAuthModal,
+    closeAuthModal,
+    updateProfile
+  } = useAuth();
+
   const [subscriptions, setSubscriptions] = useState(INITIAL_SUBSCRIPTIONS);
   const [shieldOn, setShieldOn] = useState(true);
-  const [spendingCap, setSpendingCap] = useState(50);
+  const [spendingCap, setSpendingCap] = useState(() => user?.singleTransactionLimit || 50);
   const [notice, setNotice] = useState('');
   const [activeNav, setActiveNav] = useState('home');
   const [showTimeline, setShowTimeline] = useState(false);
@@ -83,38 +94,11 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [hoveredBarIndex, setHoveredBarIndex] = useState(null);
 
-  const [user, setUser] = useState(() => {
-    try {
-      const saved = localStorage.getItem('subguard-user');
-      if (saved) return JSON.parse(saved);
-    } catch {
-      // ignore
+  useEffect(() => {
+    if (user?.singleTransactionLimit) {
+      setSpendingCap(user.singleTransactionLimit);
     }
-    return {
-      fullName: 'Alex Morgan',
-      firstName: 'Alex',
-      role: 'Admin',
-      initials: 'AM',
-      organization: 'PayPal Dev Sandbox Organization'
-    };
-  });
-
-  const handleUpdateUser = (updated) => {
-    setUser(prev => {
-      const next = { ...prev, ...updated };
-      if (updated.fullName) {
-        const parts = updated.fullName.trim().split(/\s+/);
-        next.firstName = parts[0] || 'Alex';
-        next.initials = (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
-      }
-      try {
-        localStorage.setItem('subguard-user', JSON.stringify(next));
-      } catch {
-        // ignore
-      }
-      return next;
-    });
-  };
+  }, [user?.singleTransactionLimit]);
 
   const getTimeGreeting = () => {
     const hour = new Date().getHours();
@@ -300,6 +284,7 @@ export default function App() {
 
   const handleUpdateSpendingCap = (newCap) => {
     setSpendingCap(newCap);
+    updateProfile({ singleTransactionLimit: newCap });
     showNotice(`Autonomous ceiling updated to $${newCap.toFixed(2)}/mo`);
   };
 
@@ -424,20 +409,74 @@ export default function App() {
             <span />
           </button>
 
-          {/* User Profile / Governance Passport */}
-          <button
-            className="profile"
-            onClick={() => setIsAccountOpen(true)}
-            aria-label="Open Governance & Security Passport"
-            type="button"
-          >
-            <span className="profile-avatar">{user.initials || 'AM'}</span>
-            <span className="profile-copy">
-              <strong>{user.fullName || 'Alex Morgan'}</strong>
-              <small>{user.role || 'Admin'} · Passport</small>
-            </span>
-            <SubGuardIcon name="chevron" size={14} />
-          </button>
+          {/* User Profile / Governance Passport OR Sign In / Register Buttons */}
+          {isAuthenticated ? (
+            <button
+              className="profile"
+              onClick={() => setIsAccountOpen(true)}
+              aria-label="Open Governance & Security Passport"
+              type="button"
+            >
+              <span
+                className="profile-avatar"
+                style={user?.avatarColor ? { backgroundColor: user.avatarColor, color: '#060723' } : undefined}
+              >
+                {user?.initials || 'AM'}
+              </span>
+              <span className="profile-copy">
+                <strong>{user?.fullName || 'Alex Morgan'}</strong>
+                <small>{user?.role || 'Admin'} · Passport</small>
+              </span>
+              <SubGuardIcon name="chevron" size={14} />
+            </button>
+          ) : (
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                type="button"
+                className="btn-ghost"
+                onClick={() => openAuthModal('signin')}
+                style={{
+                  height: '38px',
+                  padding: '0 14px',
+                  borderRadius: '10px',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  border: '1.5px solid var(--line, #a6bbe2)',
+                  color: 'inherit',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <SubGuardIcon name="lock" size={14} />
+                Sign In
+              </button>
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={() => openAuthModal('register')}
+                style={{
+                  height: '38px',
+                  padding: '0 14px',
+                  borderRadius: '10px',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  backgroundColor: 'var(--c-mint, #2edcc4)',
+                  color: '#060723',
+                  border: '1.5px solid #060723',
+                  boxShadow: '2px 2px 0px #060723',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <SubGuardIcon name="user" size={14} />
+                Create Account
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
@@ -594,7 +633,7 @@ export default function App() {
                   </div>
                   <div className="governance-metric-box">
                     <span>Monthly Hard Cap</span>
-                    <strong>$500.00</strong>
+                    <strong>{user?.monthlyBudgetCeiling ? `$${user.monthlyBudgetCeiling.toFixed(2)}` : '$500.00'}</strong>
                     <small>Hard deterministic rejection</small>
                   </div>
                 </div>
@@ -706,7 +745,7 @@ export default function App() {
                   </button>
 
                   <h1>
-                    {greeting}, {user.firstName || 'Alex'}.
+                    {greeting}, {isAuthenticated ? (user?.firstName || 'Alex') : 'Founder'}.
                     <br />
                     {subscriptionHealth.prefix}
                     <em className={`health-highlight ${subscriptionHealth.statusType}`}>
@@ -1038,9 +1077,22 @@ export default function App() {
         onClose={() => setIsAccountOpen(false)}
         spendingCap={spendingCap}
         onUpdateSpendingCap={handleUpdateSpendingCap}
-        user={user}
-        onUpdateUser={handleUpdateUser}
+      />
+
+      {/* Account Registration & Sign-in Modal */}
+      <AuthModal
+        isOpen={authModalConfig.isOpen}
+        onClose={closeAuthModal}
+        initialTab={authModalConfig.initialTab}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
