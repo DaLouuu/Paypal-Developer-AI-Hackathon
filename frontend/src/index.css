@@ -2922,7 +2922,7 @@ main {
 
 .timeline-tooltip {
   position: absolute;
-  bottom: 34px;
+  bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
   width: 250px;
@@ -2932,10 +2932,28 @@ main {
   border-radius: 10px;
   font-size: 11px;
   line-height: 1.45;
+  white-space: normal;
+  text-align: left;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.15);
   pointer-events: none;
   z-index: 100;
+  animation: tooltip-fade 0.15s ease-out;
+}
+
+.timeline-tooltip * {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+@keyframes tooltip-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .cancel-btn,

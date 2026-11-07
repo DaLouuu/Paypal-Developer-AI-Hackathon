@@ -152,26 +152,26 @@ export default function RenewalTimeline({ subscriptions = [] }) {
 
         {/* Legend */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '11px', color: 'var(--muted)', marginBottom: '16px', flexWrap: 'wrap' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }} title="Active Trial: Pre-conversion period with cancellation safeguards">
             <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#f59e0b', border: '1px solid #f59e0b' }} />
             Active Trial (Pre-conversion)
           </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }} title="Governed Recurring Term: Active subscription enforced by AP2 spending policy">
             <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#2edcc4', border: '1px solid #2edcc4' }} />
             Governed Recurring Term
           </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }} title="Suspended Mandate: HITL approval required before renewal">
             <span style={{ width: '10px', height: '10px', borderRadius: '3px', backgroundColor: '#ff335c', border: '1px solid #ff335c' }} />
             Suspended Mandate (HITL)
           </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }} title="48h Cancellation Shield: Autonomous cancellation trigger before renewal deadline">
             <SubGuardIcon name="shield" size={13} style={{ color: '#2edcc4' }} />
             48h Cancellation Shield Trigger
           </span>
         </div>
 
         {/* Responsive Horizontal Scroll Container */}
-        <div style={{ overflowX: 'auto', paddingBottom: '6px' }}>
+        <div style={{ overflowX: 'auto', paddingBottom: '6px', paddingTop: '45px', marginTop: '-15px' }}>
           <div style={{ minWidth: '700px', position: 'relative', marginTop: '10px' }}>
             {/* Date Axis Bar: Exactly mirrors the lane card layout (padding 0 14px, grid 190px 1fr) */}
             <div
@@ -213,7 +213,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
             </div>
 
             {/* Timeline Lanes */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative', zIndex: 10 }}>
               {subscriptions.map((sub) => {
                 const isTrial = sub.status === 'TRIAL_ACTIVE' || sub.is_trial;
                 const isSuspended = sub.status === 'SUSPENDED_AWAITING_HUMAN';
@@ -234,7 +234,9 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                       backgroundColor: 'var(--surface-soft, #ffffff)',
                       border: '1px solid var(--line)',
                       borderRadius: '12px',
-                      padding: '10px 14px'
+                      padding: '10px 14px',
+                      position: 'relative',
+                      zIndex: activeTooltip === sub.id ? 50 : 1
                     }}
                   >
                     {/* Lane Label */}
@@ -274,11 +276,14 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                               {/* Trial Duration Progress Fill */}
                               <div
                                 className="timeline-bar timeline-bar-trial"
+                                onMouseEnter={() => setActiveTooltip(sub.id)}
+                                onMouseLeave={() => setActiveTooltip(null)}
                                 style={{
                                   width: `${Math.max(endPercent, 1.5)}%`,
                                   minWidth: '8px',
                                   zIndex: 2,
-                                  overflow: 'hidden'
+                                  overflow: 'hidden',
+                                  cursor: 'pointer'
                                 }}
                               />
 
@@ -286,6 +291,9 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                               <div
                                 onMouseEnter={() => setActiveTooltip(sub.id)}
                                 onMouseLeave={() => setActiveTooltip(null)}
+                                tabIndex={0}
+                                role="button"
+                                aria-label="48h Pre-Renewal Shield details"
                                 style={{
                                   position: 'absolute',
                                   left: `max(calc(${endPercent}% - 13px), 2px)`,
@@ -309,7 +317,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                                 {activeTooltip === sub.id && (
                                   <div className="timeline-tooltip">
                                     <div style={{ fontWeight: 700, color: '#2edcc4', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                      <SubGuardIcon name="shield" size={12} /> 48h Pre-Renewal Shield
+                                      <SubGuardIcon name="shield" size={12} stroke={2.4} /> 48h Pre-Renewal Shield
                                     </div>
                                     <div>
                                       Scheduled for {new Date(new Date(sub.next_billing_date).getTime() - 48 * 3600 * 1000).toLocaleDateString()}.
@@ -349,16 +357,24 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                                 {/* Narrow Suspended Progress Fill */}
                                 <div
                                   className="timeline-bar timeline-bar-suspended"
+                                  onMouseEnter={() => setActiveTooltip(sub.id)}
+                                  onMouseLeave={() => setActiveTooltip(null)}
                                   style={{
                                     width: `${Math.max(endPercent, 1.5)}%`,
                                     minWidth: '8px',
                                     zIndex: 2,
-                                    overflow: 'hidden'
+                                    overflow: 'hidden',
+                                    cursor: 'pointer'
                                   }}
                                 />
 
                                 {/* Suspended Milestone Pin */}
                                 <div
+                                  onMouseEnter={() => setActiveTooltip(sub.id)}
+                                  onMouseLeave={() => setActiveTooltip(null)}
+                                  tabIndex={0}
+                                  role="button"
+                                  aria-label="Suspended Mandate details"
                                   style={{
                                     position: 'absolute',
                                     left: `max(calc(${endPercent}% - 13px), 2px)`,
@@ -372,10 +388,23 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                                     display: 'grid',
                                     placeItems: 'center',
                                     color: '#ffffff',
+                                    cursor: 'pointer',
                                     zIndex: 10
                                   }}
                                 >
                                   <SubGuardIcon name="alert" size={14} stroke={2.6} />
+
+                                  {/* Tooltip */}
+                                  {activeTooltip === sub.id && (
+                                    <div className="timeline-tooltip">
+                                      <div style={{ fontWeight: 700, color: '#ff4d6d', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        <SubGuardIcon name="alert" size={12} stroke={2.4} /> Suspended Mandate (Action Required)
+                                      </div>
+                                      <div>
+                                        Awaiting founder authorization before {dateFormatted}. Single transaction ceiling ($50.00) or vendor verification triggered an autonomous hold to prevent renewal.
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
 
                                 {/* External Suspended Label */}
@@ -404,7 +433,9 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                           return (
                             <div
                               className="timeline-bar timeline-bar-suspended"
-                              style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'hidden' }}
+                              onMouseEnter={() => setActiveTooltip(sub.id)}
+                              onMouseLeave={() => setActiveTooltip(null)}
+                              style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'visible', cursor: 'pointer', position: 'relative' }}
                             >
                               <SubGuardIcon name="alert" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
                               <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flex: '1 1 auto' }}>
@@ -413,6 +444,18 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                               <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
                                 {dateFormatted}
                               </span>
+
+                              {/* Tooltip */}
+                              {activeTooltip === sub.id && (
+                                <div className="timeline-tooltip" style={{ left: '10px', transform: 'none' }}>
+                                  <div style={{ fontWeight: 700, color: '#ff4d6d', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                    <SubGuardIcon name="alert" size={12} stroke={2.4} /> Suspended Mandate (Action Required)
+                                  </div>
+                                  <div>
+                                    Awaiting founder authorization before {dateFormatted}. Single transaction ceiling ($50.00) or vendor verification triggered an autonomous hold to prevent renewal.
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           );
                         }
@@ -424,16 +467,24 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                               {/* Narrow Active Progress Fill */}
                               <div
                                 className="timeline-bar timeline-bar-active"
+                                onMouseEnter={() => setActiveTooltip(sub.id)}
+                                onMouseLeave={() => setActiveTooltip(null)}
                                 style={{
                                   width: `${Math.max(endPercent, 1.5)}%`,
                                   minWidth: '8px',
                                   zIndex: 2,
-                                  overflow: 'hidden'
+                                  overflow: 'hidden',
+                                  cursor: 'pointer'
                                 }}
                               />
 
                               {/* Active Milestone Pin */}
                               <div
+                                onMouseEnter={() => setActiveTooltip(sub.id)}
+                                onMouseLeave={() => setActiveTooltip(null)}
+                                tabIndex={0}
+                                role="button"
+                                aria-label="Governed Recurring Cycle details"
                                 style={{
                                   position: 'absolute',
                                   left: `max(calc(${endPercent}% - 13px), 2px)`,
@@ -447,10 +498,23 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                                   display: 'grid',
                                   placeItems: 'center',
                                   color: '#060723',
+                                  cursor: 'pointer',
                                   zIndex: 10
                                 }}
                               >
                                 <SubGuardIcon name="check" size={14} stroke={2.6} />
+
+                                {/* Tooltip */}
+                                {activeTooltip === sub.id && (
+                                  <div className="timeline-tooltip">
+                                    <div style={{ fontWeight: 700, color: '#2edcc4', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                      <SubGuardIcon name="check" size={12} stroke={2.4} /> Governed Recurring Cycle
+                                    </div>
+                                    <div>
+                                      Renews on {dateFormatted} ({daysFromNow.toFixed(0)}d remaining). Autonomous spending policy active (${sub.recurring_amount}/mo) with AP2 Ed25519 cryptographic mandate.
+                                    </div>
+                                  </div>
+                                )}
                               </div>
 
                               {/* External Active Label */}
@@ -479,7 +543,9 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                         return (
                           <div
                             className="timeline-bar timeline-bar-active"
-                            style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'hidden' }}
+                            onMouseEnter={() => setActiveTooltip(sub.id)}
+                            onMouseLeave={() => setActiveTooltip(null)}
+                            style={{ width: `${endPercent}%`, zIndex: 2, overflow: 'visible', cursor: 'pointer', position: 'relative' }}
                           >
                             <SubGuardIcon name="check" size={13} stroke={2.4} style={{ flexShrink: 0 }} />
                             <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0, flex: '1 1 auto' }}>
@@ -488,6 +554,18 @@ export default function RenewalTimeline({ subscriptions = [] }) {
                             <span style={{ marginLeft: 'auto', flexShrink: 0, fontSize: '10px', fontWeight: 800, opacity: 0.9 }}>
                               {dateFormatted}
                             </span>
+
+                            {/* Tooltip */}
+                            {activeTooltip === sub.id && (
+                              <div className="timeline-tooltip" style={{ left: '10px', transform: 'none' }}>
+                                <div style={{ fontWeight: 700, color: '#2edcc4', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                  <SubGuardIcon name="check" size={12} stroke={2.4} /> Governed Recurring Cycle
+                                </div>
+                                <div>
+                                  Renews on {dateFormatted} ({daysFromNow.toFixed(0)}d remaining). Autonomous spending policy active (${sub.recurring_amount}/mo) with AP2 Ed25519 cryptographic mandate.
+                                </div>
+                              </div>
+                            )}
                           </div>
                         );
                       })()}
