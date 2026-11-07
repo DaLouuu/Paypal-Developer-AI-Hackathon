@@ -180,25 +180,25 @@ export default function SubscriptionTable({
         let content;
         if (val === 'ACTIVE_RECURRING') {
           content = (
-            <span className="sub-status active">
+            <span className="sub-status active" title="Governed: Recurring billing active and compliant with autonomous spend policies">
               <i /> Active
             </span>
           );
         } else if (val === 'TRIAL_ACTIVE' || params.data?.is_trial) {
           content = (
-            <span className="sub-status trial">
+            <span className="sub-status trial" title="Protected: Active promotional trial monitored to prevent unexpected renewal charge">
               <SubGuardIcon name="clock" size={12} /> Trial protected
             </span>
           );
         } else if (val === 'SUSPENDED_AWAITING_HUMAN') {
           content = (
-            <span className="sub-status attention">
+            <span className="sub-status attention" title="Suspended: Transaction exceeds $50.00 ceiling. Requires founder authorization to execute agreement">
               <i /> Needs approval
             </span>
           );
         } else if (val === 'PENDING_CANCELLATION') {
           content = (
-            <span className="sub-status trial">
+            <span className="sub-status trial" title="Armed: SubGuard will trigger PayPal cancellation 48h before next billing deadline">
               <SubGuardIcon name="shield" size={12} /> Guard armed
             </span>
           );
@@ -333,6 +333,7 @@ export default function SubscriptionTable({
           <button
             type="button"
             className={`filter-tab ${filterState === 'ALL' ? 'active' : ''}`}
+            title="Display all subscriptions"
             onClick={() => setFilterState('ALL')}
           >
             All ({subscriptions.length})
@@ -341,6 +342,7 @@ export default function SubscriptionTable({
           <button
             type="button"
             className={`filter-tab ${filterState === 'ACTIVE' ? 'active' : ''}`}
+            title="Filter by active recurring subscriptions"
             onClick={() => setFilterState('ACTIVE')}
           >
             Active Plans ({activeCount - trialsCount})
@@ -349,6 +351,7 @@ export default function SubscriptionTable({
           <button
             type="button"
             className={`filter-tab ${filterState === 'TRIAL' ? 'active' : ''}`}
+            title="Filter by active promotional trials with automated cancellation guards"
             onClick={() => setFilterState('TRIAL')}
           >
             Protected Trials ({trialsCount})
@@ -357,6 +360,7 @@ export default function SubscriptionTable({
           <button
             type="button"
             className={`filter-tab ${filterState === 'SUSPENDED' ? 'active' : ''}`}
+            title="Filter by suspended mandates awaiting founder authorization"
             onClick={() => setFilterState('SUSPENDED')}
           >
             Needs Approval ({suspendedCount})
@@ -366,6 +370,7 @@ export default function SubscriptionTable({
             <button
               type="button"
               className={`filter-tab ${filterState === 'CANCELLED' ? 'active' : ''}`}
+              title="Filter by subscriptions queued for automated cancellation"
               onClick={() => setFilterState('CANCELLED')}
             >
               Shield Armed ({cancelledCount})
@@ -377,6 +382,7 @@ export default function SubscriptionTable({
           className="outline-button"
           onClick={() => setShowGrid(!showGrid)}
           aria-expanded={showGrid}
+          title={showGrid ? "Switch to card list view" : "Switch to enterprise AG Grid data view"}
           type="button"
         >
           <SubGuardIcon name="grid" size={15} />
@@ -414,7 +420,7 @@ export default function SubscriptionTable({
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <strong>{sub.product_name}</strong>
-                      <span className="ap2-verified-tag">
+                      <span className="ap2-verified-tag" title="AP2 Cryptographically Signed: Governed by Ed25519 mandate binding approved domain and spending ceilings">
                         <SubGuardIcon name="check" size={9} stroke={2.4} /> AP2 Signed
                       </span>
                     </div>
@@ -427,19 +433,19 @@ export default function SubscriptionTable({
                 {/* 2. Status Badge */}
                 <div>
                   {isSuspended ? (
-                    <div className="sub-status attention">
+                    <div className="sub-status attention" title="Suspended: Exceeds $50.00 autonomous ceiling. Requires founder approval before processing payment">
                       <i /> Needs approval
                     </div>
                   ) : isArmed ? (
-                    <div className="sub-status trial">
+                    <div className="sub-status trial" title="Armed: SubGuard will automatically cancel this subscription 48 hours prior to renewal">
                       <SubGuardIcon name="shield" size={13} /> Shield armed
                     </div>
                   ) : isTrial ? (
-                    <div className="sub-status trial">
+                    <div className="sub-status trial" title="Protected: Active promotional trial monitored to prevent surprise conversion billing">
                       <SubGuardIcon name="clock" size={13} /> Trial protected
                     </div>
                   ) : (
-                    <div className="sub-status active">
+                    <div className="sub-status active" title="Governed: Recurring billing active and compliant with autonomous spend policies">
                       <i /> Active
                     </div>
                   )}
@@ -470,12 +476,13 @@ export default function SubscriptionTable({
                       className="approve-button"
                       onClick={() => promptApprove(sub)}
                       aria-label={`Review request for ${sub.product_name}`}
+                      title="Review suspended mandate and resume PayPal agreement"
                       type="button"
                     >
                       Review request
                     </button>
                   ) : isArmed ? (
-                    <span className="auto-cancel-ready-tag">
+                    <span className="auto-cancel-ready-tag" title="Auto-Cancel Armed: Scheduled termination 48h prior to next billing cycle">
                       <SubGuardIcon name="shield" size={12} /> Auto-Cancel Ready
                     </span>
                   ) : (
@@ -483,7 +490,7 @@ export default function SubscriptionTable({
                       className="outline-button"
                       onClick={() => promptCancel(sub)}
                       aria-label={`Arm cancel shield for ${sub.product_name}`}
-                      title="Arm 48-Hour Cancellation Shield"
+                      title="Arm 48-Hour Cancellation Shield: Automatically cancel before unexpected renewal charges"
                       type="button"
                     >
                       <SubGuardIcon name="shield" size={12} />

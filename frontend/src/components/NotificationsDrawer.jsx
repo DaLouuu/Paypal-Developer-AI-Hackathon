@@ -72,6 +72,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
             onClick={onClose}
             className="icon-button modal-close"
             aria-label="Close notifications"
+            title="Close notifications panel (Esc)"
             style={{ fontSize: '20px', color: 'var(--muted)' }}
           >
             ×

@@ -38,6 +38,7 @@ export default function ConfirmationModal({
           onClick={onCancel}
           className="icon-button modal-close"
           aria-label="Close modal"
+          title="Close dialog (Esc)"
           style={{
             position: 'absolute',
             top: '18px',
@@ -77,6 +78,7 @@ export default function ConfirmationModal({
               <button
                 type="button"
                 className="cancel-btn text-button"
+                title="Dismiss without making changes"
                 onClick={onCancel}
               >
                 Cancel
@@ -85,6 +87,7 @@ export default function ConfirmationModal({
               <button
                 type="button"
                 className={`confirm-btn ${isDanger ? 'danger' : 'primary'}`}
+                title={confirmText}
                 onClick={onConfirm}
               >
                 {confirmText}

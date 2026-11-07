@@ -22,6 +22,7 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
           <button
             onClick={onClearAll}
             className="text-button"
+            title="Clear all compared tools"
             style={{
               background: 'transparent',
               border: 'none',
@@ -66,6 +67,7 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
                 <button
                   onClick={() => onRemoveItem(tool.product_id)}
                   aria-label={`Remove ${productName} from comparison`}
+                  title={`Remove ${productName} from comparison`}
                   style={{
                     position: 'absolute',
                     top: '12px',

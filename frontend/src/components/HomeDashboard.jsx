@@ -40,6 +40,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
                 color: 'var(--green, #216e65)',
                 border: '1px solid var(--green, #216e65)'
               }}
+              title="AP2 Autopilot Active: Cryptographically enforcing spend limits and monitoring renewal windows"
             >
               <CheckCircle2 size={12} />
               AP2 AUTOPILOT ACTIVE
@@ -54,6 +55,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
           <button
             onClick={() => onNavigate('discover')}
             className="primary-button"
+            title="Browse and provision verified SaaS tools with contract safeguards"
             style={{ padding: '8px 16px', fontSize: '13px' }}
           >
             <span>+ Provision Software</span>
@@ -61,6 +63,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
           <button
             onClick={() => onNavigate('subscriptions')}
             className="outline-button"
+            title="View complete subscription ledger and governance controls"
             style={{ padding: '8px 16px', fontSize: '13px' }}
           >
             <span>Subscription Ledger</span>
@@ -70,7 +73,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
 
       {/* Financial Overview Metrics (4 Columns) */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} title="Total monthly commitments across all active subscriptions">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Monthly Spend
@@ -84,7 +87,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
           </div>
         </div>
 
-        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} title="Number of active software subscriptions currently governed under AP2 mandates">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Active Contracts
@@ -98,7 +101,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
           </div>
         </div>
 
-        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} title="Promotional trials tracked with automated cancellation guards">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Watched Trials
@@ -112,7 +115,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
           </div>
         </div>
 
-        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="product-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} title="Autonomous spending limit: Single transactions above $50.00 require human confirmation">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Spend Ceiling

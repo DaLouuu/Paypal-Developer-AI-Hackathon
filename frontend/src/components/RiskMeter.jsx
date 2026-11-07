@@ -26,9 +26,11 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
 
   const inactiveBg = 'var(--meter-inactive, rgba(249, 222, 201, 0.25))';
 
+  const tooltipText = `Contract Risk: ${percent}% (${category}) · Evaluates cancellation notice periods, dispute clauses, and auto-renewal terms`;
+
   if (size === 'compact') {
     return (
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }} title={tooltipText}>
         <div style={{ display: 'flex', gap: '2px', alignItems: 'center' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg1Active ? color : inactiveBg }} />
           <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: seg2Active ? color : inactiveBg }} />
@@ -42,7 +44,7 @@ export default function RiskMeter({ score = 0, size = 'default' }) {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }} title={tooltipText}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontWeight: 700, color }}>
           <Icon size={12} strokeWidth={2.5} />

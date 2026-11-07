@@ -152,7 +152,7 @@ export default function AccountModal({
                 <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 700, fontFamily: 'var(--font-sans)' }}>
                   {user?.fullName || 'Alex Morgan'}
                 </h3>
-                <span className="badge-verified">
+                <span className="badge-verified" title="Verified Principal: Authoritative user identity authorized to sign AP2 mandates and set budget ceilings">
                   VERIFIED PRINCIPAL
                 </span>
               </div>
@@ -164,6 +164,7 @@ export default function AccountModal({
           <button
             onClick={onClose}
             aria-label="Close modal"
+            title="Close passport dialog (Esc)"
             style={{
               background: 'transparent',
               border: 'none',
@@ -435,6 +436,7 @@ export default function AccountModal({
                 <button
                   type="button"
                   onClick={handleCopyKey}
+                  title="Copy Ed25519 public key to clipboard for agent environment configuration"
                   style={{
                     flex: 1,
                     padding: '7px 12px',
@@ -458,6 +460,7 @@ export default function AccountModal({
                   type="button"
                   onClick={handleRotateKeypair}
                   disabled={rotatingKeys}
+                  title="Generate a fresh cryptographic keypair and update gateway verification credentials"
                   style={{
                     padding: '7px 12px',
                     borderRadius: '6px',
@@ -509,6 +512,7 @@ export default function AccountModal({
                     key={p.id}
                     type="button"
                     onClick={() => switchDemoPersona(p.id)}
+                    title={`Switch demo persona to ${p.fullName} (${p.role}) with $${p.singleTransactionLimit}/tx limit`}
                     style={{
                       padding: '8px',
                       borderRadius: '8px',

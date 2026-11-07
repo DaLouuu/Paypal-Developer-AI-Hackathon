@@ -72,6 +72,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             onClick={onClose}
             className="icon-button modal-close"
             aria-label="Close modal"
+            title="Close dialog (Esc)"
             style={{ fontSize: '20px', color: 'var(--muted, #4a5578)' }}
           >
             ×
@@ -181,6 +182,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             type="button"
             className="text-button"
             onClick={onClose}
+            title="Dismiss without provisioning"
             style={{ fontSize: '13px' }}
           >
             Cancel
@@ -188,6 +190,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
           <button
             type="button"
             className="primary-button"
+            title="Provision software with AP2 cryptographic mandate and active safeguards"
             onClick={() => {
               onProvision(product);
               onClose();

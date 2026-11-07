@@ -163,27 +163,27 @@ const SUGGESTIONS = [
 export const getTagMeta = (tag) => {
   const norm = (tag || '').toLowerCase();
   if (norm.includes('hot') || norm.includes('deal')) {
-    return { className: 'tag-hot-deal', icon: 'flame' };
+    return { className: 'tag-hot-deal', icon: 'flame', tooltip: 'Hot Deal: Promotional introductory pricing' };
   }
   if (norm.includes('trap') || norm.includes('risk') || norm.includes('danger')) {
-    return { className: 'tag-contract-trap', icon: 'alert' };
+    return { className: 'tag-contract-trap', icon: 'alert', tooltip: 'Contract Trap: High-risk cancellation terms or auto-renewal lock-in' };
   }
   if (norm.includes('ai') || norm.includes('trend')) {
-    return { className: 'tag-trending-ai', icon: 'sparkle' };
+    return { className: 'tag-trending-ai', icon: 'sparkle', tooltip: 'Trending AI: Popular AI productivity assistant' };
   }
   if (norm.includes('seller') || norm.includes('star') || norm.includes('popular')) {
-    return { className: 'tag-best-seller', icon: 'star' };
+    return { className: 'tag-best-seller', icon: 'star', tooltip: 'Best Seller: Highly rated and widely deployed' };
   }
   if (norm.includes('soc') || norm.includes('security') || norm.includes('compliance')) {
-    return { className: 'tag-soc2', icon: 'shield' };
+    return { className: 'tag-soc2', icon: 'shield', tooltip: 'SOC-2 Type II Certified: Verified security compliance' };
   }
   if (norm.includes('team') || norm.includes('collab')) {
-    return { className: 'tag-teams', icon: 'grid' };
+    return { className: 'tag-teams', icon: 'grid', tooltip: 'Teams: Multi-seat collaborative licensing' };
   }
   if (norm.includes('enterprise') || norm.includes('scale')) {
-    return { className: 'tag-enterprise', icon: 'card' };
+    return { className: 'tag-enterprise', icon: 'card', tooltip: 'Enterprise Grade: Dedicated SLA and priority support' };
   }
-  return { className: 'tag-default', icon: null };
+  return { className: 'tag-default', icon: null, tooltip: `Tag: ${tag}` };
 };
 
 export default function DiscoverySearch({ onSelectTool }) {
@@ -394,7 +394,7 @@ export default function DiscoverySearch({ onSelectTool }) {
                 {(() => {
                   const tagMeta = getTagMeta(product.tag);
                   return (
-                    <span className={`product-tag ${tagMeta.className}`}>
+                    <span className={`product-tag ${tagMeta.className}`} title={tagMeta.tooltip || `Tag: ${product.tag}`}>
                       {tagMeta.icon && <SubGuardIcon name={tagMeta.icon} size={11} stroke={2.2} />}
                       <span>{product.tag}</span>
                     </span>
@@ -405,7 +405,7 @@ export default function DiscoverySearch({ onSelectTool }) {
                     className={`compare-btn ${compareList.some(p => p.product_id === product.product_id) ? 'active' : ''}`}
                     aria-label={compareList.some(p => p.product_id === product.product_id) ? `Remove ${product.name} from comparison` : `Add ${product.name} to comparison`}
                     type="button"
-                    title={compareList.some(p => p.product_id === product.product_id) ? 'Comparing' : 'Compare tool'}
+                    title={compareList.some(p => p.product_id === product.product_id) ? 'Comparing · Click to remove from comparison' : 'Compare tool side-by-side with other candidates'}
                     onClick={(e) => toggleCompare(product, e)}
                     style={{
                       border: '1px solid var(--line)',
@@ -425,7 +425,7 @@ export default function DiscoverySearch({ onSelectTool }) {
                     className={`wishlist-btn ${isFav ? 'active' : ''}`}
                     aria-label={isFav ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
                     type="button"
-                    title={isFav ? 'In your wishlist' : 'Save to wishlist'}
+                    title={isFav ? 'Saved in your shortlist · Click to remove' : 'Save to shortlist for team review'}
                     onClick={(e) => toggleFavorite(product.product_id, e)}
                   >
                     <SubGuardIcon name="heart" size={14} fill={isFav ? 'currentColor' : 'none'} className="heart-icon" />
@@ -447,7 +447,7 @@ export default function DiscoverySearch({ onSelectTool }) {
               <p>{product.line}</p>
 
               {/* Star Rating E-commerce Row */}
-              <div className="star-rating">
+              <div className="star-rating" title={`Rated ${product.rating} out of 5 stars based on ${product.reviews_count || '1.2k'} verified customer reviews`}>
                 <SubGuardIcon name="star" size={13} />
                 <span>{product.rating}</span>
                 <small>({product.reviews_count || '1.2k'} reviews)</small>
@@ -456,6 +456,7 @@ export default function DiscoverySearch({ onSelectTool }) {
               {/* Contract Risk & Trust Row */}
               <div className="trust-row">
                 <span
+                  title={`Contract Terms Risk: ${product.risk} (${Math.round((product.tos_risk_score || 0) * 100)}% score based on automated TOS analysis)`}
                   style={{
                     color: product.tos_risk_score > 0.6
                       ? 'var(--c-heart-red, #ff4d6d)'
@@ -465,7 +466,9 @@ export default function DiscoverySearch({ onSelectTool }) {
                 >
                   <SubGuardIcon name="shield" size={14} /> {product.risk}
                 </span>
-                <span className="guard-score">SG {product.rating}</span>
+                <span className="guard-score" title="SubGuard Trust Score: Composite rating evaluating contract fairness, pricing predictability, and vendor reputation">
+                  SG {product.rating}
+                </span>
               </div>
 
               {/* E-Commerce Footer with Strikethrough Pricing & Green Cart Button */}

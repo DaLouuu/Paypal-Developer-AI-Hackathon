@@ -70,11 +70,11 @@ export default function RenewalTimeline({ subscriptions = [] }) {
 
           {/* Active Policies Summary Pills */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-            <div className="status-pill status-pill-active">
+            <div className="status-pill status-pill-active" title="Autonomous Guardrails: Real-time spend validation active across all agent checkout requests">
               <SubGuardIcon name="check" size={13} stroke={2.4} />
               <span>Guardrails: Active</span>
             </div>
-            <div className="status-pill status-pill-blue">
+            <div className="status-pill status-pill-blue" title="Single Transaction Ceiling: Purchases over $50.00 require human-in-the-loop authorization">
               <SubGuardIcon name="card" size={13} />
               <span>Spending Cap: $50.00 / mo</span>
             </div>
@@ -83,22 +83,22 @@ export default function RenewalTimeline({ subscriptions = [] }) {
 
         {/* Protection System Metrics Bar */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '16px', marginTop: '22px', paddingTop: '20px', borderTop: '1px solid var(--line)' }}>
-          <div>
+          <div title="Governed Spend: Total active recurring subscription commitments monitored by SubGuard">
             <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Governed Spend</div>
             <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', marginTop: '3px' }}>$235.00 / mo</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Total recurring commitments</div>
           </div>
-          <div>
+          <div title="Autonomous Ceiling: Highest single transaction amount an agent can approve automatically without human approval">
             <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Autonomous Ceiling</div>
             <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', marginTop: '3px' }}>$50.00 per mandate</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Charges above require approval</div>
           </div>
-          <div>
+          <div title="Cryptographic Enforcement: Ed25519 digital signatures bind each mandate to an approved merchant domain">
             <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cryptographic Protocol</div>
             <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--green, #2edcc4)', marginTop: '3px' }}>AP2 Ed25519 Enforced</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Strict mandate verification</div>
           </div>
-          <div>
+          <div title="48-Hour Auto-Shield: Deterministically issues PayPal cancellation before renewal windows close if unconfirmed">
             <div style={{ fontSize: '10px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Cancellation Protection</div>
             <div style={{ fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--blue, #216e65)', marginTop: '3px' }}>48-Hour Auto-Shield</div>
             <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>Deterministic execution</div>
@@ -133,15 +133,16 @@ export default function RenewalTimeline({ subscriptions = [] }) {
           {/* Horizon Tabs */}
           <div style={{ display: 'flex', backgroundColor: 'var(--surface-soft, #ffffff)', padding: '4px', borderRadius: '10px', border: '1px solid var(--line)' }}>
             {[
-              { id: '30d', label: '30 Days' },
-              { id: '60d', label: '60 Days' },
-              { id: '90d', label: '90 Days' },
-              { id: 'annual', label: 'Annual' },
+              { id: '30d', label: '30 Days', desc: 'View 30-day upcoming lifecycle schedule' },
+              { id: '60d', label: '60 Days', desc: 'View 60-day medium-term lifecycle schedule' },
+              { id: '90d', label: '90 Days', desc: 'View quarterly 90-day renewal roadmap' },
+              { id: 'annual', label: 'Annual', desc: 'View full 365-day annual contract schedule' },
             ].map((tab) => (
               <button
                 key={tab.id}
                 type="button"
                 className={`horizon-btn ${horizon === tab.id ? 'active' : ''}`}
+                title={tab.desc}
                 onClick={() => setHorizon(tab.id)}
               >
                 {tab.label}

@@ -308,6 +308,7 @@ function AppContent() {
           className="brand"
           href="#home"
           aria-label="SubGuard home"
+          title="SubGuard · Shop Smart. Stay Guarded."
           onClick={(e) => {
             e.preventDefault();
             navigateTo('home');
@@ -332,6 +333,7 @@ function AppContent() {
           <a
             className={activeNav === 'home' ? 'active' : ''}
             href="#home"
+            title="Executive Overview and Real-Time Policy Telemetry"
             onClick={(e) => {
               e.preventDefault();
               navigateTo('home');
@@ -343,6 +345,7 @@ function AppContent() {
           <a
             className={activeNav === 'discover' ? 'active' : ''}
             href="#discover"
+            title="Provision Software and Compare SaaS Contracts"
             onClick={(e) => {
               e.preventDefault();
               navigateTo('discover');
@@ -354,6 +357,7 @@ function AppContent() {
           <a
             className={activeNav === 'subscriptions' ? 'active' : ''}
             href="#subscriptions"
+            title="Subscription Ledger and Human-In-The-Loop Authorizations"
             onClick={(e) => {
               e.preventDefault();
               navigateTo('subscriptions');
@@ -365,6 +369,7 @@ function AppContent() {
           <a
             className={activeNav === 'protection' ? 'active' : ''}
             href="#protection"
+            title="Contract Lifecycles and Scheduled Safeguard Timeline"
             onClick={(e) => {
               e.preventDefault();
               navigateTo('protection');
@@ -382,7 +387,7 @@ function AppContent() {
             type="button"
             className="fastmcp-badge outline-button"
             onClick={() => setIsLoading(true)}
-            title="FastMCP Gateway Online · Click to re-verify handshake"
+            title="FastMCP Gateway Online · Local Python MCP proxy actively intercepting toolcalls on port 8000"
           >
             <span className="fastmcp-badge-dot" />
             <span className="fastmcp-badge-text">FastMCP:8000</span>
@@ -392,6 +397,7 @@ function AppContent() {
           <button
             className="theme-button"
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
             type="button"
           >
@@ -402,6 +408,7 @@ function AppContent() {
           <button
             className="notification"
             aria-label="Notifications"
+            title="Notifications (1 action required)"
             onClick={() => setIsNotificationsOpen(true)}
             type="button"
           >
@@ -415,6 +422,7 @@ function AppContent() {
               className="profile"
               onClick={() => setIsAccountOpen(true)}
               aria-label="Open Governance & Security Passport"
+              title={`Signed in as ${user?.fullName || 'Alex Morgan'} (${user?.role || 'Admin'}) · Click to open governance profile`}
               type="button"
             >
               <span
@@ -518,6 +526,7 @@ function AppContent() {
                   <button
                     className={`toggle ${shieldOn ? 'on' : ''}`}
                     aria-pressed={shieldOn}
+                    title={shieldOn ? "SubGuard Autopilot Active · Click to pause cancellation protection" : "Autopilot Paused · Click to re-enable automated cancellation protection"}
                     onClick={() => {
                       setShieldOn(!shieldOn);
                       showNotice(shieldOn ? 'Autopilot protection paused' : 'Autopilot protection resumed');
@@ -574,25 +583,25 @@ function AppContent() {
                       Cryptographic Protocol Binding
                     </h3>
                   </div>
-                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px' }}>
+                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px' }} title="Ed25519 Cryptographic Signatures Active · Every agent toolcall is mathematically verified">
                     <SubGuardIcon name="lock" size={11} stroke={2.2} /> Ed25519 Active
                   </span>
                 </div>
 
                 <div className="protocol-spec-list" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '14px 0' }}>
-                  <div className="protocol-spec-item">
+                  <div className="protocol-spec-item" title="AP2 Protocol: Strict verification of delegated authorization and merchant domain whitelist">
                     <span>AP2 Protocol Verifier</span>
                     <strong style={{ color: 'var(--green-bright, #2edcc4)' }}>Ed25519 ENFORCED</strong>
                   </div>
-                  <div className="protocol-spec-item">
+                  <div className="protocol-spec-item" title="Unique cryptographic fingerprint of your registered Ed25519 public key">
                     <span>Key Fingerprint</span>
                     <strong>ed25519:e4a7...99b2</strong>
                   </div>
-                  <div className="protocol-spec-item">
+                  <div className="protocol-spec-item" title="Local Python MCP proxy gateway intercepting agent actions on localhost:8000">
                     <span>FastMCP Proxy Gateway</span>
                     <strong>http://localhost:8000</strong>
                   </div>
-                  <div className="protocol-spec-item">
+                  <div className="protocol-spec-item" title="Deterministic policy verification latency well within the 50ms requirement">
                     <span>Handshake Latency</span>
                     <strong style={{ color: 'var(--green-bright, #2edcc4)' }}>0.42 ms (SLO &lt; 50ms)</strong>
                   </div>
@@ -620,18 +629,18 @@ function AppContent() {
                       Autonomous Spending Policy
                     </h3>
                   </div>
-                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px' }}>
+                  <span className="badge-verified" style={{ padding: '3px 8px', fontSize: '10px' }} title="Deterministic Policy: Enforced by hard code rules without AI hallucination risk">
                     <SubGuardIcon name="check" size={11} stroke={2.2} /> Deterministic
                   </span>
                 </div>
 
                 <div className="governance-metric-row" style={{ margin: 'auto 0 16px' }}>
-                  <div className="governance-metric-box">
+                  <div className="governance-metric-box" title="Single Transaction Limit: Charges above this ceiling are automatically suspended for founder authorization">
                     <span>Single Transaction Ceiling</span>
                     <strong>${spendingCap.toFixed(2)}</strong>
                     <small>Transactions above require HITL</small>
                   </div>
-                  <div className="governance-metric-box">
+                  <div className="governance-metric-box" title="Monthly Hard Cap: Hard deterministic limit. Charges exceeding this amount are rejected immediately">
                     <span>Monthly Hard Cap</span>
                     <strong>{user?.monthlyBudgetCeiling ? `$${user.monthlyBudgetCeiling.toFixed(2)}` : '$500.00'}</strong>
                     <small>Hard deterministic rejection</small>
@@ -914,12 +923,12 @@ function AppContent() {
                   </div>
 
                   <div className="spend-meta">
-                    <div className="spend-meta-item">
+                    <div className="spend-meta-item" title="100% Governed: All active subscriptions are bound to Ed25519 mandates and monitored for policy compliance">
                       <strong data-testid="active-count">{activeCount}</strong>
                       <span>Active plans</span>
                       <small>100% Governed</small>
                     </div>
-                    <div className="spend-meta-item">
+                    <div className="spend-meta-item" title="Auto-Cancel Armed: SubGuard will trigger automatic cancellation 48 hours before trial converts">
                       <strong>{trialsCount}</strong>
                       <span>Protected trial</span>
                       <small>Auto-cancel armed</small>
@@ -938,7 +947,7 @@ function AppContent() {
                       <strong>Notion Plus</strong> renews in 12 days for $80.00
                     </p>
                   </div>
-                  <span className="date-pill">NOV 18</span>
+                  <span className="date-pill" title="Next renewal deadline: November 18, 2026">NOV 18</span>
                   <button
                     onClick={() => {
                       showNotice('Notion Plus renewal: monitored under $50.00 spending policy');
