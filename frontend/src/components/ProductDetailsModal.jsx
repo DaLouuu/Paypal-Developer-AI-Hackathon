@@ -1,9 +1,13 @@
 import React from 'react';
 import SubGuardIcon from './SubGuardIcon';
 import RiskMeter from './RiskMeter';
+import { useAuth } from '../context/AuthContext';
 
 export default function ProductDetailsModal({ product, isOpen, onClose, onProvision }) {
+  const { user } = useAuth();
   if (!isOpen || !product) return null;
+
+  const currentCap = user?.singleTransactionLimit || 50;
 
   return (
     <div
@@ -18,8 +22,8 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
           borderRadius: '20px',
           width: '100%',
           maxWidth: '540px',
-          boxShadow: '0 24px 60px rgba(6, 7, 35, 0.22)',
-          border: '1px solid var(--line, #1b1f9d)',
+          boxShadow: '0 24px 60px rgba(6, 7, 35, 0.22), 4px 4px 0px var(--line, #a6bbe2)',
+          border: '1.5px solid var(--line, #a6bbe2)',
           overflow: 'hidden',
           maxHeight: '90vh',
           display: 'flex',
@@ -32,7 +36,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         <div
           style={{
             padding: '22px 26px',
-            borderBottom: '1px solid var(--line, #1b1f9d)',
+            borderBottom: '1.5px solid var(--line, #a6bbe2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -58,7 +62,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <h3 style={{ margin: 0, fontSize: '19px', fontWeight: 700, fontFamily: 'var(--font-sans)' }}>
                 {product.name}
               </h3>
-              <div style={{ fontSize: '12px', color: 'var(--muted, #1b1f9d)', marginTop: '2px' }}>
+              <div style={{ fontSize: '12px', color: 'var(--muted, #4a5578)', marginTop: '2px' }}>
                 {product.vendor_domain || `${product.name.toLowerCase()}.com`} · {product.category}
               </div>
             </div>
@@ -68,7 +72,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             onClick={onClose}
             className="icon-button modal-close"
             aria-label="Close modal"
-            style={{ fontSize: '20px', color: 'var(--muted, #1b1f9d)' }}
+            style={{ fontSize: '20px', color: 'var(--muted, #4a5578)' }}
           >
             ×
           </button>
@@ -94,7 +98,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               backgroundColor: 'var(--surface-soft, #ffffff)',
               padding: '16px 18px',
               borderRadius: '14px',
-              border: '1px solid var(--line, #1b1f9d)'
+              border: '1px solid var(--line, #a6bbe2)'
             }}
           >
             <div>
@@ -122,7 +126,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
               <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 700, color: 'var(--muted)' }}>
                 Contract & Dark-Pattern Inspection
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#060723', background: '#f9dec9', padding: '3px 8px', borderRadius: '6px', border: '1.5px solid #1b1f9d', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#060723', background: '#f9dec9', padding: '3px 8px', borderRadius: '6px', border: '1.5px solid var(--line, #a6bbe2)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                 <SubGuardIcon name="star" size={12} /> SubGuard Trust {product.rating || '4.8'}
               </span>
             </div>
@@ -152,7 +156,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
             </div>
             <div className="compliance-row">
               <SubGuardIcon name="check" size={15} stroke={2.4} />
-              <span>Bounded by autonomous spending ceiling ($50.00 / mo)</span>
+              <span>Bounded by autonomous spending ceiling (${Number(currentCap).toFixed(2)} / mo)</span>
             </div>
             <div className="compliance-row">
               <SubGuardIcon name="check" size={15} stroke={2.4} />
@@ -165,7 +169,7 @@ export default function ProductDetailsModal({ product, isOpen, onClose, onProvis
         <div
           style={{
             padding: '18px 26px',
-            borderTop: '1px solid var(--line, #1b1f9d)',
+            borderTop: '1.5px solid var(--line, #a6bbe2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',

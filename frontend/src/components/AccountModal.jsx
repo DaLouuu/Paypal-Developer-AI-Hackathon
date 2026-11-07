@@ -199,7 +199,7 @@ export default function AccountModal({
                 type="button"
                 className="text-button"
                 onClick={() => setIsEditing(!isEditing)}
-                style={{ fontSize: '11px', color: 'var(--blue, #1b1f9d)', fontWeight: 700 }}
+                style={{ fontSize: '11px', color: 'var(--blue, #216e65)', fontWeight: 700 }}
               >
                 {isEditing ? 'Cancel' : 'Edit Profile'}
               </button>

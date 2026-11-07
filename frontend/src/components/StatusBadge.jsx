@@ -23,7 +23,7 @@ export default function StatusBadge({ status }) {
       label: 'SUSPENDED (HITL)',
       dotClass: 'bg-rose-500',
       bg: '#f9dec9',
-      border: '#1b1f9d',
+      border: '#060723',
       text: '#060723',
       icon: ShieldAlert,
     },
@@ -38,8 +38,8 @@ export default function StatusBadge({ status }) {
     CANCELLED: {
       label: 'CANCELLED',
       dotClass: 'bg-slate-400',
-      bg: '#1b1f9d',
-      border: '#1b1f9d',
+      bg: '#060723',
+      border: '#060723',
       text: '#f9dec9',
       icon: XCircle,
     }
@@ -48,7 +48,7 @@ export default function StatusBadge({ status }) {
   const config = configs[status] || {
     label: status,
     bg: '#ffffff',
-    border: '#1b1f9d',
+    border: 'var(--line, #a6bbe2)',
     text: '#060723',
     icon: Clock
   };

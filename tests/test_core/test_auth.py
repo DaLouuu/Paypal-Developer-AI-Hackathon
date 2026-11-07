@@ -89,3 +89,4 @@ def test_auth_demo_personas_listing(client):
     alex = next((p for p in personas if "Alex" in p["full_name"]), None)
     assert alex is not None
     assert alex["role"] == "Founder Admin"
+

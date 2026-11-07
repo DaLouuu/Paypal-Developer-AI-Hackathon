@@ -38,7 +38,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
         style={{
           padding: '24px 28px',
           background: 'var(--surface, #ffffff)',
-          border: '1px solid var(--line, #1b1f9d)',
+          border: '1px solid var(--line, #a6bbe2)',
           borderRadius: '18px',
           boxShadow: '0 4px 18px rgba(6, 7, 35, 0.04)'
         }}
@@ -111,7 +111,7 @@ export default function RenewalTimeline({ subscriptions = [] }) {
         style={{
           padding: '24px 28px',
           background: 'var(--surface, #ffffff)',
-          border: '1px solid var(--line, #1b1f9d)',
+          border: '1px solid var(--line, #a6bbe2)',
           borderRadius: '18px',
           boxShadow: '0 4px 18px rgba(6, 7, 35, 0.04)'
         }}

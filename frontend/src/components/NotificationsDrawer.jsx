@@ -29,7 +29,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
           boxShadow: '-10px 0 36px rgba(6, 7, 35, 0.2)',
           display: 'flex',
           flexDirection: 'column',
-          borderLeft: '1px solid var(--line, #1b1f9d)',
+          borderLeft: '1px solid var(--line, #a6bbe2)',
           animation: 'toast-in 0.25s ease'
         }}
         onClick={(e) => e.stopPropagation()}
@@ -38,7 +38,7 @@ export default function NotificationsDrawer({ isOpen, onClose, onNavigate, onApp
         <div
           style={{
             padding: '22px 24px',
-            borderBottom: '1px solid var(--line, #1b1f9d)',
+            borderBottom: '1px solid var(--line, #a6bbe2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',

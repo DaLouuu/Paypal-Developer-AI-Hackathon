@@ -159,7 +159,7 @@ export default function LoadingScreen({ onComplete }) {
               fontSize: '9px',
               fontWeight: 700,
               letterSpacing: '0.18em',
-              color: 'var(--muted, #1b1f9d)',
+              color: 'var(--muted, #4a5578)',
               textTransform: 'uppercase'
             }}
           >
@@ -202,7 +202,7 @@ export default function LoadingScreen({ onComplete }) {
             background: 'var(--surface, #ffffff)',
             padding: '14px 16px',
             borderRadius: '14px',
-            border: '1px solid var(--line, #1b1f9d)',
+            border: '1px solid var(--line, #a6bbe2)',
             boxShadow: '0 8px 24px rgba(6, 7, 35, 0.05)'
           }}
         >
@@ -217,7 +217,7 @@ export default function LoadingScreen({ onComplete }) {
                   alignItems: 'center',
                   gap: '10px',
                   fontSize: '11px',
-                  color: isDone ? 'var(--text, #060723)' : (isCurrent ? 'var(--blue, #216e65)' : 'var(--muted, #1b1f9d)'),
+                  color: isDone ? 'var(--text, #060723)' : (isCurrent ? 'var(--blue, #216e65)' : 'var(--muted, #4a5578)'),
                   fontWeight: isCurrent || isDone ? 600 : 500,
                   transition: 'all 0.2s ease',
                   opacity: currentStep >= idx ? 1 : 0.6
@@ -268,7 +268,7 @@ export default function LoadingScreen({ onComplete }) {
           style={{
             marginTop: '18px',
             fontSize: '11px',
-            color: 'var(--muted, #1b1f9d)',
+            color: 'var(--muted, #4a5578)',
             cursor: 'pointer'
           }}
         >

@@ -108,7 +108,7 @@ export default function ProductCompareDrawer({ items, onRemoveItem, onClearAll, 
                       style={{
                         fontSize: '11px',
                         fontWeight: 700,
-                        color: isSoc2 ? '#2edcc4' : '#fbbf24',
+                        color: isSoc2 ? 'var(--green, #216e65)' : 'var(--trial-label-color, #92400e)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '4px',

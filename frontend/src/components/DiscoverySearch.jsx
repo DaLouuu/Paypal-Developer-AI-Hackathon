@@ -458,8 +458,8 @@ export default function DiscoverySearch({ onSelectTool }) {
                 <span
                   style={{
                     color: product.tos_risk_score > 0.6
-                      ? '#ff4d6d'
-                      : (product.tos_risk_score > 0.3 ? '#fbbf24' : '#2edcc4'),
+                      ? 'var(--c-heart-red, #ff4d6d)'
+                      : (product.tos_risk_score > 0.3 ? 'var(--trial-label-color, #92400e)' : 'var(--green, #216e65)'),
                     fontWeight: 700
                   }}
                 >

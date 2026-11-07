@@ -45,7 +45,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
               AP2 AUTOPILOT ACTIVE
             </span>
           </div>
-          <div style={{ fontSize: '12px', color: 'var(--text-muted, #1b1f9d)', marginTop: '4px', fontFamily: 'var(--font-sans)' }}>
+          <div style={{ fontSize: '12px', color: 'var(--muted, #4a5578)', marginTop: '4px', fontFamily: 'var(--font-sans)' }}>
             Organization: alex.morgan@passport · Ceiling: $50.00/tx · FastMCP Gateway: 8000
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
             <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Monthly Spend
             </span>
-            <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#f9dec9', color: '#060723', border: '1px solid #1b1f9d' }}>
+            <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#f9dec9', color: '#060723', border: '1px solid var(--line, #a6bbe2)' }}>
               <DollarSign size={14} />
             </span>
           </div>
@@ -103,7 +103,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
             <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontFamily: 'var(--font-sans)' }}>
               Watched Trials
             </span>
-            <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#f9dec9', color: '#060723', border: '1px solid #1b1f9d' }}>
+            <span style={{ padding: '4px', borderRadius: '5px', backgroundColor: '#f9dec9', color: '#060723', border: '1px solid var(--line, #a6bbe2)' }}>
               <Clock size={14} />
             </span>
           </div>
@@ -131,7 +131,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
       {(suspended.length > 0 || trials.length > 0) && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <AlertTriangle size={15} color="#1b1f9d" />
+            <AlertTriangle size={15} color="var(--navy)" />
             <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--navy)', fontFamily: 'var(--font-sans)' }}>
               Pending Items ({suspended.length + trials.length})
             </span>
@@ -156,13 +156,13 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: '#f9dec9', color: '#060723', border: '1.5px solid #1b1f9d', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: '#f9dec9', color: '#060723', border: '1.5px solid var(--line, #a6bbe2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <ShieldAlert size={16} />
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <strong style={{ fontSize: '14px', color: 'var(--navy)' }}>{item.product_name}</strong>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#060723', backgroundColor: '#f9dec9', border: '1px solid #1b1f9d', padding: '1px 6px', borderRadius: '4px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#060723', backgroundColor: '#f9dec9', border: '1px solid var(--line, #a6bbe2)', padding: '1px 6px', borderRadius: '4px' }}>
                         Agent Over-Limit (${item.recurring_amount})
                       </span>
                     </div>
@@ -175,7 +175,7 @@ export default function HomeDashboard({ subscriptions, onNavigate, onApproveSusp
                 <button
                   onClick={() => onApproveSuspension && onApproveSuspension(item.id)}
                   style={{
-                    backgroundColor: '#1b1f9d',
+                    backgroundColor: 'var(--navy, #060723)',
                     color: '#ffffff',
                     border: '1.5px solid #060723',
                     borderRadius: '6px',

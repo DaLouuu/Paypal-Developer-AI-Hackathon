@@ -86,3 +86,4 @@ def generate_user_keys() -> Tuple[str, str]:
         encryption_algorithm=serialization.NoEncryption()
     ).decode("utf-8")
     return pub_pem, priv_pem
+
